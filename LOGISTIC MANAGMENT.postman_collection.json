@@ -1,0 +1,610 @@
+{
+	"info": {
+		"_postman_id": "befdaa1a-323c-42a3-81ee-b3608a2ec0f9",
+		"name": "LOGISTIC MANAGMENT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47550267",
+		"_collection_link": "https://gabriela-arauco-p-568615.postman.co/workspace/GABRIELA-MAITE-ARAUCO-PORREZ's-~4d9b901a-e5a1-462c-868a-0a9a958246fe/collection/47550267-befdaa1a-323c-42a3-81ee-b3608a2ec0f9?action=share&source=collection_link&creator=47550267"
+	},
+	"item": [
+		{
+			"name": "Sin DTO",
+			"item": [
+				{
+					"name": "GetAllShipments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetShipmentById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InsertShipment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"shippingDate\": \"12-11-2025\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 3,\r\n  \"routeId\": 2,\r\n  \"totalCost\": 2345,\r\n  \"trackingNumber\": \"CP-99707\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteShipment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/16",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"16"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Con DTO",
+			"item": [
+				{
+					"name": "GetAllShipmentsDto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetShipmentBytIdDto",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InsertShipmentDto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"shippingDate\": \"16-12-2025\",\r\n    \"state\": \"Pending\",\r\n    \"customerId\": 6,\r\n    \"routeId\": 5,\r\n    \"totalCost\": 1234.78,\r\n    \"trackingNumber\": \"CP-1008767\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateShipmentDto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":17,\r\n    \"shippingDate\": \"15-12-2025\",\r\n    \"state\": \"Pending\",\r\n    \"customerId\": 2,\r\n    \"routeId\": 4,\r\n    \"totalCost\": 12345.78,\r\n    \"trackingNumber\": \"CP-100876\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/17",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteShipmentDto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/17",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"17"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Con Mapper",
+			"item": [
+				{
+					"name": "GetAllShipmentsMapper",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetShipmentByIdMapper",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper/2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InsertShipmentMapper",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"shippingDate\": \"20-12-2025\",\r\n    \"state\": \"Pending\",\r\n    \"customerId\": 1,\r\n    \"routeId\": 9,\r\n    \"totalCost\": 1111.78,\r\n    \"trackingNumber\": \"CP-100707\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateShipmentMapper",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 18,\r\n  \"shippingDate\": \"12-12-2025\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 2,\r\n  \"routeId\": 1,\r\n  \"totalCost\": 2345.23,\r\n  \"trackingNumber\": \"CP-10707\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper/18",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteShipmentMapper",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper/18",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper",
+								"18"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Validations",
+			"item": [
+				{
+					"name": "GetByIdValidation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper/56",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper",
+								"56"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostValidations",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"shippingDate\": \"10-10-2025\",\r\n  \"state\": \"Delivered\",\r\n  \"customerId\": 2,\r\n  \"routeId\": 8,\r\n  \"totalCost\": -222.5,\r\n  \"trackingNumber\": \"CP-10001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostValidationCustomerId",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"shippingDate\": \"13-12-2025\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 34,\r\n  \"routeId\": 4,\r\n  \"totalCost\": 2322.5,\r\n  \"trackingNumber\": \"CP-100017\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InsertValidation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"shippingDate\": \"12-12-2025\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 6,\r\n  \"routeId\": 3,\r\n  \"totalCost\": 156.5,\r\n  \"trackingNumber\": \"CP-9910125\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateValidation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 4,\r\n  \"shippingDate\": \"12-12-2025\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 2,\r\n  \"routeId\": 1,\r\n  \"totalCost\": 2345.23,\r\n  \"trackingNumber\": \"CP-10707\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper/18",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteValidation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper/34",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper",
+								"34"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteValidationDelivered",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
