@@ -1,21 +1,28 @@
 ﻿using FluentValidation;
+using ShippingAndLogisticsManagement.Core.Entities;
 using ShippingAndLogisticsManagement.Core.Interfaces;
 using ShippingAndLogisticsManagement.Infrastructure.DTOS;
-using ShippingAndLogisticsManagement.Infrastructure.Repositories;
 
 namespace ShippingAndLogisticsManagement.Infrastructure.Validators
 {
     public class ShipmentDtoValidator : AbstractValidator<ShipmentDto>
     {
         private readonly IShipmentService _shipmentService;
-        private readonly IShipmentRepository _shipmentRepository;
-        private readonly IRouteRepository _routeRepository;
-        private readonly ICustomerRepository _customerRepository;
+        //private readonly IShipmentRepository _shipmentRepository;
+        //private readonly IRouteRepository _routeRepository;
+        //private readonly ICustomerRepository _customerRepository;
+        public readonly IBaseRepository<Shipment> _shipmentRepository;
+        public readonly IBaseRepository<Customer> _customerRepository;
+        public readonly IBaseRepository<Route> _routeRepository;
         public ShipmentDtoValidator(
             IShipmentService shipmentService,
-            IRouteRepository routeRepository, 
-            ICustomerRepository customerRepository,
-            IShipmentRepository shipmentRepository)
+            //IRouteRepository routeRepository, 
+            //ICustomerRepository customerRepository,
+            //IShipmentRepository shipmentRepository
+            IBaseRepository<Shipment> shipmentRepository,
+            IBaseRepository<Customer> customerRepository,
+            IBaseRepository<Route> routeRepository
+            )
         {
             _shipmentService = shipmentService;
             _routeRepository = routeRepository;
@@ -29,7 +36,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                 .WithMessage("El CustomerId debe ser mayor que 0")
                 .MustAsync(async (customerId, ct) =>
                  {
-                     var customer = await _customerRepository.GetByIdAsync(customerId);
+                     var customer = await _customerRepository.GetById(customerId);
                      return customer != null;
                  }).WithMessage("El cliente no existe");
 
@@ -39,12 +46,12 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                 .WithMessage("El RouteId debe ser mayor que 0")
                 .MustAsync(async (routeId, ct) =>
                 {
-                    var route = await _routeRepository.GetByIdAsync(routeId);
+                    var route = await _routeRepository.GetById(routeId);
                     return route != null;
                 }).WithMessage("La ruta asignada no existe")
                 .MustAsync(async (routeId, ct) =>
                 {
-                    var route = await _routeRepository.GetByIdAsync(routeId);
+                    var route = await _routeRepository.GetById(routeId);
                     return route != null && route.IsActive;
                 }).WithMessage("No se pueden registrar envíos en una ruta inactiva");
 
@@ -79,12 +86,15 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                  .WithMessage("El numero de seguimiento no puede superar los 20 caracteres")
                  .MustAsync(async (dto, tracking, ct) =>
                  {
-                     var existing = await _shipmentRepository.GetByTrackingNumberAsync(tracking);
+                     var allShipments = await _shipmentRepository.GetAll();
+                     var existing = allShipments.FirstOrDefault(s => s.TrackingNumber == tracking);
+
                      if (existing == null) return true;
-                     // si es update y el tracking pertenece al mismo Id, permitir
-                     return dto.Id != 0 && existing.Id == dto.Id ? true : false;
+
+                     // Si es update y el tracking pertenece al mismo Id, permitir
+                     return dto.Id != 0 && existing.Id == dto.Id;
                  }).WithMessage("El codigo de seguimiento ya existe. Debe ser unico");
-            
+
         }
 
         private bool BeValidState(string state)

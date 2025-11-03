@@ -1,8 +1,8 @@
 ﻿namespace ShippingAndLogisticsManagement.Core.Entities
 {
-    public class Route
+    public partial class Route: BaseEntity
     {
-        public int Id { get; set; }
+       // public int Id { get; set; }
         public string Origin { get; set; } = null!;
         public string Destination { get; set; } = null!;
         public double DistanceKm { get; set; }

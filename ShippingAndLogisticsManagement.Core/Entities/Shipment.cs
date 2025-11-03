@@ -1,8 +1,8 @@
 ﻿namespace ShippingAndLogisticsManagement.Core.Entities
 {
-    public class Shipment
+    public partial class Shipment: BaseEntity
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public DateTime ShippingDate { get; set; }
         public required string State { get; set; }
         public int CustomerId { get; set; }

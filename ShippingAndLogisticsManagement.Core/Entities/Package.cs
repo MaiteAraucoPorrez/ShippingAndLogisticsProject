@@ -1,8 +1,8 @@
 ﻿namespace ShippingAndLogisticsManagement.Core.Entities
 {
-    public class Package
+    public partial class Package: BaseEntity
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string Description { get; set; } = null!;
         public double Weight { get; set; }
         public int ShipmentId { get; set; }
