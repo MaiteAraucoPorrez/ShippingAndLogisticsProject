@@ -12,6 +12,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
     {
         private readonly LogisticContext _context;
         public readonly IShipmentRepository? _shipmentRepository;
+        public readonly IPackageRepository? _packageRepository;
         public readonly IBaseRepository<Customer>? _customerRepository;
         public readonly IBaseRepository<Route>? _routeRepository;
         public readonly IDapperContext _dapper;
@@ -25,6 +26,9 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
         }
         public IShipmentRepository ShipmentRepository =>
             _shipmentRepository ?? new ShipmentRepository(_context, _dapper);
+
+        public IPackageRepository PackageRepository =>
+            _packageRepository ?? new PackageRepository(_context, _dapper);
 
         public IBaseRepository<Customer> CustomerRepository =>
             _customerRepository ?? new BaseRepository<Customer>(_context);

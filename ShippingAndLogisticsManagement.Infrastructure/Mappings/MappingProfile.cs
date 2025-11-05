@@ -10,6 +10,9 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Mappings
         {
             CreateMap<Shipment, ShipmentDto>();
             CreateMap<ShipmentDto, Shipment>();
+            CreateMap<Package, PackageDto>().ReverseMap();
+            CreateMap<Customer, CustomerDto>().ReverseMap();
+            CreateMap<Route, RouteDto>().ReverseMap();
         }
     }
 }

@@ -20,4 +20,3 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validator
         }
     }
 }
-
