@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ShippingAndLogisticsManagement.Core.Interfaces;
 using ShippingAndLogisticsManagement.Core.Services;
 using ShippingAndLogisticsManagement.Infrastructure.Data;
@@ -133,7 +135,6 @@ namespace ShippingAndLogisticsManagement.API
                 app.UseHttpsRedirection();
 
                 app.UseAuthorization();
-
 
                 app.MapControllers();
 

@@ -10,9 +10,9 @@
         public double TotalCost { get; set; }
         public string TrackingNumber { get; set; } = null!;
 
-        public List<PackageDto> Packages { get; set; } = new();
+        public List<ShipmentPackageDto> Packages { get; set; } = new();
 
-        public class PackageDto
+        public class ShipmentPackageDto
         {
             public int Id { get; set; }
             public string Description { get; set; } = null!;

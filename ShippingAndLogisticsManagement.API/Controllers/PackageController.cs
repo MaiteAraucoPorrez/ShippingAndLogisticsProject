@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShippingAndLogisticsManagement.Api.Responses;
 using ShippingAndLogisticsManagement.Core.CustomEntities;
@@ -19,9 +20,9 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
     /// Implements pagination, search filters, and uses Dapper to optimize GET queries.
     /// </remarks>
     [Produces("application/json")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
     public class PackageController : ControllerBase
     {
         private readonly IPackageService _packageService;
