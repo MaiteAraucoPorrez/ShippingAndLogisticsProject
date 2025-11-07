@@ -69,11 +69,13 @@ namespace ShippingAndLogisticsManagement.Core.Services
 
         public async Task<PackageSummaryResponse> GetPackageSummaryAsync(int shipmentId)
         {
-            if (shipmentId <= 0) 
-                throw new ArgumentException("ShipmentId invalido", nameof(shipmentId));
+            if (shipmentId <= 0)
+                throw new ArgumentException("El ID del envío debe ser mayor a 0", nameof(shipmentId));
+
             var shipment = await _unitOfWork.ShipmentRepository.GetById(shipmentId);
-            if (shipment == null) 
-                throw new KeyNotFoundException("El envio no existe");
+            if (shipment == null)
+                throw new KeyNotFoundException($"El envío con ID {shipmentId} no existe");
+
             var summary = await _unitOfWork.PackageRepository.GetPackageSummaryAsync(shipmentId);
             return summary;
         }
@@ -86,10 +88,20 @@ namespace ShippingAndLogisticsManagement.Core.Services
             return packages;
         }
 
+        public async Task<Package> GetByIdDapperAsync(int id)
+        {
+            if (id <= 0)
+                throw new BusinessException("El ID del paquete debe ser mayor a 0");
+
+            var package = await _unitOfWork.PackageRepository.GetByIdDapperAsync(id);
+            return package;
+        }
+
         public async Task<Package> GetByIdAsync(int id)
         {
-            if (id <= 0) 
-                throw new ArgumentException("El id debe ser mayor a 0", nameof(id));
+            if (id <= 0)
+                throw new BusinessException("El ID del paquete debe ser mayor a 0");
+
             var package = await _unitOfWork.PackageRepository.GetById(id);
             return package;
         }

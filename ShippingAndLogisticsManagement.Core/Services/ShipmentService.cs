@@ -159,6 +159,15 @@ namespace ShippingAndLogisticsManagement.Core.Services
             return await _unitOfWork.ShipmentRepository.GetById(id);
         }
 
+        public async Task<Shipment> GetByIdDapperAsync(int id)
+        {
+            if (id <= 0)
+                throw new BusinessException("El ID del envio debe ser mayor a 0");
+
+            var shipment = await _unitOfWork.ShipmentRepository.GetByIdDapperAsync(id);
+            return shipment;
+        }
+
         public async Task InsertAsync(Shipment shipment)
         {
             var customer = await _unitOfWork.CustomerRepository.GetById(shipment.CustomerId);

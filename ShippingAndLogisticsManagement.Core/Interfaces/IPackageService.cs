@@ -10,6 +10,11 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         Task<IEnumerable<Package>> GetAllDapperAsync();
         Task<PackageSummaryResponse> GetPackageSummaryAsync(int shipmentId);
         Task<Package> GetByIdAsync(int id);
+
+        /// <summary>
+        /// Obtiene un paquete por ID usando Dapper
+        /// </summary>
+        Task<Package> GetByIdDapperAsync(int id);
         Task InsertAsync(Package package);
         Task UpdateAsync(Package package);
         Task DeleteAsync(int id);
