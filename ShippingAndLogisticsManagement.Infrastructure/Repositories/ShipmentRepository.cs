@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
 using ShippingAndLogisticsManagement.Core.CustomEntities;
 using ShippingAndLogisticsManagement.Core.Entities;
 using ShippingAndLogisticsManagement.Core.Enum;
 using ShippingAndLogisticsManagement.Core.Interfaces;
+using ShippingAndLogisticsManagement.Core.QueryFilters;
 using ShippingAndLogisticsManagement.Infrastructure.Data;
 using ShippingAndLogisticsManagement.Infrastructure.Queries;
 
@@ -42,6 +44,65 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
             {
                 throw new Exception(err.Message);
             }
+        }
+
+        public async Task<IEnumerable<Shipment>> GetAllDapperAsync(ShipmentQueryFilter filters)
+        {
+            var conditions = new List<string>();
+            var parameters = new DynamicParameters();
+
+            if (filters.CustomerId.HasValue)
+            {
+                conditions.Add("CustomerId = @CustomerId");
+                parameters.Add("CustomerId", filters.CustomerId.Value);
+            }
+
+            if (filters.ShippingDate.HasValue)
+            {
+                conditions.Add("CAST(ShippingDate AS DATE) = @ShippingDate");
+                parameters.Add("ShippingDate", filters.ShippingDate.Value.Date);
+            }
+
+            if (!string.IsNullOrWhiteSpace(filters.State))
+            {
+                conditions.Add("State LIKE @State");
+                parameters.Add("State", $"%{filters.State}%");
+            }
+
+            if (filters.RouteId.HasValue)
+            {
+                conditions.Add("RouteId = @RouteId");
+                parameters.Add("RouteId", filters.RouteId.Value);
+            }
+
+            if (filters.TotalCost > 0)
+            {
+                conditions.Add("TotalCost = @TotalCost");
+                parameters.Add("TotalCost", filters.TotalCost);
+            }
+
+            if (!string.IsNullOrWhiteSpace(filters.TrackingNumber))
+            {
+                conditions.Add("TrackingNumber = @TrackingNumber");
+                parameters.Add("TrackingNumber", filters.TrackingNumber);
+            }
+
+            var whereClause = conditions.Any()
+                ? "WHERE " + string.Join(" AND ", conditions)
+                : string.Empty;
+
+            var sql = $@"
+        SELECT * FROM Shipments
+        {whereClause}
+        ORDER BY ShippingDate DESC";
+
+            return await _dapper.QueryAsync<Shipment>(sql, parameters);
+        }
+
+        public async Task<Shipment> GetByIdDapperAsync(int id)
+        {
+            var sql = "SELECT * FROM Shipments WHERE Id = @Id";
+            return await _dapper.QueryFirstOrDefaultAsync<Shipment>(sql, new { Id = id });
         }
 
         public async Task<IEnumerable<ShipmentCustomerRouteResponse>> GetShipmentCustomerRouteAsync()

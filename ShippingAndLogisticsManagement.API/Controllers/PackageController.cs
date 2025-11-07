@@ -6,7 +6,9 @@ using ShippingAndLogisticsManagement.Core.CustomEntities;
 using ShippingAndLogisticsManagement.Core.Entities;
 using ShippingAndLogisticsManagement.Core.Interfaces;
 using ShippingAndLogisticsManagement.Core.QueryFilters;
+using ShippingAndLogisticsManagement.Core.Services;
 using ShippingAndLogisticsManagement.Infrastructure.DTOS;
+using ShippingAndLogisticsManagement.Infrastructure.Validator;
 using System.Net;
 
 namespace ShippingAndLogisticsManagement.Api.Controllers
@@ -19,19 +21,24 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
     /// including assigning packages to shipments and retrieving detailed information.
     /// Implements pagination, search filters, and uses Dapper to optimize GET queries.
     /// </remarks>
-    [Produces("application/json")]
-    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [Produces("application/json")]
     public class PackageController : ControllerBase
     {
         private readonly IPackageService _packageService;
         private readonly IMapper _mapper;
+        private readonly IValidatorService _validationService;
 
-        public PackageController(IPackageService packageService, IMapper mapper)
+        public PackageController(
+            IPackageService packageService, 
+            IMapper mapper, 
+            IValidatorService validatorService)
         {
             _packageService = packageService;
             _mapper = mapper;
+            _validationService = validatorService;
         }
 
         /// <summary>
@@ -41,11 +48,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Este método utiliza Dapper para realizar consultas optimizadas y permite
         /// filtrar por múltiples criterios como ShipmentId, peso mínimo/máximo y descripción.
         /// Retorna los resultados con paginación automática.
-        /// 
-        /// Ejemplo de uso:
-        /// 
-        ///     GET /api/v1/package?pageNumber=1&amp;pageSize=10&amp;shipmentId=5
-        /// 
         /// </remarks>
         /// <param name="filters">Filtros de búsqueda incluyendo paginación</param>
         /// <returns>Lista paginada de paquetes</returns>
@@ -57,42 +59,40 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [HttpGet]
-        public async Task<IActionResult> GetAllPackages([FromQuery] PackageQueryFilter filters)
+        [HttpGet("dto/mapper")]
+        public async Task<IActionResult> GetAllPackages(
+            [FromQuery] PackageQueryFilter filters)
         {
             try
             {
-                var result = await _packageService.GetAllAsync(filters);
-                var packageItems = result.Pagination.Cast<Package>();
-                var packagesDto = _mapper.Map<IEnumerable<PackageDto>>(packageItems);
-
-
+                var packages = await _packageService.GetAllAsync(filters);
+                var packagesDto = _mapper.Map<IEnumerable<PackageDto>>(packages.Pagination);
 
                 var pagination = new Pagination
                 {
-                    TotalCount = result.Pagination.TotalCount,
-                    PageSize = result.Pagination.PageSize,
-                    CurrentPage = result.Pagination.CurrentPage,
-                    TotalPages = result.Pagination.TotalPages,
-                    HasNextPage = result.Pagination.HasNextPage,
-                    HasPreviousPage = result.Pagination.HasPreviousPage
+                    TotalCount = packages.Pagination.TotalCount,
+                    PageSize = packages.Pagination.PageSize,
+                    CurrentPage = packages.Pagination.CurrentPage,
+                    TotalPages = packages.Pagination.TotalPages,
+                    HasNextPage = packages.Pagination.HasNextPage,
+                    HasPreviousPage = packages.Pagination.HasPreviousPage
                 };
 
                 var response = new ApiResponse<IEnumerable<PackageDto>>(packagesDto)
                 {
                     Pagination = pagination,
-                    Messages = result.Messages
+                    Messages = packages.Messages
                 };
 
-                return StatusCode((int)result.StatusCode, response);
+                return StatusCode((int)packages.StatusCode, response);
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                var errorResponse = new ResponseData
+                var responsePackage = new ResponseData
                 {
-                    Messages = new Message[] { new() { Type = "Error", Description = ex.Message } }
+                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
                 };
-                return StatusCode(500, errorResponse);
+                return StatusCode(500, responsePackage);
             }
         }
 
@@ -211,13 +211,12 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [HttpPost]
-        public async Task<IActionResult> CreatePackage([FromBody] PackageDto packageDto)
+        public async Task<IActionResult> InsertPackageDtoMapper([FromBody] PackageDto packageDto)
         {
             try
             {
                 var package = _mapper.Map<Package>(packageDto);
                 //package.Id = 0;
-
                 await _packageService.InsertAsync(package);
 
                 var createdDto = _mapper.Map<PackageDto>(package);
@@ -228,18 +227,18 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
 
                 return StatusCode(201, response);
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException err)
             {
                 return BadRequest(new
                 {
-                    Messages = new Message[] { new() { Type = "Error", Description = ex.Message } }
+                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
                 });
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
                 return StatusCode(500, new
                 {
-                    Messages = new Message[] { new() { Type = "Error", Description = ex.Message } }
+                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
                 });
             }
         }
@@ -264,7 +263,8 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePackage(int id, [FromBody] PackageDto packageDto)
+        public async Task<IActionResult> UpdatePackageDtoMapper(int id, 
+            [FromBody] PackageDto packageDto)
         {
             try
             {
@@ -330,7 +330,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePackage(int id)
+        public async Task<IActionResult> DeletePackageDtoMapper(int id)
         {
             try
             {
@@ -346,18 +346,18 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
                 await _packageService.DeleteAsync(id);
                 return NoContent();
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException err)
             {
                 return BadRequest(new
                 {
-                    Messages = new Message[] { new() { Type = "Error", Description = ex.Message } }
+                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
                 });
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
                 return StatusCode(500, new
                 {
-                    Messages = new Message[] { new() { Type = "Error", Description = ex.Message } }
+                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
                 });
             }
         }

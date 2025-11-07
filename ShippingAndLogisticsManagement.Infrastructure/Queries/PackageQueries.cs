@@ -2,19 +2,42 @@
 {
     public static class PackageQueries
     {
-        public static string GetAllDapper = @"
-            SELECT * FROM Package
-            ORDER BY Id DESC
+        public static string PackageQuerySqlServer = @"
+            SELECT 
+                p.Id,
+                p.Description,
+                p.Weight,
+                p.Price,
+                p.ShipmentId
+            FROM Packages p
+            ORDER BY p.Id DESC
+            OFFSET 0 ROWS FETCH NEXT @Limit ROWS ONLY;
+        ";
+        public static string PackageQueryMySQL = @"
+            SELECT 
+                p.Id,
+                p.Description,
+                p.Weight,
+                p.Price,
+                p.ShipmentId
+            FROM Packages p
+            ORDER BY p.Id DESC
             LIMIT @Limit;
         ";
 
+        public static string GetAllDapper = @"
+        SELECT * FROM Packages
+            ORDER BY Id DESC
+            OFFSET 0 ROWS FETCH NEXT @Limit ROWS ONLY;
+        ";
+
         public static string GetByIdDapper = @"
-            SELECT * FROM Package
+            SELECT * FROM Packages
             WHERE Id = @Id;
         ";
 
         public static string GetByShipmentId = @"
-            SELECT * FROM Package
+            SELECT * FROM Packages
             WHERE ShipmentId = @ShipmentId;
         ";
 
@@ -25,7 +48,7 @@
                 SUM(Price) AS TotalValue,
                 AVG(Weight) AS AvgWeight,
                 AVG(Price) AS AvgValue
-            FROM Package
+            FROM Packages
             WHERE ShipmentId = @ShipmentId;
         ";
 
@@ -42,14 +65,14 @@
                 c.Name AS CustomerName,
                 r.Id AS RouteId,
                 r.RouteName
-            FROM Package p
-            INNER JOIN Shipment s ON p.ShipmentId = s.Id
-            INNER JOIN Customer c ON s.CustomerId = c.Id
-            INNER JOIN Route r ON s.RouteId = r.Id;
+            FROM Packages p
+            INNER JOIN Shipments s ON p.ShipmentId = s.Id
+            INNER JOIN Customers c ON s.CustomerId = c.Id
+            INNER JOIN Routes r ON s.RouteId = r.Id;
         ";
 
         public static string GetHeavyPackages = @"
-            SELECT * FROM Package
+            SELECT * FROM Packages
             WHERE Weight > @MinWeight
             ORDER BY Weight DESC;
         ";

@@ -2,10 +2,10 @@
 
 namespace ShippingAndLogisticsManagement.Api.Controllers
 {
-    [Route("api/v{version:ApiVersion}/shipment")]
-    [ApiVersion("2.0")]
     [ApiController]
-    public class ShipmentV2Controller : Controller
+    [ApiVersion("2.0")]
+    [Route("api/v{version:ApiVersion}/package")]
+    public class PackageV2Controller : Controller
     {
         [HttpGet]
         public IActionResult Get()

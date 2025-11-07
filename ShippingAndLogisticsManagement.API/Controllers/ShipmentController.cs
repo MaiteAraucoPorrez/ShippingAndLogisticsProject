@@ -13,17 +13,20 @@ using System.Net;
 
 namespace ShippingAndLogisticsManagement.Api.Controllers
 {
-    [Produces("application/json")]
     [ApiController]
-    [ApiVersion("1.0")]
+    [ApiVersion("1.0")]    
     [Route("api/v{version:apiVersion}/[controller]")]
+    [Produces("application/json")]
     public class ShipmentController : ControllerBase
     {
         private readonly IShipmentService _shipmentService;
         private readonly IMapper _mapper;
         private readonly IValidatorService _validationService;
 
-        public ShipmentController(IShipmentService shipmentService, IMapper mapper, IValidatorService validationService)
+        public ShipmentController(
+            IShipmentService shipmentService, 
+            IMapper mapper, 
+            IValidatorService validationService)
         {
             _shipmentService = shipmentService;
             _mapper = mapper;
@@ -186,7 +189,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             try
             {
                 var shipments = await _shipmentService.GetAllAsync(shipmentQueryFilter);
-
                 var shipmentsDto = _mapper.Map<IEnumerable<ShipmentDto>>(shipments.Pagination);
 
                 var pagination = new Pagination
@@ -228,7 +230,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         }
 
         [HttpGet("dapper/1")]
-        public async Task<IActionResult> GetPostCommentUserAsync()
+        public async Task<IActionResult> GetShipmentCustomerRouteAsync()
         {
             var shipments = await _shipmentService.GetShipmentCustomerRouteAsync();
 

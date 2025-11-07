@@ -25,7 +25,7 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (packageQueryFilter.PageNumber <= 0) packageQueryFilter.PageNumber = 1;
             if (packageQueryFilter.PageSize <= 0) packageQueryFilter.PageSize = 10;
 
-            var packages = await _unitOfWork.PackageRepository.GetAll();
+            var packages = await _unitOfWork.PackageRepository.GetAllDapperAsync(packageQueryFilter);
 
             // Applying filters
             if (packageQueryFilter.ShipmentId.HasValue)
@@ -69,9 +69,11 @@ namespace ShippingAndLogisticsManagement.Core.Services
 
         public async Task<PackageSummaryResponse> GetPackageSummaryAsync(int shipmentId)
         {
-            if (shipmentId <= 0) throw new ArgumentException("ShipmentId invalido", nameof(shipmentId));
+            if (shipmentId <= 0) 
+                throw new ArgumentException("ShipmentId invalido", nameof(shipmentId));
             var shipment = await _unitOfWork.ShipmentRepository.GetById(shipmentId);
-            if (shipment == null) throw new KeyNotFoundException("El envio no existe");
+            if (shipment == null) 
+                throw new KeyNotFoundException("El envio no existe");
             var summary = await _unitOfWork.PackageRepository.GetPackageSummaryAsync(shipmentId);
             return summary;
         }
@@ -79,15 +81,17 @@ namespace ShippingAndLogisticsManagement.Core.Services
 
         public async Task<IEnumerable<Package>> GetAllDapperAsync()
         {
-            // Using Dapper repository
-            return await _unitOfWork.PackageRepository.GetAllDapperAsync();
+            var packages = await _unitOfWork.PackageRepository.GetAllDapperAsync(5);
+
+            return packages;
         }
 
         public async Task<Package> GetByIdAsync(int id)
         {
-            if (id <= 0) throw new ArgumentException("El id debe ser mayor a 0", nameof(id));
-            var pkg = await _unitOfWork.PackageRepository.GetById(id);
-            return pkg;
+            if (id <= 0) 
+                throw new ArgumentException("El id debe ser mayor a 0", nameof(id));
+            var package = await _unitOfWork.PackageRepository.GetById(id);
+            return package;
         }
 
         public async Task InsertAsync(Package package)
