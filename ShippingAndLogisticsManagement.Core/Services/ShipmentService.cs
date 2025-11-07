@@ -66,7 +66,7 @@ namespace ShippingAndLogisticsManagement.Core.Services
                 throw new ArgumentException("ShippingDate no puede ser una fecha futura",
                     nameof(shipmentQueryFilter.ShippingDate));
 
-            var shipments = await _unitOfWork.ShipmentRepository.GetAll();
+            var shipments = await _unitOfWork.ShipmentRepository.GetAllDapperAsync(shipmentQueryFilter);
 
             // Aplicar filtros
             if (shipmentQueryFilter.CustomerId.HasValue)
@@ -142,7 +142,7 @@ namespace ShippingAndLogisticsManagement.Core.Services
 
         public async Task<IEnumerable<Shipment>> GetAllDapperAsync()
         {
-            var shipments = await _unitOfWork.ShipmentRepository.GetAllDapperAsync(5);
+            var shipments = await _unitOfWork.ShipmentRepository.GetRecentShipmentsAsync(5);
 
             return shipments;
         }

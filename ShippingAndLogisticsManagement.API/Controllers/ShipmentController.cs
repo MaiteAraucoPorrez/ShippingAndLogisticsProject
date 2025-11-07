@@ -260,6 +260,67 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         }
 
         /// <summary>
+        /// Obtiene un envío por ID usando Dapper (optimizado para consultas)
+        /// </summary>
+        /// <remarks>
+        /// Este endpoint utiliza Dapper para consultas optimizadas sin tracking.
+        /// Recomendado para lecturas donde no se requiere modificación posterior.
+        /// 
+        /// Sample request:
+        ///     GET /api/v1/shipment/dapper/5
+        /// </remarks>
+        /// <param name="id">Identificador único del envío</param>
+        /// <example>5</example>
+        /// <returns>Información detallada del envío</returns>
+        /// <response code="200">Retorna el envío solicitado</response>
+        /// <response code="400">Si el ID es inválido</response>
+        /// <response code="404">Si el envío no existe</response>
+        /// <response code="500">Si ocurre un error interno</response>
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<ShipmentDto>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
+        [HttpGet("dapper/{id}")]
+        public async Task<IActionResult> GetShipmentByIdDapper(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    return BadRequest(new ResponseData
+                    {
+                        Messages = new Message[] { new() { Type = "Error", Description = "El ID debe ser mayor a 0" } }
+                    });
+                }
+
+                var shipment = await _shipmentService.GetByIdDapperAsync(id);
+
+                if (shipment == null)
+                {
+                    return NotFound(new ResponseData
+                    {
+                        Messages = new Message[] { new() { Type = "Warning", Description = "Envío no encontrado" } }
+                    });
+                }
+
+                var shipmentDto = _mapper.Map<ShipmentDto>(shipment);
+                var response = new ApiResponse<ShipmentDto>(shipmentDto)
+                {
+                    Messages = new Message[] { new() { Type = "Information", Description = "Envío recuperado exitosamente con Dapper" } }
+                };
+
+                return Ok(response);
+            }
+            catch (Exception err)
+            {
+                return StatusCode(500, new ResponseData
+                {
+                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
+                });
+            }
+        }
+
+        /// <summary>
         /// Retrieves shipments with complete customer and route information using JOIN queries
         /// </summary>
         /// <remarks>

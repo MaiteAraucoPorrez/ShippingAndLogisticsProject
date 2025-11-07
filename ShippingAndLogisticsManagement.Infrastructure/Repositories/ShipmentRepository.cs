@@ -27,7 +27,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
             return shipments;
         }
 
-        public async Task<IEnumerable<Shipment>> GetAllDapperAsync(int limit = 10)
+        public async Task<IEnumerable<Shipment>> GetRecentShipmentsAsync(int limit = 10)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
         {
             try
             {
-                var sql = ShipmentQueries.InactiveRoutes;
+                var sql = ShipmentQueries.GetShipmentCustomerRoute;
 
                 return await _dapper.QueryAsync<ShipmentCustomerRouteResponse>(sql);
             }

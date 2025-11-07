@@ -188,6 +188,55 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         }
 
         /// <summary>
+        /// Obtiene todos los paquetes con información completa de envío, cliente y ruta
+        /// </summary>
+        /// <remarks>
+        /// Consulta optimizada con JOINs que retorna información detallada de cada paquete
+        /// incluyendo datos del envío asociado, cliente y ruta en una sola consulta.
+        /// Útil para reportes y vistas consolidadas de paquetes.
+        /// 
+        /// Ejemplo de uso:
+        /// GET /api/v1/package/details
+        /// </remarks>
+        /// <returns>Lista completa de paquetes con todos sus detalles relacionados</returns>
+        /// <response code="200">Retorna la lista de paquetes con detalles</response>
+        /// <response code="404">Si no se encuentran paquetes</response>
+        /// <response code="500">Error interno del servidor</response>
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<PackageDetailResponse>>))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
+        [HttpGet("details")]
+        public async Task<IActionResult> GetPackageDetailsAsync()
+        {
+            try
+            {
+                var packageDetails = await _packageService.GetPackageDetailsAsync();
+
+                if (packageDetails == null || !packageDetails.Any())
+                {
+                    return NotFound(new ResponseData
+                    {
+                        Messages = new Message[] { new() { Type = "Warning", Description = "No se encontraron paquetes con detalles" } }
+                    });
+                }
+
+                var response = new ApiResponse<IEnumerable<PackageDetailResponse>>(packageDetails)
+                {
+                    Messages = new Message[] { new() { Type = "Information", Description = $"Se recuperaron {packageDetails.Count()} paquetes con detalles completos" } }
+                };
+
+                return Ok(response);
+            }
+            catch (Exception err)
+            {
+                return StatusCode(500, new ResponseData
+                {
+                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
+                });
+            }
+        }
+
+        /// <summary>
         /// Obtiene un paquete específico por su identificador
         /// </summary>
         /// <remarks>

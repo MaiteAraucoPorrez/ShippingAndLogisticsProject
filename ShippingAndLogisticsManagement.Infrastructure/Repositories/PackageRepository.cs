@@ -122,7 +122,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
              );
         }
 
-        public async Task<IEnumerable<Package>> GetAllDapperAsync(int limit = 10)
+        public async Task<IEnumerable<Package>> GetRecentPackagesAsync(int limit = 10)
         {
             try
             {

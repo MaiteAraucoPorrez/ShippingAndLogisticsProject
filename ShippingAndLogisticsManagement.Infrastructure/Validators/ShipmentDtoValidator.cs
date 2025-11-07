@@ -7,7 +7,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
 {
     public class ShipmentDtoValidator : AbstractValidator<ShipmentDto>
     {
-        private readonly IShipmentService _shipmentService;
         //private readonly IShipmentRepository _shipmentRepository;
         //private readonly IRouteRepository _routeRepository;
         //private readonly ICustomerRepository _customerRepository;
@@ -15,7 +14,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
         public readonly IBaseRepository<Customer> _customerRepository;
         public readonly IBaseRepository<Route> _routeRepository;
         public ShipmentDtoValidator(
-            IShipmentService shipmentService,
             //IRouteRepository routeRepository, 
             //ICustomerRepository customerRepository,
             //IShipmentRepository shipmentRepository
@@ -24,7 +22,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
             IBaseRepository<Route> routeRepository
             )
         {
-            _shipmentService = shipmentService;
             _routeRepository = routeRepository;
             _customerRepository = customerRepository;
             _shipmentRepository = shipmentRepository;
@@ -93,7 +90,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
 
                      // Si es update y el tracking pertenece al mismo Id, permitir
                      return dto.Id != 0 && existing.Id == dto.Id;
-                 }).WithMessage("El codigo de seguimiento ya existe. Debe ser unico");
+                 }).WithMessage("El código de seguimiento ya existe. Use un valor diferente o edite el envío existente.");
 
         }
 

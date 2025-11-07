@@ -80,10 +80,32 @@ namespace ShippingAndLogisticsManagement.Core.Services
             return summary;
         }
 
+        public async Task<IEnumerable<PackageDetailResponse>> GetPackageDetailsAsync()
+        {
+            var details = await _unitOfWork.PackageRepository.GetPackageWithDetailsAsync();
+
+            if (details == null || !details.Any())
+                throw new KeyNotFoundException("No se encontraron paquetes con detalles");
+
+            return details;
+        }
+
+        public async Task<IEnumerable<Package>> GetHeavyPackagesAsync(double minWeight)
+        {
+            if (minWeight <= 0)
+                throw new BusinessException("El peso mínimo debe ser mayor a 0");
+
+            var packages = await _unitOfWork.PackageRepository.GetHeavyPackagesAsync(minWeight);
+
+            if (packages == null || !packages.Any())
+                throw new KeyNotFoundException($"No se encontraron paquetes con peso mayor a {minWeight} kg");
+
+            return packages;
+        }
 
         public async Task<IEnumerable<Package>> GetAllDapperAsync()
         {
-            var packages = await _unitOfWork.PackageRepository.GetAllDapperAsync(5);
+            var packages = await _unitOfWork.PackageRepository.GetRecentPackagesAsync(5);
 
             return packages;
         }
