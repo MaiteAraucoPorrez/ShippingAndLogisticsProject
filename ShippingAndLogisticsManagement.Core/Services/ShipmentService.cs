@@ -104,18 +104,11 @@ namespace ShippingAndLogisticsManagement.Core.Services
             //return await _unitOfWork.ShipmentRepository.GetAll();
             //return shipments;
 
-            if (shipmentQueryFilter.CustomerId != null)
-            {
-                shipments = shipments.Where(x => x.CustomerId == shipmentQueryFilter.CustomerId);
-            }
+            
             if (shipmentQueryFilter.ShippingDate != null)
             {
                 shipments = shipments.Where(
                     x => x.ShippingDate.ToShortDateString() == shipmentQueryFilter.ShippingDate?.ToShortDateString());
-            }
-            if (shipmentQueryFilter.State != null)
-            {
-                shipments = shipments.Where(x => x.State.ToLower().Contains(shipmentQueryFilter.State.ToLower()));
             }
 
             var pagedPosts = PagedList<object>.Create(

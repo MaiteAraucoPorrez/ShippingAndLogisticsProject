@@ -103,7 +103,7 @@
                 c.Id AS CustomerId,
                 c.Name AS CustomerName,
                 r.Id AS RouteId,
-                r.RouteName
+                CONCAT(r.Origin, ' → ', r.Destination) AS RouteName
             FROM Packages p
             INNER JOIN Shipments s ON p.ShipmentId = s.Id
             INNER JOIN Customers c ON s.CustomerId = c.Id

@@ -40,6 +40,7 @@ namespace ShippingAndLogisticsManagement.API
             // Dependency injection
             //builder.Services.AddTransient<IShipmentRepository, ShipmentRepository>();
             builder.Services.AddTransient<IShipmentService, ShipmentService>();
+            builder.Services.AddTransient<IPackageService, PackageService>();
             //builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
             //builder.Services.AddTransient<IRouteRepository, RouteRepository>();
             //builder.Services.AddTransient<IValidator<ShipmentDto>, ShipmentDtoValidator>();
@@ -112,7 +113,8 @@ namespace ShippingAndLogisticsManagement.API
 
             // Fluent Validation
             builder.Services.AddValidatorsFromAssemblyContaining<ShipmentDtoValidator>();
-                builder.Services.AddValidatorsFromAssemblyContaining<GetByIdRequestValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<PackageDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<GetByIdRequestValidator>();
 
                 // Services
                 builder.Services.AddScoped<IValidatorService, ValidatorService>();
