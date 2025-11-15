@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShippingAndLogisticsManagement.Api.Responses;
 using ShippingAndLogisticsManagement.Core.CustomEntities;
@@ -20,6 +21,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
     /// filtering, pagination, and integration with customers and routes.
     /// Uses Dapper for optimized read operations and Entity Framework for write operations.
     /// </remarks>
+    [Authorize]
     [ApiController]
     [ApiVersion("1.0")]    
     [Route("api/v{version:apiVersion}/[controller]")]

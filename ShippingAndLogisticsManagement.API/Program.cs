@@ -35,44 +35,64 @@ namespace ShippingAndLogisticsManagement.API
                 options.UseSqlServer(connectionString));
             #endregion
 
+            #region AutoMapper
             builder.Services.AddAutoMapper(typeof(MappingProfile));
-
-            // Dependency injection
-            //builder.Services.AddTransient<IShipmentRepository, ShipmentRepository>();
+            #endregion
+           
+            #region Dependency Injection - Services
             builder.Services.AddTransient<IShipmentService, ShipmentService>();
             builder.Services.AddTransient<IPackageService, PackageService>();
+            builder.Services.AddTransient<ICustomerService, CustomerService>();
+            builder.Services.AddTransient<IRouteService, RouteService>();
+            #endregion
+
+            #region Dependency Injection - Repositories & Infrastructure
             //builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
             //builder.Services.AddTransient<IRouteRepository, RouteRepository>();
-            //builder.Services.AddTransient<IValidator<ShipmentDto>, ShipmentDtoValidator>();
+            //builder.Services.AddTransient<IShipmentRepository, ShipmentRepository>();
             builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
             builder.Services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
             builder.Services.AddScoped<IDapperContext, DapperContext>();
+            #endregion
 
 
             // Add services to the container
+            #region Controllers Configuration
             builder.Services.AddControllers(options =>
             {
                 options.Filters.Add<GlobalExceptionFilter>();
             })
-                .AddNewtonsoftJson(options =>
-                {
-                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                })
-
+            .AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            })
             // Avoid the automatic 400 response
             .ConfigureApiBehaviorOptions(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+            #endregion
 
-            // Validations
+
+            #region Validations - FluentValidation
             builder.Services.AddControllers(options =>
             {
                 options.Filters.Add<ValidatorFilter>();
             });
 
-            //Configure Swagger
+            builder.Services.AddValidatorsFromAssemblyContaining<ShipmentDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<PackageDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<CustomerDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<RouteDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<GetByIdRequestValidator>();
+
+            builder.Services.AddScoped<IValidatorService, ValidatorService>();
+            builder.Services.AddScoped<ISecurityService, SecurityService>();
+            #endregion
+
+
+            #region Swagger Configuration
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
@@ -80,20 +100,29 @@ namespace ShippingAndLogisticsManagement.API
                 {
                     Title = "Backend Shipping And Logistics Management API",
                     Version = "v1",
-                    Description = "Documentacion de la API de Envios y Logistica - NET 9",
+                    Description = "Documentación de la API de Envíos y Logística - NET 9\n\n" +
+                                  "Esta API gestiona el sistema completo de logística incluyendo:\n" +
+                                  "- **Customers**: Gestión de clientes con validación de email único y límite de dominio\n" +
+                                  "- **Routes**: Gestión de rutas con análisis de rentabilidad y ranking de uso\n" +
+                                  "- **Shipments**: Gestión de envíos con validación de estados y límites por cliente\n" +
+                                  "- **Packages**: Gestión de paquetes con validación de peso, precio y límites por envío",
                     Contact = new()
                     {
                         Name = "Equipo de Desarrollo UCB",
                         Email = "desarrollo@ucb.edu.bo"
                     }
                 });
+
                 var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
 
                 options.EnableAnnotations();
             });
+            #endregion
 
+
+            #region API Versioning
             builder.Services.AddApiVersioning(options =>
             {
                 // Reporta las versiones soportadas y obsoletas en encabezados de respuesta
@@ -110,37 +139,64 @@ namespace ShippingAndLogisticsManagement.API
                     new QueryStringApiVersionReader("api-version") // Ejemplo: ?api-version=1.0
                 );
             });
+            #endregion
 
-            // Fluent Validation
-            builder.Services.AddValidatorsFromAssemblyContaining<ShipmentDtoValidator>();
-            builder.Services.AddValidatorsFromAssemblyContaining<PackageDtoValidator>();
-            builder.Services.AddValidatorsFromAssemblyContaining<GetByIdRequestValidator>();
 
-                // Services
-                builder.Services.AddScoped<IValidatorService, ValidatorService>();
-
-                var app = builder.Build();
-
-                // Using Swagger
-                if (app.Environment.IsDevelopment())
+            #region Authorization & Authentication - JWT
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme =
+                    JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme =
+                    JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters =
+                new TokenValidationParameters
                 {
-                    app.UseSwagger();
-                    app.UseSwaggerUI(options =>
-                    {
-                        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend Shipping And Logistics Management API v1");
-                        options.RoutePrefix = string.Empty;
-                    });
-                }
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["Authentication:Issuer"],
+                    ValidAudience = builder.Configuration["Authentication:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey
+                    (
+                        System.Text.Encoding.UTF8.GetBytes
+                        (
+                            builder.Configuration["Authentication: SecretKey"]
+                        )
+                    )
+                };
+            });
+            #endregion
 
-                // Configure the HTTP request pipeline.
 
-                app.UseHttpsRedirection();
+            var app = builder.Build();
 
-                app.UseAuthorization();
+            #region Swagger UI
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend Shipping And Logistics Management API v1");
+                    options.RoutePrefix = string.Empty;
+                    options.DocumentTitle = "Shipping & Logistics API Documentation";
+                    options.DefaultModelsExpandDepth(-1); // Hide schemas section
+                });
+            }
+            #endregion
 
-                app.MapControllers();
 
-                app.Run();
+            // Configure the HTTP request pipeline.
+
+            app.UseHttpsRedirection();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.MapControllers();
+
+            app.Run();
         }
     }
 }

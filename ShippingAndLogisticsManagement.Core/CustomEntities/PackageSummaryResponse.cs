@@ -19,21 +19,21 @@
         /// <summary>
         /// Sum of all package weights.
         /// </summary>
-        public double TotalWeight { get; set; }
+        public double? TotalWeight { get; set; }
 
         /// <summary>
         /// Sum of all package prices (total value).
         /// </summary>
-        public double TotalValue { get; set; }
+        public double? TotalValue { get; set; }
 
         /// <summary>
         /// Average package weight.
         /// </summary>
-        public double AvgWeight { get; set; }
+        public double? AvgWeight { get; set; }
 
         /// <summary>
         /// Average package price.
         /// </summary>
-        public double AvgValue { get; set; }
+        public double? AvgValue { get; set; }
     }
 }

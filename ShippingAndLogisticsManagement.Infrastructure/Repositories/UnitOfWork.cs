@@ -11,10 +11,11 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly LogisticContext _context;
-        public readonly IShipmentRepository? _shipmentRepository;
+        public readonly ICustomerRepository? _customerRepository;
         public readonly IPackageRepository? _packageRepository;
-        public readonly IBaseRepository<Customer>? _customerRepository;
-        public readonly IBaseRepository<Route>? _routeRepository;
+        public readonly IRouteRepository? _routeRepository;
+        public readonly IShipmentRepository? _shipmentRepository;
+        public readonly ISecurityRepository? _securityRepository;
         public readonly IDapperContext _dapper;
 
         private IDbContextTransaction? _efTransaction;
@@ -30,11 +31,16 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
         public IPackageRepository PackageRepository =>
             _packageRepository ?? new PackageRepository(_context, _dapper);
 
-        public IBaseRepository<Customer> CustomerRepository =>
-            _customerRepository ?? new BaseRepository<Customer>(_context);
+        public ICustomerRepository CustomerRepository =>
+            _customerRepository ?? new CustomerRepository(_context, _dapper);
 
-        public IBaseRepository<Route> RouteRepository =>
-            _routeRepository ?? new BaseRepository<Route>(_context);
+        public IRouteRepository RouteRepository =>
+            _routeRepository ?? new RouteRepository(_context, _dapper);
+
+        public ISecurityRepository SecurityRepository =>
+            _securityRepository ?? new SecurityRepository(_context, _dapper);
+
+
 
         public void Dispose()
         {

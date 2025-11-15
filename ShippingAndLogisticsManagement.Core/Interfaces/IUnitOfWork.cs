@@ -8,18 +8,17 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
     /// </summary>
     public interface IUnitOfWork: IDisposable
     {
-        IShipmentRepository ShipmentRepository { get; }
+        ICustomerRepository CustomerRepository { get; }
         IPackageRepository PackageRepository { get; }
-        IBaseRepository<Customer> CustomerRepository { get; }
-        IBaseRepository<Route> RouteRepository { get; }
+        IRouteRepository RouteRepository { get; }
+        IShipmentRepository ShipmentRepository { get; }
+        ISecurityRepository SecurityRepository { get; }
 
         void SaveChanges();
         Task SaveChangesAsync();
-
         Task BeginTransaccionAsync();
         Task CommitAsync();
         Task RollbackAsync();
-
         IDbConnection? GetDbConnection();
         IDbTransaction? GetDbTransaction();
     }

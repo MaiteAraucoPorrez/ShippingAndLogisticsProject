@@ -8,11 +8,11 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<Shipment, ShipmentDto>();
-            CreateMap<ShipmentDto, Shipment>();
+            CreateMap<Shipment, ShipmentDto>().ReverseMap();
             CreateMap<Package, PackageDto>().ReverseMap();
             CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<Route, RouteDto>().ReverseMap();
+            CreateMap<Security, SecurityDto>().ReverseMap();
         }
     }
 }

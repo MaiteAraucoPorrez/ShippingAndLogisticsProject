@@ -77,6 +77,20 @@ namespace ShippingAndLogisticsManagement.Core.Services
                 throw new KeyNotFoundException($"El envío con ID {shipmentId} no existe");
 
             var summary = await _unitOfWork.PackageRepository.GetPackageSummaryAsync(shipmentId);
+
+            if (summary == null)
+            {
+                return new PackageSummaryResponse
+                {
+                    ShipmentId = shipmentId,
+                    TotalPackages = 0,
+                    TotalWeight = 0,
+                    TotalValue = 0,
+                    AvgWeight = 0,
+                    AvgValue = 0
+                };
+            }
+
             return summary;
         }
 

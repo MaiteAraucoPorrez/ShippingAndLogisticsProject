@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ShippingAndLogisticsManagement.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [ApiVersion("2.0")]
     [Route("api/v{version:ApiVersion}/package")]

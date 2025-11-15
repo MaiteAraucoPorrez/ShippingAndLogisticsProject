@@ -72,12 +72,14 @@
         /// Incluye: cantidad total, peso total, valor total y promedios.
         /// </summary>
         public static string GetPackageSummary = @"
+             
             SELECT 
-                COUNT(Id) AS TotalPackages,
-                SUM(Weight) AS TotalWeight,
-                SUM(Price) AS TotalValue,
-                AVG(Weight) AS AvgWeight,
-                AVG(Price) AS AvgValue
+                @ShipmentId AS ShipmentId,
+                ISNULL(COUNT(Id), 0) AS TotalPackages,
+                ISNULL(SUM(Weight), 0) AS TotalWeight,
+                ISNULL(SUM(CAST(Price AS FLOAT)), 0) AS TotalValue,
+                ISNULL(AVG(Weight), 0) AS AvgWeight,
+                ISNULL(AVG(CAST(Price AS FLOAT)), 0) AS AvgValue
             FROM Packages
             WHERE ShipmentId = @ShipmentId;
         ";

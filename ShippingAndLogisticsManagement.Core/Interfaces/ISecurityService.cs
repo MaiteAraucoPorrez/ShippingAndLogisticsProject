@@ -1,0 +1,10 @@
+﻿using ShippingAndLogisticsManagement.Core.Entities;
+
+namespace ShippingAndLogisticsManagement.Core.Interfaces
+{
+    public interface ISecurityService
+    {
+        Task<Security> GetLoginByCredentials(UserLogin login);
+        Task RegisterUser(Security security);
+    }
+}
