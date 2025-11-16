@@ -164,7 +164,7 @@ namespace ShippingAndLogisticsManagement.API
                     (
                         System.Text.Encoding.UTF8.GetBytes
                         (
-                            builder.Configuration["Authentication: SecretKey"]
+                            builder.Configuration["Authentication:SecretKey"]
                         )
                     )
                 };

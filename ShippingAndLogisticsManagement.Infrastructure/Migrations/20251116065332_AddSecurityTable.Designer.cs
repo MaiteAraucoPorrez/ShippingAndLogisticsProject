@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShippingAndLogisticsManagement.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using ShippingAndLogisticsManagement.Infrastructure.Data;
 namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(LogisticContext))]
-    partial class LogisticContextModelSnapshot : ModelSnapshot
+    [Migration("20251116065332_AddSecurityTable")]
+    partial class AddSecurityTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -9,6 +9,6 @@ namespace ShippingAndLogisticsManagement.Core.Entities
 
         public string Name { get; set; }
 
-        public RoleType? Role { get; set; }
+        public RoleType Role { get; set; }
     }
 }

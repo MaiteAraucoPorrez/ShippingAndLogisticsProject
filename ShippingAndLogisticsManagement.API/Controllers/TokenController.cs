@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ShippingAndLogisticsManagement.Core.Entities;
 using ShippingAndLogisticsManagement.Core.Interfaces;
@@ -20,18 +21,20 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost]
+        [AllowAnonymous]
+        [HttpPost("login")]
         public async Task<IActionResult> Authentication(UserLogin userLogin)
         {
             //Si es un usuario válido
             var validation = await IsValidUser(userLogin);
+
             if (validation.Item1)
             {
                 var token = GenerateToken(validation.Item2);
                 return Ok(new { token });
             }
 
-            return NotFound();
+            return Unauthorized();
         }
 
         private async Task<(bool, Security)> IsValidUser(UserLogin userLogin)
@@ -42,7 +45,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
 
         private string GenerateToken(Security security)
         {
-            string secretKey = _configuration["Authentication: SecretKey"];
+            string secretKey = _configuration["Authentication:SecretKey"];
 
             // Header
             var symetricSecurityKey = 
@@ -53,18 +56,18 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             var header = new JwtHeader(signingCredentials);
 
             // Body Payload
-            var claim = new[]
+            var claims = new[]
             {
-                new Claim("Name", security.Name),
+                new Claim(ClaimTypes.Name, security.Name),
                 new Claim("Login", security.Login),
                 new Claim(ClaimTypes.Role, security.Role.ToString())
             };
             var payload = new JwtPayload(
-                issuer: _configuration["Authentication: Issuer"],
-                audience: _configuration["Authentication: Audience"],
-                claims: claim,
+                issuer: _configuration["Authentication:Issuer"],
+                audience: _configuration["Authentication:Audience"],
+                claims: claims,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddMinutes(3)
+                expires: DateTime.UtcNow.AddMinutes(30)
             );
 
             // Firma

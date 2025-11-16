@@ -9,7 +9,7 @@ using ShippingAndLogisticsManagement.Infrastructure.DTOS;
 
 namespace ShippingAndLogisticsManagement.Api.Controllers
 {
-    [Authorize(Roles = $"{nameof(RoleType.Administrator)}, {nameof(RoleType.Administrator)}")]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class SecurityController : ControllerBase
@@ -23,6 +23,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post(SecurityDto securityDto)
         {
             var security = _mapper.Map<Security>(securityDto);
