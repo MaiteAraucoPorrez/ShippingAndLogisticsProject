@@ -538,10 +538,14 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
                     });
                 }
 
-                var package = _mapper.Map<Package>(packageDto);
-                await _packageService.UpdateAsync(package);
+                existing.Description = packageDto.Description;
+                existing.Weight = packageDto.Weight;
+                existing.Price = packageDto.Price;
+                existing.ShipmentId = packageDto.ShipmentId;
 
-                var updatedDto = _mapper.Map<PackageDto>(package);
+                await _packageService.UpdateAsync(existing);
+
+                var updatedDto = _mapper.Map<PackageDto>(existing);
                 var response = new ApiResponse<PackageDto>(updatedDto)
                 {
                     Messages = new Message[] { new() { Type = "Success", Description = "Paquete actualizado exitosamente" } }

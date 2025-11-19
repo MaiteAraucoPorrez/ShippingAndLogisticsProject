@@ -143,9 +143,6 @@ namespace ShippingAndLogisticsManagement.Core.Services
         {
             if (route == null) throw new ArgumentNullException(nameof(route));
 
-            var existing = await _unitOfWork.RouteRepository.GetById(route.Id);
-            if (existing == null) throw new KeyNotFoundException("La ruta no existe");
-
             // Validations
             if (string.IsNullOrWhiteSpace(route.Origin) || route.Origin.Length < 3 || route.Origin.Length > 100)
                 throw new BusinessException("El origen debe tener entre 3 y 100 caracteres");
@@ -156,20 +153,15 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (route.Origin.Equals(route.Destination, StringComparison.OrdinalIgnoreCase))
                 throw new BusinessException("El origen y destino deben ser diferentes");
 
-            // Check if origin/destination changed
-            if (!existing.Origin.Equals(route.Origin, StringComparison.OrdinalIgnoreCase) ||
-                !existing.Destination.Equals(route.Destination, StringComparison.OrdinalIgnoreCase))
-            {
-                // If has shipments, cannot change origin/destination
-                var hasShipments = await _unitOfWork.RouteRepository.HasShipmentsAsync(route.Id);
-                if (hasShipments)
-                    throw new BusinessException("No se puede modificar origen/destino de una ruta con envíos asociados");
+            // If has shipments, cannot change origin/destination
+            var hasShipments = await _unitOfWork.RouteRepository.HasShipmentsAsync(route.Id);
+            if (hasShipments)
+                throw new BusinessException("No se puede modificar origen/destino de una ruta con envíos asociados");
 
-                // Check duplicate with new origin/destination
-                var duplicateRoute = await _unitOfWork.RouteRepository.GetByOriginDestinationAsync(route.Origin, route.Destination);
-                if (duplicateRoute != null && duplicateRoute.Id != route.Id)
-                    throw new BusinessException($"Ya existe otra ruta de {route.Origin} a {route.Destination}");
-            }
+            // Check duplicate with new origin/destination
+            var duplicateRoute = await _unitOfWork.RouteRepository.GetByOriginDestinationAsync(route.Origin, route.Destination);
+            if (duplicateRoute != null && duplicateRoute.Id != route.Id)
+                throw new BusinessException($"Ya existe otra ruta de {route.Origin} a {route.Destination}");
 
             if (route.DistanceKm <= 0)
                 throw new BusinessException("La distancia debe ser mayor a 0 km");

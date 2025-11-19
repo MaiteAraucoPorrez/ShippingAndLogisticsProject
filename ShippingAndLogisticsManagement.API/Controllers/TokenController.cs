@@ -67,7 +67,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
                 audience: _configuration["Authentication:Audience"],
                 claims: claims,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddMinutes(30)
+                expires: DateTime.UtcNow.AddMinutes(500)
             );
 
             // Firma

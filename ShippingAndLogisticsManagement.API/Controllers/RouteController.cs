@@ -468,10 +468,15 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
                     });
                 }
 
-                var route = _mapper.Map<Core.Entities.Route>(routeDto);
-                await _routeService.UpdateAsync(route);
+                existing.Origin = routeDto.Origin;
+                existing.Destination = routeDto.Destination;
+                existing.DistanceKm = routeDto.DistanceKm;
+                existing.BaseCost = routeDto.BaseCost;
+                existing.IsActive = routeDto.IsActive;
 
-                var updatedDto = _mapper.Map<RouteDto>(route);
+                await _routeService.UpdateAsync(existing);
+
+                var updatedDto = _mapper.Map<RouteDto>(existing);
                 var response = new ApiResponse<RouteDto>(updatedDto)
                 {
                     Messages = new Message[] { new() { Type = "Success", Description = "Ruta actualizada exitosamente" } }

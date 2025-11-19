@@ -19,7 +19,7 @@ namespace ShippingAndLogisticsManagement.Core.QueryFilters
         /// Gets or sets the state of the entity.
         /// </summary>
         [SwaggerSchema("Estado del envio", Nullable = true)]
-        public required string State { get; set; }
+        public string? State { get; set; }
         /// <summary>
         /// Gets or sets the unique identifier for the customer.
         /// </summary>

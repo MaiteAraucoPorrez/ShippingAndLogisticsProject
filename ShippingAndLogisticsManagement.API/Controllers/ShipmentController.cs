@@ -490,7 +490,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             }
         }
 
-        
+
         /// <summary>
         /// Updates an existing shipment
         /// </summary>
@@ -527,33 +527,55 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         public async Task<IActionResult> UpdateShipmentDtoMapper(int id,
             [FromBody] ShipmentDto shipmentDto)
         {
-            if (id != shipmentDto.Id)
+            try
+            {
+                if (id != shipmentDto.Id)
+                {
+                    return BadRequest(new ResponseData
+                    {
+                        Messages = new Message[] { new() { Type = "Error", Description = "El ID del envío no coincide" } }
+                    });
+                }
+
+                var existing = await _shipmentService.GetByIdAsync(id);
+                if (existing == null)
+                {
+                    return NotFound(new ResponseData
+                    {
+                        Messages = new Message[] { new() { Type = "Warning", Description = "Envío no encontrado" } }
+                    });
+                }
+
+                existing.ShippingDate = DateTime.Parse(shipmentDto.ShippingDate);
+                existing.State = shipmentDto.State;
+                existing.CustomerId = shipmentDto.CustomerId;
+                existing.RouteId = shipmentDto.RouteId;
+                existing.TotalCost = shipmentDto.TotalCost;
+                existing.TrackingNumber = shipmentDto.TrackingNumber;
+
+                await _shipmentService.UpdateAsync(existing);
+
+                var response = new ApiResponse<Shipment>(existing)
+                {
+                    Messages = new Message[] { new() { Type = "Success", Description = "Envío actualizado exitosamente" } }
+                };
+
+                return Ok(response);
+            }
+            catch (InvalidOperationException err)
             {
                 return BadRequest(new ResponseData
                 {
-                    Messages = new Message[] { new() { Type = "Error", Description = "El ID del envío no coincide" } }
+                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
                 });
             }
-
-            var shipment = await _shipmentService.GetByIdAsync(id);
-            if (shipment == null)
+            catch (Exception err)
             {
-                return NotFound(new ResponseData
+                return StatusCode((int)HttpStatusCode.InternalServerError, new ResponseData
                 {
-                    Messages = new Message[] { new() { Type = "Warning", Description = "Envío no encontrado" } }
+                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
                 });
             }
-
-            _mapper.Map(shipmentDto, shipment);
-
-            await _shipmentService.UpdateAsync(shipment);
-
-            var response = new ApiResponse<Shipment>(shipment)
-            {
-                Messages = new Message[] { new() { Type = "Success", Description = "Envío actualizado exitosamente" } }
-            };
-
-            return Ok(response);
         }
 
         /// <summary>

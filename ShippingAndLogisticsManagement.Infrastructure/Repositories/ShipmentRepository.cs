@@ -92,9 +92,9 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
                 : string.Empty;
 
             var sql = $@"
-        SELECT * FROM Shipments
-        {whereClause}
-        ORDER BY ShippingDate DESC";
+            SELECT * FROM Shipments
+            {whereClause}
+            ORDER BY ShippingDate DESC";
 
             return await _dapper.QueryAsync<Shipment>(sql, parameters);
         }

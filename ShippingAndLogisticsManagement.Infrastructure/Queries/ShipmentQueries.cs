@@ -60,14 +60,13 @@
                 s.TotalCost,
                 s.State,
                 c.Name AS CustomerName,
+                r.Id AS RouteId,
                 r.Origin,
                 r.Destination
             FROM Shipments s
             INNER JOIN Customers c ON s.CustomerId = c.Id
             INNER JOIN Routes r ON s.RouteId = r.Id
-            ORDER BY s.ShippingDate DESC
-            OFFSET @Offset ROWS
-            FETCH NEXT @Limit ROWS ONLY;
+            ORDER BY s.ShippingDate DESC;
         ";
 
         /// <summary>

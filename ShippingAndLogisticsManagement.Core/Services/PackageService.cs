@@ -176,10 +176,7 @@ namespace ShippingAndLogisticsManagement.Core.Services
         {
             if (package == null) throw new ArgumentNullException(nameof(package));
 
-            var existing = await _unitOfWork.PackageRepository.GetById(package.Id);
-            if (existing == null) throw new KeyNotFoundException("El paquete no existe");
-
-            var shipment = await _unitOfWork.ShipmentRepository.GetById(existing.ShipmentId);
+            var shipment = await _unitOfWork.ShipmentRepository.GetById(package.ShipmentId);
             if (shipment != null && shipment.State == "Delivered")
                 throw new BusinessException("No se puede modificar un paquete de un envío entregado");
 

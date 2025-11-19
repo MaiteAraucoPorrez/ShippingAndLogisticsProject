@@ -423,10 +423,14 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
                     });
                 }
 
-                var customer = _mapper.Map<Customer>(customerDto);
-                await _customerService.UpdateAsync(customer);
+                existing.Name = customerDto.Name;
+                existing.Email = customerDto.Email;
+                existing.Phone = customerDto.Phone;
 
-                var updatedDto = _mapper.Map<CustomerDto>(customer);
+           
+                await _customerService.UpdateAsync(existing);
+
+                var updatedDto = _mapper.Map<CustomerDto>(existing);
                 var response = new ApiResponse<CustomerDto>(updatedDto)
                 {
                     Messages = new Message[] { new() { Type = "Success", Description = "Cliente actualizado exitosamente" } }

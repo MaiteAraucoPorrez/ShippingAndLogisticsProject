@@ -38,6 +38,18 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (shipmentQueryFilter == null)
                 throw new ArgumentNullException(nameof(shipmentQueryFilter), "El filtro de búsqueda no puede ser nulo");
 
+            // Valores por defecto para paginación
+            if (shipmentQueryFilter.PageNumber <= 0) shipmentQueryFilter.PageNumber = 1;
+            if (shipmentQueryFilter.PageSize <= 0) shipmentQueryFilter.PageSize = 10;
+
+            // Validar State si tiene valor
+            if (!string.IsNullOrWhiteSpace(shipmentQueryFilter.State))
+            {
+                var validStates = new[] { "Pending", "In transit", "Delivered" };
+                if (!validStates.Contains(shipmentQueryFilter.State))
+                    throw new ArgumentException("State debe ser: Pending, In transit o Delivered", nameof(shipmentQueryFilter.State));
+            }
+
             // Validar CustomerId si es proporcionado
             if (shipmentQueryFilter.CustomerId.HasValue && shipmentQueryFilter.CustomerId <= 0)
                 throw new ArgumentException("CustomerId debe ser mayor a 0", nameof(shipmentQueryFilter.CustomerId));
@@ -49,10 +61,6 @@ namespace ShippingAndLogisticsManagement.Core.Services
             // Validar TotalCost
             if (shipmentQueryFilter.TotalCost < 0)
                 throw new ArgumentException("TotalCost no puede ser negativo", nameof(shipmentQueryFilter.TotalCost));
-
-            // Validar State (es required)
-            if (string.IsNullOrWhiteSpace(shipmentQueryFilter.State))
-                throw new ArgumentException("State no puede estar vacío", nameof(shipmentQueryFilter.State));
 
             // Validar TrackingNumber si es proporcionado
             if (!string.IsNullOrWhiteSpace(shipmentQueryFilter.TrackingNumber) &&
@@ -82,7 +90,7 @@ namespace ShippingAndLogisticsManagement.Core.Services
 
             if (!string.IsNullOrWhiteSpace(shipmentQueryFilter.State))
             {
-                shipments = shipments.Where(p => p.State == shipmentQueryFilter.State);
+                shipments = shipments.Where(p => p.State.Equals(shipmentQueryFilter.State, StringComparison.OrdinalIgnoreCase));
             }
 
             if (shipmentQueryFilter.RouteId.HasValue)
@@ -209,14 +217,15 @@ namespace ShippingAndLogisticsManagement.Core.Services
 
         public async Task UpdateAsync(Shipment shipment)
         {
-            var existing = await _unitOfWork.ShipmentRepository.GetById(shipment.Id);
+            if (shipment == null) throw new ArgumentNullException(nameof(shipment));
 
-            if (existing == null)
-                throw new KeyNotFoundException("El envio no existe");
-
-            // No se permite marcar "Entregado" sin estados previos
-            if (shipment.State == "Delivered" && existing.State != "In transit")
-                throw new InvalidOperationException("El envio no puede pasar a 'Delivered' sin haber estado 'In transit'");
+            if (shipment.State == "Delivered")
+            {
+                // Verificar que haya pasado por "In transit"
+                var history = await _unitOfWork.ShipmentRepository.GetById(shipment.Id);
+                if (history != null && history.State != "In transit")
+                    throw new InvalidOperationException("El envío no puede pasar a 'Delivered' sin haber estado 'In transit'");
+            }
 
             //await _shipmentRepository.Update(shipment);
             await _unitOfWork.ShipmentRepository.Update(shipment);

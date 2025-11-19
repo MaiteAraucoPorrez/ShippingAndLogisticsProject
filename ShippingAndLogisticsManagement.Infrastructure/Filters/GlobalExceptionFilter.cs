@@ -9,21 +9,44 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Filters
     {
         public void OnException(ExceptionContext context)
         {
-            var exception = (BusinessException)context.Exception;
-            var validation = new
+            if (context.Exception is BusinessException businessException)
             {
-                Status = 400,
-                Title = "BadRequest",
-                Detail = exception.Message
-            };
-            var json = new
-            {
-                Errors = new[] { validation }
-            };
+                var validation = new
+                {
+                    Status = 400,
+                    Title = "BadRequest",
+                    Detail = businessException.Message
+                };
+                var json = new
+                {
+                    Errors = new[] { validation }
+                };
 
-            context.Result = new BadRequestObjectResult(json);
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            context.ExceptionHandled = true;
+                context.Result = new BadRequestObjectResult(json);
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                context.ExceptionHandled = true;
+            }
+            else
+            {
+                // Para otras excepciones, retornar 500
+                var validation = new
+                {
+                    Status = 500,
+                    Title = "InternalServerError",
+                    Detail = context.Exception.Message
+                };
+                var json = new
+                {
+                    Errors = new[] { validation }
+                };
+
+                context.Result = new ObjectResult(json)
+                {
+                    StatusCode = 500
+                };
+                context.HttpContext.Response.StatusCode = 500;
+                context.ExceptionHandled = true;
+            }
         }
     }
 }
