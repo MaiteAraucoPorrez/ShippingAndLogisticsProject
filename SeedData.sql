@@ -60,7 +60,6 @@ INSERT INTO Packages (Description, Weight, ShipmentId, Price) VALUES
 ('Alimentos frescos', 18.3, 14, 300.00),
 ('Articulos de oficina', 4.6, 15, 95.00);
 
-
 SELECT * FROM Customers;
 SELECT * FROM Routes;
 SELECT * FROM Shipments;

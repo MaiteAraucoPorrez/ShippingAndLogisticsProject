@@ -12,8 +12,8 @@ using ShippingAndLogisticsManagement.Infrastructure.Data;
 namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(LogisticContext))]
-    [Migration("20251116065332_AddSecurityTable")]
-    partial class AddSecurityTable
+    [Migration("20251121172326_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -141,6 +141,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("Role")
+                        .IsRequired()
                         .HasMaxLength(15)
                         .IsUnicode(false)
                         .HasColumnType("varchar(15)");

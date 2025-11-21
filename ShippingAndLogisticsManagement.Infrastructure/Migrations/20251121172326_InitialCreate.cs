@@ -44,6 +44,22 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Security",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Login = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "varchar(200)", unicode: false, maxLength: 200, nullable: false),
+                    Name = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
+                    Role = table.Column<string>(type: "varchar(15)", unicode: false, maxLength: 15, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Security", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Shipments",
                 columns: table => new
                 {
@@ -107,6 +123,9 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Routes");
+
+            migrationBuilder.DropTable(
+                name: "Security");
 
             migrationBuilder.DropTable(
                 name: "Shipments");

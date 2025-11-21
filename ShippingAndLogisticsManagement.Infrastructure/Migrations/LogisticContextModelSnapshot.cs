@@ -138,6 +138,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("Role")
+                        .IsRequired()
                         .HasMaxLength(15)
                         .IsUnicode(false)
                         .HasColumnType("varchar(15)");

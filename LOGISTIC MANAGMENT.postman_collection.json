@@ -271,136 +271,1574 @@
 			"name": "Con Mapper",
 			"item": [
 				{
-					"name": "GetAllShipmentsMapper",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetShipmentByIdMapper",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper/2",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "InsertShipmentMapper",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"shippingDate\": \"20-12-2025\",\r\n    \"state\": \"Pending\",\r\n    \"customerId\": 1,\r\n    \"routeId\": 9,\r\n    \"totalCost\": 1111.78,\r\n    \"trackingNumber\": \"CP-100707\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Customers",
+					"item": [
+						{
+							"name": "GetAllCustomersMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/customer/dto/mapper?PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"customer",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper/",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "UpdateShipmentMapper",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"id\": 18,\r\n  \"shippingDate\": \"12-12-2025\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 2,\r\n  \"routeId\": 1,\r\n  \"totalCost\": 2345.23,\r\n  \"trackingNumber\": \"CP-10707\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "GetAllCustomersMapperFilter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/customer/dto/mapper?Name=Juan&Email=gmail&PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"customer",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "Name",
+											"value": "Juan"
+										},
+										{
+											"key": "Email",
+											"value": "gmail"
+										},
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper/18",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper",
-								"18"
-							]
+						{
+							"name": "GetCustomersDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/customer/dto/dapper",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"customer",
+										"dto",
+										"dapper"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCustomersById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/customer/dto/dapper",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"customer",
+										"dto",
+										"dapper"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCustomersByIdDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/customer/dapper/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"customer",
+										"dapper",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCustomersHistoryResponse",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/customer/1/shipments",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"customer",
+										"1",
+										"shipments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "InsertCustomerMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Juan Carlos Pérez\",\r\n  \"email\": \"juan.perez@gmail.com\",\r\n  \"phone\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/customer",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"customer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateCustomerMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 11,\r\n  \"name\": \"Juan Carlos Pérez González\",\r\n  \"email\": \"juan.perez.g@gmail.com\",\r\n  \"phone\": \"11223344\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/customer/dto/mapper/11",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"customer",
+										"dto",
+										"mapper",
+										"11"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteCustomerMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/customer/dto/mapper/11",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"customer",
+										"dto",
+										"mapper",
+										"11"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "DeleteShipmentMapper",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper/18",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper",
-								"18"
-							]
+					"name": "Packages",
+					"item": [
+						{
+							"name": "GetAllPackagesMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/package/dto/mapper?PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"package",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllPackagesMapperFilter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/package/dto/mapper?ShipmentId=1&MinWeight=1.0&MaxWeight=10.0&PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"package",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "ShipmentId",
+											"value": "1"
+										},
+										{
+											"key": "MinWeight",
+											"value": "1.0"
+										},
+										{
+											"key": "MaxWeight",
+											"value": "10.0"
+										},
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetPackagesDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/package/dto/dapper",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"package",
+										"dto",
+										"dapper"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetPackagesById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/package/dto/mapper/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"package",
+										"dto",
+										"mapper",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetPackagesByIdDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/package/dapper/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"package",
+										"dapper",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetHeavyPackagesResponse",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/package/dapper/heavy/5.0",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"package",
+										"dapper",
+										"heavy",
+										"5.0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDetailPackagesResponse",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/package/details",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"package",
+										"details"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetSummaryPackagesResponse",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/package/summary/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"package",
+										"summary",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "InsertPackageMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"description\": \"Laptop Dell XPS 15\",\r\n  \"weight\": 2.5,\r\n  \"shipmentId\": 1,\r\n  \"price\": 1500.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/package",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"package"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdatePackageMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 16,\r\n  \"description\": \"Laptop Dell XPS 15 - Edición Especial\",\r\n  \"weight\": 2.8,\r\n  \"shipmentId\": 1,\r\n  \"price\": 1600.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/package/dto/mapper/16",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"package",
+										"dto",
+										"mapper",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeletePackageMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/package/dto/mapper/16",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"package",
+										"dto",
+										"mapper",
+										"16"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Routes",
+					"item": [
+						{
+							"name": "GetAllRoutesMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/route/dto/mapper?PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"route",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllRoutesMapperFilter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/route/dto/mapper?Origin=Cochabamba&Destination=Santa&IsActive=true&PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"route",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "Origin",
+											"value": "Cochabamba"
+										},
+										{
+											"key": "Destination",
+											"value": "Santa"
+										},
+										{
+											"key": "IsActive",
+											"value": "true"
+										},
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRoutesDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/route/dto/dapper",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"route",
+										"dto",
+										"dapper"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRoutesById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/route/dto/mapper/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"route",
+										"dto",
+										"mapper",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRoutesByIdDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/route/dapper/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"route",
+										"dapper",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetActiveRoutesResponse",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/route/active",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"route",
+										"active"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRoutesRankingResponse",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/route/ranking?limit=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"route",
+										"ranking"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PostRouteMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"origin\": \"Oruro\",\r\n  \"destination\": \"Cochabamba\",\r\n  \"distanceKm\": 580,\r\n  \"baseCost\": 70.00,\r\n  \"isActive\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/route",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"route"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PutRouteMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 11,\r\n  \"origin\": \"Oruro\",\r\n  \"destination\": \"Cochabamba\",\r\n  \"distanceKm\": 590,\r\n  \"baseCost\": 65,\r\n  \"isActive\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/route/dto/mapper/11",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"route",
+										"dto",
+										"mapper",
+										"11"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteRouteMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/route/dto/mapper/11",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"route",
+										"dto",
+										"mapper",
+										"11"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Shipments",
+					"item": [
+						{
+							"name": "GetAllShipmentsMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUzNDI2MywiZXhwIjoxNzYzNTY0MjYzLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.yxc-deOmzq9f5P8jhu4GHvVFQxR_EsIWvjq9PmWB-pI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipment/dto/mapper?PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipment",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllShipmentsMapperFilter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUzNDI2MywiZXhwIjoxNzYzNTY0MjYzLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.yxc-deOmzq9f5P8jhu4GHvVFQxR_EsIWvjq9PmWB-pI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipment/dto/mapper?State=Pending&PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipment",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "State",
+											"value": "Pending"
+										},
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetShipmentsDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUzNDI2MywiZXhwIjoxNzYzNTY0MjYzLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.yxc-deOmzq9f5P8jhu4GHvVFQxR_EsIWvjq9PmWB-pI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipment/dto/dapper",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipment",
+										"dto",
+										"dapper"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetShipmentById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUzNDI2MywiZXhwIjoxNzYzNTY0MjYzLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.yxc-deOmzq9f5P8jhu4GHvVFQxR_EsIWvjq9PmWB-pI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipment/dto/mapper/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipment",
+										"dto",
+										"mapper",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetShipmentByIdDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUzNDI2MywiZXhwIjoxNzYzNTY0MjYzLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.yxc-deOmzq9f5P8jhu4GHvVFQxR_EsIWvjq9PmWB-pI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipment/dapper/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipment",
+										"dapper",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetShipmentCustomerRouteResponse",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUzNDI2MywiZXhwIjoxNzYzNTY0MjYzLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.yxc-deOmzq9f5P8jhu4GHvVFQxR_EsIWvjq9PmWB-pI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipment/dapper/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipment",
+										"dapper",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "InsertShipmentMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"shippingDate\": \"2025-12-15T10:30:00\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 1,\r\n  \"routeId\": 1,\r\n  \"totalCost\": 150.50,\r\n  \"trackingNumber\": \"TRACK001\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipment/dto/mapper",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipment",
+										"dto",
+										"mapper"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateShipmentMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 21,\r\n  \"shippingDate\": \"2025-12-19T10:30:00\",\r\n  \"state\": \"In transit\",\r\n  \"customerId\": 1,\r\n  \"routeId\": 1,\r\n  \"totalCost\": 150.50,\r\n  \"trackingNumber\": \"TRACK001\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipment/dto/mapper/21",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipment",
+										"dto",
+										"mapper",
+										"21"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteShipmentMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUyNzQyOSwiZXhwIjoxNzYzNTMyODI5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.7ioEwBm9695xaND4pg-QM1ux8q_ncxYa8IXtNHqZjn0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipment/dto/mapper/21",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipment",
+										"dto",
+										"mapper",
+										"21"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -470,6 +1908,38 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"shippingDate\": \"13-12-2025\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 34,\r\n  \"routeId\": 4,\r\n  \"totalCost\": 2322.5,\r\n  \"trackingNumber\": \"CP-100017\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Shipment/dto/mapper/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Shipment",
+								"dto",
+								"mapper",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostValidationRouteId",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"shippingDate\": \"13-12-2025\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 4,\r\n  \"routeId\": 42,\r\n  \"totalCost\": 2322.5,\r\n  \"trackingNumber\": \"CP-100017\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -599,6 +2069,180 @@
 								"dto",
 								"mapper",
 								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "InsertSecurity",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"login\": \"admin\",\r\n  \"password\": \"admin123\",\r\n  \"name\": \"Administrador Principal\",\r\n  \"role\": \"Administrator\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Security",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Security"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verification",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzI3NzQwNCwiZXhwIjoxNzYzMjc5MjA0LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.mKb0NAzDkCg2Ps8tDgaGS5urxliIAQqLKExSGCXKGso",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44330/api/v1/Customer/dto/mapper?PageNumber=1&PageSize=10",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44330",
+							"path": [
+								"api",
+								"v1",
+								"Customer",
+								"dto",
+								"mapper"
+							],
+							"query": [
+								{
+									"key": "PageNumber",
+									"value": "1"
+								},
+								{
+									"key": "PageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InsertToken",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": [
+								{
+									"key": "algorithm",
+									"value": "HS256",
+									"type": "string"
+								},
+								{
+									"key": "isSecretBase64Encoded",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "payload",
+									"value": "{}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "queryParamKey",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "header",
+									"value": "{}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": \"admin\",\r\n  \"password\": \"admin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7154/api/Token/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Token",
+								"login"
 							]
 						}
 					},
