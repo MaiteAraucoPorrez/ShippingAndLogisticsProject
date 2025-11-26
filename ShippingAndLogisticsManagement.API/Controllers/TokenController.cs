@@ -77,5 +77,16 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
 
         }
+
+        [HttpGet("Test")]
+        public async Task<IActionResult> Test(UserLogin userLogin)
+        {
+            var result = new
+            {
+                ConeccionSqlServer = _configuration["ConnectionStrings:ConnectionSqlServer"],
+            };
+
+            return Ok(result);
+        }
     }       
 }

@@ -52,6 +52,15 @@
         public string Phone { get; set; } = null!;
 
         /// <summary>
+        /// Direcciones del cliente
+        /// </summary>
+        /// <remarks>
+        /// Un cliente puede tener múltiples direcciones de recogida y entrega.
+        /// Útil para clientes con casa, oficina, etc.
+        /// </remarks>
+        public ICollection<Address> Addresses { get; set; } = new List<Address>();
+
+        /// <summary>
         /// Colección de envíos realizados por el cliente
         /// </summary>
         /// <remarks>

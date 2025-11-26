@@ -8,10 +8,13 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
     /// </summary>
     public interface IUnitOfWork: IDisposable
     {
+        IAddressRepository AddressRepository { get; }
         ICustomerRepository CustomerRepository { get; }
         IPackageRepository PackageRepository { get; }
         IRouteRepository RouteRepository { get; }
         IShipmentRepository ShipmentRepository { get; }
+        IShipmentWarehouseRepository ShipmentWarehouseRepository { get; }
+        IWarehouseRepository WarehouseRepository { get; }
         ISecurityRepository SecurityRepository { get; }
 
         void SaveChanges();

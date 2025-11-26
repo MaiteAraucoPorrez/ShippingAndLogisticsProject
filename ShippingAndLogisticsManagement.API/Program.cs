@@ -21,6 +21,12 @@ namespace ShippingAndLogisticsManagement.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //Configure Logging
+            builder.Configuration.Sources.Clear();
+            builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                                 .AddEnvironmentVariables();
+
             //Configure User Secrets for Development Environment
             if (builder.Environment.IsDevelopment())
             {
@@ -44,6 +50,7 @@ namespace ShippingAndLogisticsManagement.API
             builder.Services.AddTransient<IPackageService, PackageService>();
             builder.Services.AddTransient<ICustomerService, CustomerService>();
             builder.Services.AddTransient<IRouteService, RouteService>();
+            builder.Services.AddTransient<IAddressService, AddressService>();
             #endregion
 
             #region Dependency Injection - Repositories & Infrastructure
@@ -85,6 +92,7 @@ namespace ShippingAndLogisticsManagement.API
             builder.Services.AddValidatorsFromAssemblyContaining<PackageDtoValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<CustomerDtoValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<RouteDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<AddressDtoValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<GetByIdRequestValidator>();
 
             builder.Services.AddScoped<IValidatorService, ValidatorService>();
@@ -171,6 +179,9 @@ namespace ShippingAndLogisticsManagement.API
             });
             #endregion
 
+
+            //Environment Variables can override any configuration
+            builder.Configuration.AddEnvironmentVariables();
 
             var app = builder.Build();
 

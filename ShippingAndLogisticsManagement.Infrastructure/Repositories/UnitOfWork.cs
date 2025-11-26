@@ -11,10 +11,13 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly LogisticContext _context;
+        public readonly IAddressRepository? _addressRepository;
         public readonly ICustomerRepository? _customerRepository;
         public readonly IPackageRepository? _packageRepository;
         public readonly IRouteRepository? _routeRepository;
         public readonly IShipmentRepository? _shipmentRepository;
+        public readonly IShipmentWarehouseRepository? _shipwarehouseRepository;
+        public readonly IWarehouseRepository? _warehouseRepository;
         public readonly ISecurityRepository? _securityRepository;
         public readonly IDapperContext _dapper;
 
@@ -25,6 +28,9 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
             _dapper = dapper;
 
         }
+
+        public IAddressRepository AddressRepository =>
+           _addressRepository ?? new AddressRepository(_context, _dapper);
         public IShipmentRepository ShipmentRepository =>
             _shipmentRepository ?? new ShipmentRepository(_context, _dapper);
 
@@ -36,6 +42,12 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
 
         public IRouteRepository RouteRepository =>
             _routeRepository ?? new RouteRepository(_context, _dapper);
+
+        public IShipmentWarehouseRepository ShipmentWarehouseRepository =>
+            _shipwarehouseRepository ?? new ShipmentWarehouseRepository(_context, _dapper);
+
+        public IWarehouseRepository WarehouseRepository =>
+            _warehouseRepository ?? new WarehouseRepository(_context, _dapper);
 
         public ISecurityRepository SecurityRepository =>
             _securityRepository ?? new SecurityRepository(_context, _dapper);

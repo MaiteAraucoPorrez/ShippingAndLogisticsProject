@@ -25,6 +25,11 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Data.Configurations
             builder.Property(r => r.BaseCost)
                 .HasColumnType("float")
                 .IsRequired();
+
+            builder.HasMany<Shipment>()
+               .WithOne()
+               .HasForeignKey(s => s.RouteId)
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

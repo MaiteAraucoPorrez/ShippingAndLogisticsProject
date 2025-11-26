@@ -70,5 +70,13 @@
         /// </remarks>
         /// <example>true</example>
         public bool IsActive { get; set; } = true;
+
+        /// <summary>
+        /// Colección de envios incluidos en la ruta
+        /// </summary>
+        /// <remarks>
+        /// Propiedad de navegación de Entity Framework Core.
+        /// </remarks>
+        public ICollection<Shipment> Shipments { get; set; } = new List<Shipment>();
     }
 }
