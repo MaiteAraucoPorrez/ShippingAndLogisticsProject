@@ -18,6 +18,8 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
         public readonly IShipmentRepository? _shipmentRepository;
         public readonly IShipmentWarehouseRepository? _shipwarehouseRepository;
         public readonly IWarehouseRepository? _warehouseRepository;
+        public readonly IDriverRepository? _driverRepository;
+        public readonly IVehicleRepository? _vehicleRepository;
         public readonly ISecurityRepository? _securityRepository;
         public readonly IDapperContext _dapper;
 
@@ -48,6 +50,12 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
 
         public IWarehouseRepository WarehouseRepository =>
             _warehouseRepository ?? new WarehouseRepository(_context, _dapper);
+
+        public IDriverRepository DriverRepository =>
+            _driverRepository ?? new DriverRepository(_context, _dapper);
+
+        public IVehicleRepository VehicleRepository =>
+            _vehicleRepository ?? new VehicleRepository(_context, _dapper);
 
         public ISecurityRepository SecurityRepository =>
             _securityRepository ?? new SecurityRepository(_context, _dapper);

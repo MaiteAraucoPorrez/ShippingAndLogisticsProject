@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using ShippingAndLogisticsManagement.Core.Entities;
 using ShippingAndLogisticsManagement.Core.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 
@@ -87,6 +88,31 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             };
 
             return Ok(result);
+        }
+
+        [HttpGet("Config")]
+        public async Task<IActionResult> GetConfig()
+        {
+            try
+            {
+                var connectionStringMySql = _configuration["ConnectionStrings:ConnectionMySql"];
+                var connectionStringSqlServer = _configuration["ConnectionStrings:ConnectionSqlServer"];
+
+                var result = new
+                {
+                    connectionStringMySql = connectionStringMySql ?? "My SQL NO CONFIGURADO",
+                    connectionStringSqlServer = connectionStringSqlServer ?? "SQL SERVER NO CONFIGURADO",
+                    AllConnectionStrings = _configuration.GetSection("ConnectionStrings").GetChildren().Select(x => new { Key = x.Key, Value = x.Value }),
+                    Environment = _configuration["ASPNETCORE_ENVIRONMENT"] ?? "ASPNETCORE_ENVIRONMENT NO CONFIGURADO",
+                    Authentication = _configuration.GetSection("Authentication").GetChildren().Select(x => new { Key = x.Key, Value = x.Value })
+                };
+
+                return Ok(result);
+            }
+            catch (Exception err)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, err.Message);
+            }
         }
     }       
 }

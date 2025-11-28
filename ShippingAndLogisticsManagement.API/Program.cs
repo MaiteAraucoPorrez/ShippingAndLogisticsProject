@@ -23,9 +23,10 @@ namespace ShippingAndLogisticsManagement.API
 
             //Configure Logging
             builder.Configuration.Sources.Clear();
-            builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                                 .AddEnvironmentVariables();
+            builder.Configuration
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json",
+                optional: true, reloadOnChange: true);
 
             //Configure User Secrets for Development Environment
             if (builder.Environment.IsDevelopment())
@@ -51,6 +52,9 @@ namespace ShippingAndLogisticsManagement.API
             builder.Services.AddTransient<ICustomerService, CustomerService>();
             builder.Services.AddTransient<IRouteService, RouteService>();
             builder.Services.AddTransient<IAddressService, AddressService>();
+            builder.Services.AddTransient<IWarehouseService, WarehouseService>();
+            builder.Services.AddTransient<IDriverService, DriverService>();
+            builder.Services.AddTransient<IVehicleService,  VehicleService>();
             #endregion
 
             #region Dependency Injection - Repositories & Infrastructure
@@ -93,6 +97,10 @@ namespace ShippingAndLogisticsManagement.API
             builder.Services.AddValidatorsFromAssemblyContaining<CustomerDtoValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<RouteDtoValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<AddressDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<WarehouseDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<ShipmentWarehouseDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<DriverDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<VehicleDtoValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<GetByIdRequestValidator>();
 
             builder.Services.AddScoped<IValidatorService, ValidatorService>();
@@ -192,7 +200,7 @@ namespace ShippingAndLogisticsManagement.API
                 app.UseSwaggerUI(options =>
                 {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend Shipping And Logistics Management API v1");
-                    options.RoutePrefix = string.Empty;
+                    options.RoutePrefix = "swagger";
                     options.DocumentTitle = "Shipping & Logistics API Documentation";
                     options.DefaultModelsExpandDepth(-1); // Hide schemas section
                 });

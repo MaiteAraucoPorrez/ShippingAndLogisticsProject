@@ -15,6 +15,8 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         IShipmentRepository ShipmentRepository { get; }
         IShipmentWarehouseRepository ShipmentWarehouseRepository { get; }
         IWarehouseRepository WarehouseRepository { get; }
+        IVehicleRepository VehicleRepository { get; }
+        IDriverRepository DriverRepository { get; }
         ISecurityRepository SecurityRepository { get; }
 
         void SaveChanges();

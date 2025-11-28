@@ -8,6 +8,8 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Vehicle> builder)
         {
+            builder.ToTable("Vehicles");
+
             builder.HasKey(v => v.Id);
 
             builder.Property(v => v.PlateNumber)
@@ -15,7 +17,8 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Data.Configurations
                 .HasMaxLength(20);
 
             builder.HasIndex(v => v.PlateNumber)
-                .IsUnique();
+                .IsUnique()
+                .HasDatabaseName("IX_Vehicle_PlateNumber_Unique");
 
             builder.Property(v => v.Brand)
                 .IsRequired()
@@ -25,23 +28,99 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Data.Configurations
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(v => v.Year)
+                .IsRequired();
+
+            builder.Property(v => v.Color)
+                .HasMaxLength(30);
+
             builder.Property(v => v.Type)
                 .HasConversion<string>()
-                .HasMaxLength(20);
+                .HasMaxLength(20)
+                .IsRequired();
+
+            builder.Property(v => v.MaxWeightCapacityKg)
+                .HasColumnType("decimal(10,2)")
+                .IsRequired();
+
+            builder.Property(v => v.MaxVolumeCapacityM3)
+                .HasColumnType("decimal(10,2)")
+                .IsRequired();
+
+            builder.Property(v => v.CurrentWeightKg)
+                .HasColumnType("decimal(10,2)")
+                .HasDefaultValue(0);
+
+            builder.Property(v => v.CurrentVolumeM3)
+                .HasColumnType("decimal(10,2)")
+                .HasDefaultValue(0);
 
             builder.Property(v => v.Status)
                 .HasConversion<string>()
+                .HasMaxLength(20)
+                .IsRequired();
+
+            builder.Property(v => v.LastMaintenanceDate)
+                .HasColumnType("date");
+
+            builder.Property(v => v.NextMaintenanceDate)
+                .HasColumnType("date");
+
+            builder.Property(v => v.LastMaintenanceMileage)
+                .HasColumnType("int");
+
+            builder.Property(v => v.FuelType)
+                .HasConversion<string>()
                 .HasMaxLength(20);
 
+            builder.Property(v => v.FuelConsumptionPer100Km)
+                .HasColumnType("decimal(5,2)");
+
+            builder.Property(v => v.VIN)
+                .HasMaxLength(17);
+
+            builder.HasIndex(v => v.VIN)
+                .IsUnique()
+                .HasDatabaseName("IX_Vehicle_VIN_Unique")
+                .HasFilter("[VIN] IS NOT NULL");
+
+            builder.Property(v => v.InsurancePolicyNumber)
+                .HasMaxLength(50);
+
+            builder.Property(v => v.InsuranceExpiryDate)
+                .HasColumnType("date");
+
+            builder.Property(v => v.PurchaseDate)
+                .HasColumnType("date")
+                .IsRequired();
+
+            builder.Property(v => v.CreatedAt)
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("GETUTCDATE()");
+
+            builder.Property(v => v.Notes)
+                .HasMaxLength(500);
+
+            // Relación con Warehouse
             builder.HasOne(v => v.BaseWarehouse)
                 .WithMany()
                 .HasForeignKey(v => v.BaseWarehouseId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            // Relación con Driver
             builder.HasOne(v => v.AssignedDriver)
                 .WithOne(d => d.CurrentVehicle)
                 .HasForeignKey<Vehicle>(v => v.AssignedDriverId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            // Índices para mejorar rendimiento
+            builder.HasIndex(v => v.Type);
+            builder.HasIndex(v => v.Status);
+            builder.HasIndex(v => v.IsActive);
+            builder.HasIndex(v => v.BaseWarehouseId);
+            builder.HasIndex(v => new { v.IsActive, v.Status })
+                .HasDatabaseName("IX_Vehicle_Active_Status");
+            builder.HasIndex(v => v.NextMaintenanceDate);
         }
     }
 }
