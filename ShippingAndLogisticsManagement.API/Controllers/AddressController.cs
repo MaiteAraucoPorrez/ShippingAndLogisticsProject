@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShippingAndLogisticsManagement.Api.Responses;
 using ShippingAndLogisticsManagement.Core.CustomEntities;
 using ShippingAndLogisticsManagement.Core.Entities;
+using ShippingAndLogisticsManagement.Core.Enum;
 using ShippingAndLogisticsManagement.Core.Interfaces;
 using ShippingAndLogisticsManagement.Core.QueryFilters;
 using ShippingAndLogisticsManagement.Infrastructure.DTOS;

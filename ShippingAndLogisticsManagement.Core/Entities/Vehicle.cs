@@ -1,4 +1,6 @@
-﻿namespace ShippingAndLogisticsManagement.Core.Entities
+﻿using ShippingAndLogisticsManagement.Core.Enum;
+
+namespace ShippingAndLogisticsManagement.Core.Entities
 {
     /// <summary>
     /// Representa un vehículo de transporte en la flota logística
@@ -218,88 +220,5 @@
         /// Navegación al conductor asignado
         /// </summary>
         public Driver? AssignedDriver { get; set; }
-    }
-
-    /// <summary>
-    /// Tipo de vehículo según su categoría y uso
-    /// </summary>
-    public enum VehicleType
-    {
-        /// <summary>
-        /// Motocicleta - Para entregas rápidas urbanas
-        /// </summary>
-        Motorcycle = 1,
-
-        /// <summary>
-        /// Camioneta - Para entregas medianas
-        /// </summary>
-        Van = 2,
-
-        /// <summary>
-        /// Pickup - Para cargas medianas/pesadas
-        /// </summary>
-        Pickup = 3,
-
-        /// <summary>
-        /// Camión - Para grandes volúmenes
-        /// </summary>
-        Truck = 4
-    }
-
-    /// <summary>
-    /// Estado operativo del vehículo
-    /// </summary>
-    public enum VehicleStatus
-    {
-        /// <summary>
-        /// Disponible para asignación
-        /// </summary>
-        Available = 1,
-
-        /// <summary>
-        /// En ruta transportando envíos
-        /// </summary>
-        InTransit = 2,
-
-        /// <summary>
-        /// En mantenimiento programado o reparación
-        /// </summary>
-        Maintenance = 3,
-
-        /// <summary>
-        /// Fuera de servicio temporalmente
-        /// </summary>
-        OutOfService = 4
-    }
-
-    /// <summary>
-    /// Tipo de combustible del vehículo
-    /// </summary>
-    public enum FuelType
-    {
-        /// <summary>
-        /// Gasolina
-        /// </summary>
-        Gasoline = 1,
-
-        /// <summary>
-        /// Diesel
-        /// </summary>
-        Diesel = 2,
-
-        /// <summary>
-        /// Gas Natural Vehicular
-        /// </summary>
-        GNV = 3,
-
-        /// <summary>
-        /// Eléctrico
-        /// </summary>
-        Electric = 4,
-
-        /// <summary>
-        /// Híbrido
-        /// </summary>
-        Hybrid = 5
     }
 }

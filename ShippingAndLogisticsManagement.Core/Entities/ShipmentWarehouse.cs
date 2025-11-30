@@ -1,4 +1,6 @@
-﻿namespace ShippingAndLogisticsManagement.Core.Entities
+﻿using ShippingAndLogisticsManagement.Core.Enum;
+
+namespace ShippingAndLogisticsManagement.Core.Entities
 {
     /// <summary>
     /// Representa el paso de un envío por un almacén (tracking)
@@ -87,31 +89,5 @@
         /// Navegación al almacén
         /// </summary>
         public Warehouse Warehouse { get; set; } = null!;
-    }
-
-    /// <summary>
-    /// Estado de un envío dentro de un almacén
-    /// </summary>
-    public enum WarehouseShipmentStatus
-    {
-        /// <summary>
-        /// Recién recibido en el almacén
-        /// </summary>
-        Received = 1,
-
-        /// <summary>
-        /// En almacenamiento temporal
-        /// </summary>
-        InStorage = 2,
-
-        /// <summary>
-        /// En proceso de clasificación/preparación
-        /// </summary>
-        Processing = 3,
-
-        /// <summary>
-        /// Despachado del almacén
-        /// </summary>
-        Dispatched = 4
     }
 }

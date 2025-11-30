@@ -1,4 +1,5 @@
 ﻿using ShippingAndLogisticsManagement.Core.Entities;
+using ShippingAndLogisticsManagement.Core.Enum;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 

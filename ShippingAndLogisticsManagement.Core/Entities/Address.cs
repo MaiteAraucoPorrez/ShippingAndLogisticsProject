@@ -1,4 +1,6 @@
-﻿namespace ShippingAndLogisticsManagement.Core.Entities
+﻿using ShippingAndLogisticsManagement.Core.Enum;
+
+namespace ShippingAndLogisticsManagement.Core.Entities
 {
     /// <summary>
     /// Representa una dirección de recogida o entrega en el sistema
@@ -162,21 +164,5 @@
         /// Propiedad de navegación de Entity Framework Core.
         /// </remarks>
         public Customer Customer { get; set; } = null!;
-    }
-
-    /// <summary>
-    /// Tipo de dirección en el sistema
-    /// </summary>
-    public enum AddressType
-    {
-        /// <summary>
-        /// Dirección de recogida de paquetes
-        /// </summary>
-        Pickup = 1,
-
-        /// <summary>
-        /// Dirección de entrega de paquetes
-        /// </summary>
-        Delivery = 2
     }
 }

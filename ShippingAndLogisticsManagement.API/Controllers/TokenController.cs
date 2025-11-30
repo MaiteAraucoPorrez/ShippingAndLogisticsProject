@@ -16,10 +16,12 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly ISecurityService _securityService;
-        public TokenController(IConfiguration configuration, ISecurityService securityService)
+        private readonly IPasswordService _passwordService;
+        public TokenController(IConfiguration configuration, ISecurityService securityService, IPasswordService passwordService)
         {
             _securityService = securityService;
             _configuration = configuration;
+            _passwordService = passwordService;
         }
 
         [AllowAnonymous]
@@ -41,7 +43,8 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         private async Task<(bool, Security)> IsValidUser(UserLogin userLogin)
         {
             var user = await _securityService.GetLoginByCredentials(userLogin);
-            return (user != null, user);
+            var isValidHash = _passwordService.VerifyPassword(userLogin.Password, user.Password);
+            return (isValidHash, user);
         }
 
         private string GenerateToken(Security security)
@@ -88,6 +91,24 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             };
 
             return Ok(result);
+        }
+
+        [HttpGet("TestConeccion")]
+        public async Task<IActionResult> TestConeccion()
+        {
+            try
+            {
+                var result = new
+                {
+                    ConnectionSqlServer = _configuration["ConnectionStrings:ConnectionSqlServer"]
+                };
+
+                return Ok(result);
+            }
+            catch (Exception err)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, err.Message);
+            }
         }
 
         [HttpGet("Config")]

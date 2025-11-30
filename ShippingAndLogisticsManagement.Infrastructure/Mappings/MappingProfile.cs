@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ShippingAndLogisticsManagement.Core.Entities;
+using ShippingAndLogisticsManagement.Core.Enum;
 using ShippingAndLogisticsManagement.Infrastructure.DTOS;
 
 namespace ShippingAndLogisticsManagement.Infrastructure.Mappings

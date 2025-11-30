@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using ShippingAndLogisticsManagement.Core.CustomEntities;
 using ShippingAndLogisticsManagement.Core.Interfaces;
 using ShippingAndLogisticsManagement.Core.Services;
 using ShippingAndLogisticsManagement.Infrastructure.Data;
@@ -26,14 +28,15 @@ namespace ShippingAndLogisticsManagement.API
             builder.Configuration
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json",
-                optional: true, reloadOnChange: true);
+                optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
 
             //Configure User Secrets for Development Environment
             if (builder.Environment.IsDevelopment())
             {
                 builder.Configuration.AddUserSecrets<Program>();
+                Console.WriteLine("User Secrets habilitados para desarrollo");
             }
-            //In Production the secrets will come from Global Environments
 
 
             #region BD SqlServer Configuration
@@ -55,6 +58,7 @@ namespace ShippingAndLogisticsManagement.API
             builder.Services.AddTransient<IWarehouseService, WarehouseService>();
             builder.Services.AddTransient<IDriverService, DriverService>();
             builder.Services.AddTransient<IVehicleService,  VehicleService>();
+            builder.Services.AddSingleton<IPasswordService, PasswordService>();
             #endregion
 
             #region Dependency Injection - Repositories & Infrastructure
@@ -105,6 +109,9 @@ namespace ShippingAndLogisticsManagement.API
 
             builder.Services.AddScoped<IValidatorService, ValidatorService>();
             builder.Services.AddScoped<ISecurityService, SecurityService>();
+            //Password Options from Configuration
+            builder.Services.Configure<Core.CustomEntities.PasswordOptions>
+                (builder.Configuration.GetSection("PasswordOptions"));
             #endregion
 
 
@@ -194,17 +201,14 @@ namespace ShippingAndLogisticsManagement.API
             var app = builder.Build();
 
             #region Swagger UI
-            if (app.Environment.IsDevelopment())
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
             {
-                app.UseSwagger();
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend Shipping And Logistics Management API v1");
-                    options.RoutePrefix = "swagger";
-                    options.DocumentTitle = "Shipping & Logistics API Documentation";
-                    options.DefaultModelsExpandDepth(-1); // Hide schemas section
-                });
-            }
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend Shipping And Logistics Management API v1");
+                options.RoutePrefix = string.Empty;
+                options.DocumentTitle = "Shipping & Logistics API Documentation";
+                options.DefaultModelsExpandDepth(-1); // Hide schemas section
+            });
             #endregion
 
 
