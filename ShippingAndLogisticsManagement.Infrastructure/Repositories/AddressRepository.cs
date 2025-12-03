@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using Microsoft.EntityFrameworkCore;
 using ShippingAndLogisticsManagement.Core.Entities;
 using ShippingAndLogisticsManagement.Core.Enum;
 using ShippingAndLogisticsManagement.Core.Interfaces;
@@ -174,7 +173,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
                 var sql = _dapper.Provider switch
                 {
                     DatabaseProvider.SqlServer => AddressQueries.GetRecentAddressesSqlServer,
-                    DatabaseProvider.MySql => AddressQueries.GetRecentAddressesMySQL,
                     _ => throw new NotSupportedException("Provider no soportado")
                 };
 

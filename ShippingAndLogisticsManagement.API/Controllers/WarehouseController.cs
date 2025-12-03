@@ -411,8 +411,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         ///   "phone": "2-2234567",
         ///   "email": "almacen.lapaz@empresa.com",
         ///   "maxCapacityM3": 1000,
-        ///   "type": "Central",
-        ///   "openingDate": "2024-01-15"
+        ///   "type": "Central"
         /// }
         /// </remarks>
         /// <param name="warehouseDto">Datos del almacén a crear</param>
@@ -579,128 +578,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
                 }
                 await _warehouseService.DeleteAsync(id);
                 return NoContent();
-            }
-            catch (InvalidOperationException err)
-            {
-                return BadRequest(new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
-                });
-            }
-            catch (KeyNotFoundException err)
-            {
-                return NotFound(new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Warning", Description = err.Message } }
-                });
-            }
-            catch (Exception err)
-            {
-                return StatusCode(500, new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
-                });
-            }
-        }
-
-        /// <summary>
-        /// Desactiva un almacén sin eliminarlo
-        /// </summary>
-        /// <remarks>
-        /// Marca el almacén como inactivo. No permite desactivar almacenes con envíos activos.
-        /// 
-        /// Ejemplo de uso:
-        /// PATCH /api/v1/warehouse/5/deactivate
-        /// </remarks>
-        /// <param name="id">Identificador del almacén</param>
-        /// <returns>Confirmación de desactivación</returns>
-        /// <response code="200">Almacén desactivado exitosamente</response>
-        /// <response code="400">Si el almacén tiene envíos activos o ya está inactivo</response>
-        /// <response code="404">Si el almacén no existe</response>
-        /// <response code="500">Error interno del servidor</response>
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<string>))]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
-        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpPatch("{id}/deactivate")]
-        public async Task<IActionResult> DeactivateWarehouse(int id)
-        {
-            try
-            {
-                await _warehouseService.DeactivateAsync(id);
-
-                var response = new ApiResponse<string>("Almacén desactivado")
-                {
-                    Messages = new Message[] { new() { Type = "Success", Description = "Almacén desactivado exitosamente" } }
-                };
-
-                return Ok(response);
-            }
-            catch (InvalidOperationException err)
-            {
-                return BadRequest(new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
-                });
-            }
-            catch (KeyNotFoundException err)
-            {
-                return NotFound(new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Warning", Description = err.Message } }
-                });
-            }
-            catch (Exception err)
-            {
-                return StatusCode(500, new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
-                });
-            }
-        }
-
-        /// <summary>
-        /// Actualiza la capacidad actual de un almacén
-        /// </summary>
-        /// <remarks>
-        /// Incrementa o reduce la capacidad actual utilizada del almacén.
-        /// Use valores positivos para aumentar y negativos para reducir.
-        /// 
-        /// Ejemplo de uso:
-        /// PATCH /api/v1/warehouse/5/capacity?capacityChange=50.5
-        /// </remarks>
-        /// <param name="id">ID del almacén</param>
-        /// <param name="capacityChange">Cambio en la capacidad (puede ser positivo o negativo)</param>
-        /// <returns>Confirmación de actualización</returns>
-        /// <response code="200">Capacidad actualizada exitosamente</response>
-        /// <response code="400">Si la nueva capacidad sería inválida</response>
-        /// <response code="404">Si el almacén no existe</response>
-        /// <response code="500">Error interno del servidor</response>
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<string>))]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
-        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpPatch("{id}/capacity")]
-        public async Task<IActionResult> UpdateWarehouseCapacity(int id, [FromQuery] double capacityChange)
-        {
-            try
-            {
-                if (id <= 0)
-                {
-                    return BadRequest(new ResponseData
-                    {
-                        Messages = new Message[] { new() { Type = "Error", Description = "El ID debe ser mayor a 0" } }
-                    });
-                }
-
-                await _warehouseService.UpdateCapacityAsync(id, capacityChange);
-
-                var response = new ApiResponse<string>("Capacidad actualizada")
-                {
-                    Messages = new Message[] { new() { Type = "Success", Description = $"Capacidad actualizada exitosamente ({capacityChange:+0.00;-0.00} m³)" } }
-                };
-
-                return Ok(response);
             }
             catch (InvalidOperationException err)
             {

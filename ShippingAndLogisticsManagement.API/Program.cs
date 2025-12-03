@@ -1,11 +1,9 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using ShippingAndLogisticsManagement.Core.CustomEntities;
 using ShippingAndLogisticsManagement.Core.Interfaces;
 using ShippingAndLogisticsManagement.Core.Services;
 using ShippingAndLogisticsManagement.Infrastructure.Data;
@@ -28,8 +26,7 @@ namespace ShippingAndLogisticsManagement.API
             builder.Configuration
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json",
-                optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables();
+                optional: true, reloadOnChange: true);
 
             //Configure User Secrets for Development Environment
             if (builder.Environment.IsDevelopment())
@@ -81,6 +78,7 @@ namespace ShippingAndLogisticsManagement.API
             .AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
             })
             // Avoid the automatic 400 response
             .ConfigureApiBehaviorOptions(options =>

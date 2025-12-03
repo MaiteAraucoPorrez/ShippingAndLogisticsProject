@@ -12,7 +12,6 @@ namespace ShippingAndLogisticsManagement.Core.Entities
     /// 
     /// Reglas de negocio:
     /// - Número de licencia único
-    /// - Licencia debe estar vigente (no vencida)
     /// - Solo conductores activos pueden ser asignados
     /// - Un conductor puede manejar solo un vehículo a la vez
     /// </remarks>
@@ -31,52 +30,16 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         public string FullName { get; set; } = null!;
 
         /// <summary>
-        /// Documento de identidad (CI)
-        /// </summary>
-        /// <example>1234567 LP</example>
-        public string IdentityDocument { get; set; } = null!;
-
-        /// <summary>
         /// Número de licencia de conducir (único)
         /// </summary>
         /// <example>LIC-2024-001234</example>
         public string LicenseNumber { get; set; } = null!;
 
         /// <summary>
-        /// Categoría de licencia
-        /// </summary>
-        /// <remarks>
-        /// Categorías comunes en Bolivia:
-        /// - Categoría A: Motocicletas
-        /// - Categoría B: Vehículos ligeros
-        /// - Categoría C: Vehículos pesados
-        /// </remarks>
-        /// <example>Categoría C</example>
-        public string LicenseCategory { get; set; } = null!;
-
-        /// <summary>
-        /// Fecha de emisión de la licencia
-        /// </summary>
-        /// <example>2020-01-15</example>
-        public DateTime LicenseIssueDate { get; set; }
-
-        /// <summary>
-        /// Fecha de vencimiento de la licencia
-        /// </summary>
-        /// <example>2025-01-15</example>
-        public DateTime LicenseExpiryDate { get; set; }
-
-        /// <summary>
         /// Teléfono de contacto principal
         /// </summary>
         /// <example>71234567</example>
         public string Phone { get; set; } = null!;
-
-        /// <summary>
-        /// Teléfono alternativo (opcional)
-        /// </summary>
-        /// <example>2-2234567</example>
-        public string? AlternativePhone { get; set; }
 
         /// <summary>
         /// Email del conductor
@@ -103,24 +66,6 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         public DateTime DateOfBirth { get; set; }
 
         /// <summary>
-        /// Fecha de contratación
-        /// </summary>
-        /// <example>2020-03-01</example>
-        public DateTime HireDate { get; set; }
-
-        /// <summary>
-        /// Fecha de fin de contrato (opcional)
-        /// </summary>
-        /// <example>2025-03-01</example>
-        public DateTime? ContractEndDate { get; set; }
-
-        /// <summary>
-        /// Años de experiencia conduciendo
-        /// </summary>
-        /// <example>10</example>
-        public int YearsOfExperience { get; set; }
-
-        /// <summary>
         /// Indica si el conductor está activo
         /// </summary>
         /// <example>true</example>
@@ -142,45 +87,10 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         public int? CurrentVehicleId { get; set; }
 
         /// <summary>
-        /// Calificación promedio del conductor (1-5)
-        /// </summary>
-        /// <example>4.5</example>
-        public double? AverageRating { get; set; }
-
-        /// <summary>
         /// Total de entregas completadas
         /// </summary>
         /// <example>250</example>
         public int TotalDeliveries { get; set; }
-
-        /// <summary>
-        /// Nombre del contacto de emergencia
-        /// </summary>
-        /// <example>María González</example>
-        public string? EmergencyContactName { get; set; }
-
-        /// <summary>
-        /// Teléfono del contacto de emergencia
-        /// </summary>
-        /// <example>77654321</example>
-        public string? EmergencyContactPhone { get; set; }
-
-        /// <summary>
-        /// Tipo de sangre (para emergencias médicas)
-        /// </summary>
-        /// <example>O+</example>
-        public string? BloodType { get; set; }
-
-        /// <summary>
-        /// Fecha de registro en el sistema
-        /// </summary>
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-        /// <summary>
-        /// Notas adicionales sobre el conductor
-        /// </summary>
-        /// <example>Especializado en rutas de montaña</example>
-        public string? Notes { get; set; }
 
         /// <summary>
         /// Navegación al vehículo actual

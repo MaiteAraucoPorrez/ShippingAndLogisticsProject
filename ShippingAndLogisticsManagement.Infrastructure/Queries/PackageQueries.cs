@@ -25,23 +25,6 @@
         ";
 
         /// <summary>
-        /// Consulta para MySQL:
-        /// Devuelve los paquetes ordenados por ID descendente,
-        /// limitando la cantidad de resultados con LIMIT.
-        /// </summary>
-        public static string PackageQueryMySQL = @"
-            SELECT 
-                p.Id,
-                p.Description,
-                p.Weight,
-                p.Price,
-                p.ShipmentId
-            FROM Packages p
-            ORDER BY p.Id DESC
-            LIMIT @Limit;
-        ";
-
-        /// <summary>
         /// Consulta general para obtener todos los paquetes (Dapper).
         /// Utiliza paginación para limitar la cantidad de registros.
         /// </summary>

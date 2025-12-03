@@ -20,7 +20,5 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         Task InsertAsync(Warehouse warehouse);
         Task UpdateAsync(Warehouse warehouse);
         Task DeleteAsync(int id);
-        Task DeactivateAsync(int id);
-        Task UpdateCapacityAsync(int warehouseId, double capacityChange);
     }
 }

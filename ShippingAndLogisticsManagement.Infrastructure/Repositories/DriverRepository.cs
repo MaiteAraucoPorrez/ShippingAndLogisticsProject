@@ -36,12 +36,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
                 parameters.Add("LicenseNumber", $"%{filters.LicenseNumber}%");
             }
 
-            if (!string.IsNullOrWhiteSpace(filters.LicenseCategory))
-            {
-                conditions.Add("LicenseCategory LIKE @LicenseCategory");
-                parameters.Add("LicenseCategory", $"%{filters.LicenseCategory}%");
-            }
-
             if (filters.Status.HasValue)
             {
                 conditions.Add("Status = @Status");
@@ -58,24 +52,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
             {
                 conditions.Add("CurrentVehicleId = @CurrentVehicleId");
                 parameters.Add("CurrentVehicleId", filters.CurrentVehicleId.Value);
-            }
-
-            if (filters.LicenseExpiringInDays.HasValue)
-            {
-                conditions.Add("DATEDIFF(DAY, GETDATE(), LicenseExpiryDate) BETWEEN 0 AND @Days");
-                parameters.Add("Days", filters.LicenseExpiringInDays.Value);
-            }
-
-            if (filters.MinYearsOfExperience.HasValue)
-            {
-                conditions.Add("YearsOfExperience >= @MinYears");
-                parameters.Add("MinYears", filters.MinYearsOfExperience.Value);
-            }
-
-            if (filters.MinAverageRating.HasValue)
-            {
-                conditions.Add("AverageRating >= @MinRating");
-                parameters.Add("MinRating", filters.MinAverageRating.Value);
             }
 
             if (!string.IsNullOrWhiteSpace(filters.Email))
@@ -118,14 +94,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
             );
         }
 
-        public async Task<Driver> GetByIdentityDocumentAsync(string identityDocument)
-        {
-            return await _dapper.QueryFirstOrDefaultAsync<Driver>(
-                DriverQueries.GetByIdentityDocument,
-                new { IdentityDocument = identityDocument }
-            );
-        }
-
         public async Task<IEnumerable<Driver>> GetActiveDriversAsync()
         {
             return await _dapper.QueryAsync<Driver>(DriverQueries.GetActiveDrivers);
@@ -144,38 +112,12 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
             );
         }
 
-        public async Task<IEnumerable<Driver>> GetDriversWithExpiringLicensesAsync(int daysThreshold = 30)
-        {
-            return await _dapper.QueryAsync<Driver>(
-                DriverQueries.GetDriversWithExpiringLicenses,
-                new { DaysThreshold = daysThreshold }
-            );
-        }
-
         public async Task<DriverStatisticsResponse> GetDriverStatisticsAsync(int driverId)
         {
             return await _dapper.QueryFirstOrDefaultAsync<DriverStatisticsResponse>(
                 DriverQueries.GetDriverStatistics,
                 new { DriverId = driverId }
             );
-        }
-
-        public async Task<bool> LicenseNumberExistsAsync(string licenseNumber, int? excludeDriverId = null)
-        {
-            var count = await _dapper.ExecuteScalarAsync<int>(
-                DriverQueries.LicenseNumberExists,
-                new { LicenseNumber = licenseNumber, ExcludeDriverId = excludeDriverId }
-            );
-            return count > 0;
-        }
-
-        public async Task<bool> IdentityDocumentExistsAsync(string identityDocument, int? excludeDriverId = null)
-        {
-            var count = await _dapper.ExecuteScalarAsync<int>(
-                DriverQueries.IdentityDocumentExists,
-                new { IdentityDocument = identityDocument, ExcludeDriverId = excludeDriverId }
-            );
-            return count > 0;
         }
 
         public async Task<IEnumerable<Driver>> GetRecentDriversAsync(int limit = 10)
@@ -185,7 +127,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
                 var sql = _dapper.Provider switch
                 {
                     DatabaseProvider.SqlServer => DriverQueries.GetRecentDriversSqlServer,
-                    DatabaseProvider.MySql => DriverQueries.GetRecentDriversMySQL,
                     _ => throw new NotSupportedException("Provider no soportado")
                 };
 

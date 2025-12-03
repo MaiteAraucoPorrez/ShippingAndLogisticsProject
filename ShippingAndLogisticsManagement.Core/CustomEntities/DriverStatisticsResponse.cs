@@ -28,25 +28,5 @@
         /// Porcentaje de entregas a tiempo
         /// </summary>
         public double OnTimePercentage { get; set; }
-
-        /// <summary>
-        /// Calificación promedio
-        /// </summary>
-        public double? AverageRating { get; set; }
-
-        /// <summary>
-        /// Años de experiencia
-        /// </summary>
-        public int YearsOfExperience { get; set; }
-
-        /// <summary>
-        /// Días hasta vencimiento de licencia
-        /// </summary>
-        public int DaysUntilLicenseExpiry { get; set; }
-
-        /// <summary>
-        /// ¿Licencia próxima a vencer? (menos de 30 días)
-        /// </summary>
-        public bool LicenseExpiringSoon { get; set; }
     }
 }

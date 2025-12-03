@@ -18,20 +18,6 @@ namespace ShippingAndLogisticsManagement.Core.QueryFilters
         public string? PlateNumber { get; set; }
 
         /// <summary>
-        /// Filtrar por marca
-        /// </summary>
-        [SwaggerSchema("Filtrar por marca", Nullable = true)]
-        [MaxLength(50)]
-        public string? Brand { get; set; }
-
-        /// <summary>
-        /// Filtrar por modelo
-        /// </summary>
-        [SwaggerSchema("Buscar por modelo", Nullable = true)]
-        [MaxLength(100)]
-        public string? Model { get; set; }
-
-        /// <summary>
         /// Filtrar por tipo de vehículo
         /// </summary>
         [SwaggerSchema("Tipo: Motorcycle, Van, Pickup, Truck", Nullable = true)]

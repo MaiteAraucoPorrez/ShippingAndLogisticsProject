@@ -20,20 +20,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Data.Configurations
                 .IsUnique()
                 .HasDatabaseName("IX_Vehicle_PlateNumber_Unique");
 
-            builder.Property(v => v.Brand)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            builder.Property(v => v.Model)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            builder.Property(v => v.Year)
-                .IsRequired();
-
-            builder.Property(v => v.Color)
-                .HasMaxLength(30);
-
             builder.Property(v => v.Type)
                 .HasConversion<string>()
                 .HasMaxLength(20)
@@ -60,22 +46,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Data.Configurations
                 .HasMaxLength(20)
                 .IsRequired();
 
-            builder.Property(v => v.LastMaintenanceDate)
-                .HasColumnType("date");
-
-            builder.Property(v => v.NextMaintenanceDate)
-                .HasColumnType("date");
-
-            builder.Property(v => v.LastMaintenanceMileage)
-                .HasColumnType("int");
-
-            builder.Property(v => v.FuelType)
-                .HasConversion<string>()
-                .HasMaxLength(20);
-
-            builder.Property(v => v.FuelConsumptionPer100Km)
-                .HasColumnType("decimal(5,2)");
-
             builder.Property(v => v.VIN)
                 .HasMaxLength(17);
 
@@ -83,23 +53,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Data.Configurations
                 .IsUnique()
                 .HasDatabaseName("IX_Vehicle_VIN_Unique")
                 .HasFilter("[VIN] IS NOT NULL");
-
-            builder.Property(v => v.InsurancePolicyNumber)
-                .HasMaxLength(50);
-
-            builder.Property(v => v.InsuranceExpiryDate)
-                .HasColumnType("date");
-
-            builder.Property(v => v.PurchaseDate)
-                .HasColumnType("date")
-                .IsRequired();
-
-            builder.Property(v => v.CreatedAt)
-                .HasColumnType("datetime")
-                .HasDefaultValueSql("GETUTCDATE()");
-
-            builder.Property(v => v.Notes)
-                .HasMaxLength(500);
 
             // Relación con Warehouse
             builder.HasOne(v => v.BaseWarehouse)
@@ -120,7 +73,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Data.Configurations
             builder.HasIndex(v => v.BaseWarehouseId);
             builder.HasIndex(v => new { v.IsActive, v.Status })
                 .HasDatabaseName("IX_Vehicle_Active_Status");
-            builder.HasIndex(v => v.NextMaintenanceDate);
         }
     }
 }

@@ -61,11 +61,6 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         Task<bool> CodeExistsAsync(string code, int? excludeWarehouseId = null);
 
         /// <summary>
-        /// Actualiza la capacidad actual de un almacén
-        /// </summary>
-        Task UpdateCurrentCapacityAsync(int warehouseId, double newCapacity);
-
-        /// <summary>
         /// Obtiene los almacenes más recientes
         /// </summary>
         Task<IEnumerable<Warehouse>> GetRecentWarehousesAsync(int limit = 10);

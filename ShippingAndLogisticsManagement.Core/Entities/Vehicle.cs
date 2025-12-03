@@ -40,30 +40,6 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         public string PlateNumber { get; set; } = null!;
 
         /// <summary>
-        /// Marca del vehículo
-        /// </summary>
-        /// <example>Toyota</example>
-        public string Brand { get; set; } = null!;
-
-        /// <summary>
-        /// Modelo del vehículo con año
-        /// </summary>
-        /// <example>Hilux 2020</example>
-        public string Model { get; set; } = null!;
-
-        /// <summary>
-        /// Año de fabricación
-        /// </summary>
-        /// <example>2020</example>
-        public int Year { get; set; }
-
-        /// <summary>
-        /// Color del vehículo
-        /// </summary>
-        /// <example>Blanco</example>
-        public string? Color { get; set; }
-
-        /// <summary>
         /// Tipo de vehículo según su categoría
         /// </summary>
         /// <example>Truck</example>
@@ -114,58 +90,10 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         public VehicleStatus Status { get; set; } = VehicleStatus.Available;
 
         /// <summary>
-        /// Fecha de último mantenimiento
-        /// </summary>
-        /// <example>2024-12-15</example>
-        public DateTime? LastMaintenanceDate { get; set; }
-
-        /// <summary>
-        /// Fecha del próximo mantenimiento programado
-        /// </summary>
-        /// <example>2025-03-15</example>
-        public DateTime? NextMaintenanceDate { get; set; }
-
-        /// <summary>
-        /// Kilometraje actual del vehículo
-        /// </summary>
-        /// <example>85000</example>
-        public int CurrentMileage { get; set; }
-
-        /// <summary>
-        /// Kilometraje del último mantenimiento
-        /// </summary>
-        /// <example>80000</example>
-        public int? LastMaintenanceMileage { get; set; }
-
-        /// <summary>
-        /// Tipo de combustible que usa
-        /// </summary>
-        /// <example>Diesel</example>
-        public FuelType? FuelType { get; set; }
-
-        /// <summary>
-        /// Consumo promedio en litros por 100 km
-        /// </summary>
-        /// <example>12.5</example>
-        public double? FuelConsumptionPer100Km { get; set; }
-
-        /// <summary>
         /// Número de identificación del vehículo (VIN)
         /// </summary>
         /// <example>1HGBH41JXMN109186</example>
         public string? VIN { get; set; }
-
-        /// <summary>
-        /// Número de póliza del seguro
-        /// </summary>
-        /// <example>POL-2024-12345</example>
-        public string? InsurancePolicyNumber { get; set; }
-
-        /// <summary>
-        /// Fecha de vencimiento del seguro
-        /// </summary>
-        /// <example>2025-06-30</example>
-        public DateTime? InsuranceExpiryDate { get; set; }
 
         /// <summary>
         /// Indica si el vehículo está activo en la flota
@@ -180,7 +108,7 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         /// ID del almacén base donde opera el vehículo
         /// </summary>
         /// <remarks>
-        /// Opcional. Indica a qué almacén pertenece el vehículo.
+        /// Indica a qué almacén pertenece el vehículo.
         /// </remarks>
         /// <example>2</example>
         public int? BaseWarehouseId { get; set; }
@@ -193,23 +121,6 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         /// </remarks>
         /// <example>5</example>
         public int? AssignedDriverId { get; set; }
-
-        /// <summary>
-        /// Fecha de adquisición del vehículo
-        /// </summary>
-        /// <example>2020-03-15</example>
-        public DateTime PurchaseDate { get; set; }
-
-        /// <summary>
-        /// Fecha de registro en el sistema
-        /// </summary>
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-        /// <summary>
-        /// Notas adicionales sobre el vehículo
-        /// </summary>
-        /// <example>Tiene GPS instalado, requiere mantenimiento especial</example>
-        public string? Notes { get; set; }
 
         /// <summary>
         /// Navegación al almacén base

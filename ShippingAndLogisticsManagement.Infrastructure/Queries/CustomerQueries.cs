@@ -24,22 +24,6 @@
         ";
 
         /// <summary>
-        /// Consulta para MySQL:
-        /// Devuelve los clientes ordenados por ID descendente,
-        /// limitando la cantidad de resultados con LIMIT.
-        /// </summary>
-        public static string CustomerQueryMySQL = @"
-            SELECT 
-                c.Id,
-                c.Name,
-                c.Email,
-                c.Phone
-            FROM Customers c
-            ORDER BY c.Id DESC
-            LIMIT @Limit;
-        ";
-
-        /// <summary>
         /// Obtiene un cliente por su dirección de correo electrónico.
         /// </summary>
         public static string GetByEmail = @"

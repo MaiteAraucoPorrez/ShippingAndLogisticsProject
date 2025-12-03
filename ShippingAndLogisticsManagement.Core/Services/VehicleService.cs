@@ -78,11 +78,6 @@ namespace ShippingAndLogisticsManagement.Core.Services
             return await _unitOfWork.VehicleRepository.GetAvailableVehiclesAsync();
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehiclesRequiringMaintenanceAsync()
-        {
-            return await _unitOfWork.VehicleRepository.GetVehiclesRequiringMaintenanceAsync();
-        }
-
         public async Task<IEnumerable<Vehicle>> GetByCapacityAsync(double requiredWeight, double requiredVolume)
         {
             if (requiredWeight < 0)
@@ -111,9 +106,7 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (vehicle == null)
                 throw new ArgumentNullException(nameof(vehicle));
 
-            // ========== VALIDACIONES DE NEGOCIO ==========
-
-            // 1. Validar número de placa
+            // Validar número de placa
             if (string.IsNullOrWhiteSpace(vehicle.PlateNumber))
                 throw new BusinessException("El número de placa es requerido");
 
@@ -124,25 +117,8 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (existingPlate != null)
                 throw new BusinessException($"Ya existe un vehículo con la placa {vehicle.PlateNumber}");
 
-            // 2. Validar marca
-            if (string.IsNullOrWhiteSpace(vehicle.Brand) || vehicle.Brand.Length < 2)
-                throw new BusinessException("La marca debe tener al menos 2 caracteres");
-
-            if (vehicle.Brand.Length > 50)
-                throw new BusinessException("La marca no puede exceder 50 caracteres");
-
-            // 3. Validar modelo
-            if (string.IsNullOrWhiteSpace(vehicle.Model) || vehicle.Model.Length < 2)
-                throw new BusinessException("El modelo debe tener al menos 2 caracteres");
-
-            if (vehicle.Model.Length > 100)
-                throw new BusinessException("El modelo no puede exceder 100 caracteres");
-
-            // 4. Validar año
-            if (vehicle.Year < 1900 || vehicle.Year > DateTime.Now.Year + 1)
-                throw new BusinessException($"El año debe estar entre 1900 y {DateTime.Now.Year + 1}");
-
-            // 5. Validar capacidades
+           
+            // Validar capacidades
             if (vehicle.MaxWeightCapacityKg <= 0)
                 throw new BusinessException("La capacidad máxima de peso debe ser mayor a 0");
 
@@ -155,7 +131,7 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (vehicle.MaxVolumeCapacityM3 > 200)
                 throw new BusinessException("La capacidad máxima de volumen no puede exceder 200 m³");
 
-            // 6. Validar cargas actuales
+            // Validar cargas actuales
             if (vehicle.CurrentWeightKg < 0)
                 throw new BusinessException("El peso actual no puede ser negativo");
 
@@ -168,43 +144,12 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (vehicle.CurrentVolumeM3 > vehicle.MaxVolumeCapacityM3)
                 throw new BusinessException("El volumen actual no puede exceder la capacidad máxima");
 
-            // 7. Validar kilometraje
-            if (vehicle.CurrentMileage < 0)
-                throw new BusinessException("El kilometraje no puede ser negativo");
 
-            if (vehicle.LastMaintenanceMileage.HasValue && vehicle.LastMaintenanceMileage < 0)
-                throw new BusinessException("El kilometraje del último mantenimiento no puede ser negativo");
-
-            if (vehicle.LastMaintenanceMileage.HasValue && vehicle.LastMaintenanceMileage > vehicle.CurrentMileage)
-                throw new BusinessException("El kilometraje del último mantenimiento no puede ser mayor al kilometraje actual");
-
-            // 8. Validar fechas de mantenimiento
-            if (vehicle.LastMaintenanceDate.HasValue && vehicle.LastMaintenanceDate > DateTime.Now)
-                throw new BusinessException("La fecha del último mantenimiento no puede ser futura");
-
-            if (vehicle.NextMaintenanceDate.HasValue && vehicle.LastMaintenanceDate.HasValue)
-            {
-                if (vehicle.NextMaintenanceDate <= vehicle.LastMaintenanceDate)
-                    throw new BusinessException("La fecha del próximo mantenimiento debe ser posterior al último mantenimiento");
-            }
-
-            // 9. Validar consumo de combustible
-            if (vehicle.FuelConsumptionPer100Km.HasValue && vehicle.FuelConsumptionPer100Km <= 0)
-                throw new BusinessException("El consumo de combustible debe ser mayor a 0");
-
-            // 10. Validar VIN (opcional)
+            // Validar VIN (opcional)
             if (!string.IsNullOrWhiteSpace(vehicle.VIN) && vehicle.VIN.Length != 17)
                 throw new BusinessException("El VIN debe tener exactamente 17 caracteres");
-
-            // 11. Validar fecha de vencimiento de seguro
-            if (vehicle.InsuranceExpiryDate.HasValue && vehicle.InsuranceExpiryDate <= DateTime.Now)
-                throw new BusinessException("El seguro está vencido");
-
-            // 12. Validar fecha de adquisición
-            if (vehicle.PurchaseDate > DateTime.Now)
-                throw new BusinessException("La fecha de adquisición no puede ser futura");
-
-            // 13. Validar almacén base si existe
+          
+            // Validar almacén base si existe
             if (vehicle.BaseWarehouseId.HasValue)
             {
                 var warehouse = await _unitOfWork.WarehouseRepository.GetById(vehicle.BaseWarehouseId.Value);
@@ -212,7 +157,7 @@ namespace ShippingAndLogisticsManagement.Core.Services
                     throw new BusinessException("El almacén base no existe");
             }
 
-            // 14. Validar conductor asignado si existe
+            // Validar conductor asignado si existe
             if (vehicle.AssignedDriverId.HasValue)
             {
                 var driver = await _unitOfWork.DriverRepository.GetById(vehicle.AssignedDriverId.Value);
@@ -226,7 +171,6 @@ namespace ShippingAndLogisticsManagement.Core.Services
             // Establecer valores por defecto
             vehicle.IsActive = true;
             vehicle.Status = VehicleStatus.Available;
-            vehicle.CreatedAt = DateTime.UtcNow;
             vehicle.CurrentWeightKg = 0;
             vehicle.CurrentVolumeM3 = 0;
 
@@ -280,105 +224,6 @@ namespace ShippingAndLogisticsManagement.Core.Services
                 throw new BusinessException("No se puede eliminar un vehículo en tránsito");
 
             await _unitOfWork.VehicleRepository.Delete(id);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task DeactivateAsync(int id)
-        {
-            var existing = await _unitOfWork.VehicleRepository.GetById(id);
-            if (existing == null)
-                throw new KeyNotFoundException("El vehículo no existe");
-
-            if (!existing.IsActive)
-                throw new BusinessException("El vehículo ya está inactivo");
-
-            if (existing.Status == VehicleStatus.InTransit)
-                throw new BusinessException("No se puede desactivar un vehículo en tránsito");
-
-            existing.IsActive = false;
-            existing.Status = VehicleStatus.OutOfService;
-
-            await _unitOfWork.VehicleRepository.Update(existing);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task UpdateCurrentLoadAsync(int vehicleId, double weight, double volume)
-        {
-            if (vehicleId <= 0)
-                throw new ArgumentException("El ID del vehículo debe ser mayor a 0", nameof(vehicleId));
-
-            if (weight < 0)
-                throw new ArgumentException("El peso no puede ser negativo", nameof(weight));
-
-            if (volume < 0)
-                throw new ArgumentException("El volumen no puede ser negativo", nameof(volume));
-
-            var vehicle = await _unitOfWork.VehicleRepository.GetById(vehicleId);
-            if (vehicle == null)
-                throw new KeyNotFoundException("El vehículo no existe");
-
-            if (weight > vehicle.MaxWeightCapacityKg)
-                throw new BusinessException($"El peso excede la capacidad máxima ({vehicle.MaxWeightCapacityKg} kg)");
-
-            if (volume > vehicle.MaxVolumeCapacityM3)
-                throw new BusinessException($"El volumen excede la capacidad máxima ({vehicle.MaxVolumeCapacityM3} m³)");
-
-            await _unitOfWork.VehicleRepository.UpdateCurrentLoadAsync(vehicleId, weight, volume);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task AssignDriverAsync(int vehicleId, int driverId)
-        {
-            var vehicle = await _unitOfWork.VehicleRepository.GetById(vehicleId);
-            if (vehicle == null)
-                throw new KeyNotFoundException("El vehículo no existe");
-
-            if (!vehicle.IsActive)
-                throw new BusinessException("No se puede asignar conductor a un vehículo inactivo");
-
-            if (vehicle.Status != VehicleStatus.Available)
-                throw new BusinessException("El vehículo no está disponible");
-
-            if (vehicle.AssignedDriverId.HasValue)
-                throw new BusinessException("El vehículo ya tiene un conductor asignado");
-
-            var driver = await _unitOfWork.DriverRepository.GetById(driverId);
-            if (driver == null)
-                throw new KeyNotFoundException("El conductor no existe");
-
-            if (!driver.IsActive)
-                throw new BusinessException("No se puede asignar un conductor inactivo");
-
-            if (driver.CurrentVehicleId.HasValue)
-                throw new BusinessException("El conductor ya está asignado a otro vehículo");
-
-            // Asignar
-            vehicle.AssignedDriverId = driverId;
-            driver.CurrentVehicleId = vehicleId;
-
-            await _unitOfWork.VehicleRepository.Update(vehicle);
-            await _unitOfWork.DriverRepository.Update(driver);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task UnassignDriverAsync(int vehicleId)
-        {
-            var vehicle = await _unitOfWork.VehicleRepository.GetById(vehicleId);
-            if (vehicle == null)
-                throw new KeyNotFoundException("El vehículo no existe");
-
-            if (!vehicle.AssignedDriverId.HasValue)
-                throw new BusinessException("El vehículo no tiene conductor asignado");
-
-            var driver = await _unitOfWork.DriverRepository.GetById(vehicle.AssignedDriverId.Value);
-            if (driver != null)
-            {
-                driver.CurrentVehicleId = null;
-                await _unitOfWork.DriverRepository.Update(driver);
-            }
-
-            vehicle.AssignedDriverId = null;
-            await _unitOfWork.VehicleRepository.Update(vehicle);
             await _unitOfWork.SaveChangesAsync();
         }
     }

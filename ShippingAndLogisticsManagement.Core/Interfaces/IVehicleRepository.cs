@@ -56,11 +56,6 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         Task<IEnumerable<Vehicle>> GetByCapacityAsync(double requiredWeight, double requiredVolume);
 
         /// <summary>
-        /// Obtiene vehículos que requieren mantenimiento
-        /// </summary>
-        Task<IEnumerable<Vehicle>> GetVehiclesRequiringMaintenanceAsync();
-
-        /// <summary>
         /// Obtiene estadísticas de un vehículo
         /// </summary>
         Task<VehicleStatisticsResponse> GetVehicleStatisticsAsync(int vehicleId);
@@ -69,11 +64,6 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         /// Verifica si un número de placa ya existe
         /// </summary>
         Task<bool> PlateNumberExistsAsync(string plateNumber, int? excludeVehicleId = null);
-
-        /// <summary>
-        /// Actualiza la carga actual de un vehículo
-        /// </summary>
-        Task UpdateCurrentLoadAsync(int vehicleId, double weight, double volume);
 
         /// <summary>
         /// Obtiene los vehículos más recientes

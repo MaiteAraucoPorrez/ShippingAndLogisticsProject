@@ -68,15 +68,6 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         public string? Zone { get; set; }
 
         /// <summary>
-        /// Código postal
-        /// </summary>
-        /// <remarks>
-        /// En Bolivia no todos los lugares tienen código postal asignado.
-        /// </remarks>
-        /// <example>0000</example>
-        public string? PostalCode { get; set; }
-
-        /// <summary>
         /// Tipo de dirección: recogida o entrega
         /// </summary>
         /// <example>Delivery</example>
@@ -102,15 +93,6 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         public string? Reference { get; set; }
 
         /// <summary>
-        /// Nombre descriptivo de la dirección (opcional)
-        /// </summary>
-        /// <remarks>
-        /// Permite al cliente identificar fácilmente la dirección.
-        /// </remarks>
-        /// <example>Mi Casa, Oficina, Casa de Mamá</example>
-        public string? Alias { get; set; }
-
-        /// <summary>
         /// Nombre de contacto en esta dirección
         /// </summary>
         /// <remarks>
@@ -129,21 +111,6 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         public string? ContactPhone { get; set; }
 
         /// <summary>
-        /// Latitud GPS (opcional)
-        /// </summary>
-        /// <remarks>
-        /// Útil para integración con mapas y optimización de rutas.
-        /// </remarks>
-        /// <example>-16.5000</example>
-        public double? Latitude { get; set; }
-
-        /// <summary>
-        /// Longitud GPS (opcional)
-        /// </summary>
-        /// <example>-68.1500</example>
-        public double? Longitude { get; set; }
-
-        /// <summary>
         /// Indica si la dirección está activa
         /// </summary>
         /// <remarks>
@@ -151,11 +118,6 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         /// </remarks>
         /// <example>true</example>
         public bool IsActive { get; set; } = true;
-
-        /// <summary>
-        /// Fecha de creación de la dirección
-        /// </summary>
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         /// <summary>
         /// Navegación al cliente propietario

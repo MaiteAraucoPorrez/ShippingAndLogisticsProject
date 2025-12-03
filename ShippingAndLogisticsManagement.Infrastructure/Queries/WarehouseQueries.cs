@@ -5,14 +5,7 @@
         public static string GetRecentWarehousesSqlServer = @"
             SELECT TOP (@Limit) *
             FROM Warehouses
-            ORDER BY CreatedAt DESC, Id DESC;
-        ";
-
-        public static string GetRecentWarehousesMySQL = @"
-            SELECT *
-            FROM Warehouses
-            ORDER BY CreatedAt DESC, Id DESC
-            LIMIT @Limit;
+            ORDER BY Id DESC;
         ";
 
         public static string GetById = @"
@@ -86,15 +79,26 @@
                 w.Code,
                 w.City,
                 COUNT(sw.Id) AS TotalShipments,
+                
+                -- Envíos actuales (los que no tienen fecha de salida)
                 SUM(CASE WHEN sw.ExitDate IS NULL THEN 1 ELSE 0 END) AS CurrentShipments,
+                
+                -- Envíos despachados
                 SUM(CASE WHEN sw.ExitDate IS NOT NULL THEN 1 ELSE 0 END) AS DispatchedShipments,
+                
+                -- Porcentaje de Ocupación (Con protección contra división por cero)
                 CAST((w.CurrentCapacityM3 / NULLIF(w.MaxCapacityM3, 0)) * 100 AS DECIMAL(5,2)) AS OccupancyPercentage,
+                
+                -- Capacidad Disponible
                 (w.MaxCapacityM3 - w.CurrentCapacityM3) AS AvailableCapacity,
+                
+                -- Tiempo promedio de permanencia (en horas)
                 AVG(CASE 
                     WHEN sw.ExitDate IS NOT NULL 
                     THEN DATEDIFF(HOUR, sw.EntryDate, sw.ExitDate) 
                     ELSE NULL 
                 END) AS AverageStayTimeHours
+
             FROM Warehouses w
             LEFT JOIN ShipmentWarehouses sw ON w.Id = sw.WarehouseId
             WHERE w.Id = @WarehouseId
@@ -102,21 +106,21 @@
         ";
 
         public static string GetShipmentHistory = @"
-        SELECT 
-            sw.ShipmentId,
-            s.TrackingNumber,
-            sw.WarehouseId,
-            w.Name AS WarehouseName,
-            w.City,
-            sw.EntryDate,
-            sw.ExitDate,
-            sw.Status,
-            CASE 
-                WHEN sw.ExitDate IS NOT NULL 
-                THEN DATEDIFF(HOUR, sw.EntryDate, sw.ExitDate)
-                ELSE DATEDIFF(HOUR, sw.EntryDate, GETDATE())
-            END AS StayTimeHours,
-            sw.StorageLocation
+            SELECT 
+                sw.ShipmentId,
+                s.TrackingNumber,
+                sw.WarehouseId,
+                w.Name AS WarehouseName,
+                w.City,
+                sw.EntryDate,
+                sw.ExitDate,
+                sw.Status,
+                CASE 
+                    WHEN sw.ExitDate IS NOT NULL 
+                    THEN DATEDIFF(HOUR, sw.EntryDate, sw.ExitDate)
+                    ELSE DATEDIFF(HOUR, sw.EntryDate, GETDATE())
+                END AS StayTimeHours,
+                sw.StorageLocation
             FROM ShipmentWarehouses sw
             INNER JOIN Warehouses w ON sw.WarehouseId = w.Id
             INNER JOIN Shipments s ON sw.ShipmentId = s.Id

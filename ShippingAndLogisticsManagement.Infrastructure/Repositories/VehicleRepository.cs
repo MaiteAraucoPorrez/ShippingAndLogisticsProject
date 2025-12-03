@@ -30,18 +30,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
                 parameters.Add("PlateNumber", $"%{filters.PlateNumber}%");
             }
 
-            if (!string.IsNullOrWhiteSpace(filters.Brand))
-            {
-                conditions.Add("Brand LIKE @Brand");
-                parameters.Add("Brand", $"%{filters.Brand}%");
-            }
-
-            if (!string.IsNullOrWhiteSpace(filters.Model))
-            {
-                conditions.Add("Model LIKE @Model");
-                parameters.Add("Model", $"%{filters.Model}%");
-            }
-
             if (filters.Type.HasValue)
             {
                 conditions.Add("Type = @Type");
@@ -165,11 +153,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
             );
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehiclesRequiringMaintenanceAsync()
-        {
-            return await _dapper.QueryAsync<Vehicle>(VehicleQueries.GetVehiclesRequiringMaintenance);
-        }
-
         public async Task<VehicleStatisticsResponse> GetVehicleStatisticsAsync(int vehicleId)
         {
             return await _dapper.QueryFirstOrDefaultAsync<VehicleStatisticsResponse>(
@@ -187,14 +170,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
             return count > 0;
         }
 
-        public async Task UpdateCurrentLoadAsync(int vehicleId, double weight, double volume)
-        {
-            await _dapper.ExecuteAsync(
-                VehicleQueries.UpdateCurrentLoad,
-                new { VehicleId = vehicleId, Weight = weight, Volume = volume }
-            );
-        }
-
         public async Task<IEnumerable<Vehicle>> GetRecentVehiclesAsync(int limit = 10)
         {
             try
@@ -202,7 +177,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
                 var sql = _dapper.Provider switch
                 {
                     DatabaseProvider.SqlServer => VehicleQueries.GetRecentVehiclesSqlServer,
-                    DatabaseProvider.MySql => VehicleQueries.GetRecentVehiclesMySQL,
                     _ => throw new NotSupportedException("Provider no soportado")
                 };
 

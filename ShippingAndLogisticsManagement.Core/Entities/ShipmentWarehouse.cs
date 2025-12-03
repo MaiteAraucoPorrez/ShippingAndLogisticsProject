@@ -69,12 +69,6 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         public string? DispatchedBy { get; set; }
 
         /// <summary>
-        /// Observaciones sobre este paso por el almacén
-        /// </summary>
-        /// <example>Paquete con etiqueta dañada, se reemplazó</example>
-        public string? Notes { get; set; }
-
-        /// <summary>
         /// Ubicación específica dentro del almacén
         /// </summary>
         /// <example>Estante A-12, Nivel 3</example>

@@ -7,8 +7,6 @@
     {
         public int VehicleId { get; set; }
         public string PlateNumber { get; set; } = null!;
-        public string Brand { get; set; } = null!;
-        public string Model { get; set; } = null!;
 
         /// <summary>
         /// Total de envíos transportados
@@ -44,20 +42,5 @@
         /// Volumen disponible en m³
         /// </summary>
         public double AvailableVolumeM3 { get; set; }
-
-        /// <summary>
-        /// Kilómetros recorridos desde último mantenimiento
-        /// </summary>
-        public int? KmSinceLastMaintenance { get; set; }
-
-        /// <summary>
-        /// Días desde el último mantenimiento
-        /// </summary>
-        public int? DaysSinceLastMaintenance { get; set; }
-
-        /// <summary>
-        /// ¿Requiere mantenimiento próximamente?
-        /// </summary>
-        public bool RequiresMaintenance { get; set; }
     }
 }

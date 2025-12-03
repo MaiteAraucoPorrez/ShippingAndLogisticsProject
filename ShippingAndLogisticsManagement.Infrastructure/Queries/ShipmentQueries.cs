@@ -26,25 +26,6 @@
         ";
 
         /// <summary>
-        /// Consulta para MySQL:
-        /// Obtiene los envíos ordenados por fecha de envío descendente,
-        /// limitando la cantidad de registros retornados con LIMIT.
-        /// </summary>
-        public static string ShipmentQueryMySQL = @"
-            SELECT 
-                s.Id,
-                s.TrackingNumber,
-                s.ShippingDate,
-                s.State,
-                s.TotalCost,
-                s.CustomerId,
-                s.RouteId
-            FROM Shipments s
-            ORDER BY s.ShippingDate DESC
-            LIMIT @Limit;
-        ";
-
-        /// <summary>
         /// Devuelve los envíos más recientes junto con:
         /// - Nombre del cliente
         /// - Origen y destino de la ruta

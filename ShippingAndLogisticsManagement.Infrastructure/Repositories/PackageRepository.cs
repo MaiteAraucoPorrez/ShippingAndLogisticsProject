@@ -129,7 +129,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
                 var sql = _dapper.Provider switch
                 {
                     DatabaseProvider.SqlServer => PackageQueries.PackageQuerySqlServer,
-                    DatabaseProvider.MySql => PackageQueries.PackageQueryMySQL,
                     _ => throw new NotSupportedException("Provider no soportado")
                 };
 

@@ -10,6 +10,15 @@ using System.Text;
 
 namespace ShippingAndLogisticsManagement.Api.Controllers
 {
+    /// <summary>
+    /// Provides API endpoints for user authentication and configuration retrieval, including issuing JWT tokens and
+    /// exposing application connection settings.
+    /// </summary>
+    /// <remarks>This controller enables clients to authenticate users and obtain JWT tokens for secure access
+    /// to protected resources. It also provides endpoints for retrieving configuration details such as connection
+    /// strings and environment information. All authentication operations are performed using injected security and
+    /// password services. Endpoints are designed for use in web applications requiring token-based authentication and
+    /// configuration diagnostics.</remarks>
     [Route("api/[controller]")]
     [ApiController]
     public class TokenController : ControllerBase
@@ -24,6 +33,15 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             _passwordService = passwordService;
         }
 
+        /// <summary>
+        /// Authenticates a user based on the provided login credentials and returns a JWT token if authentication is
+        /// successful.
+        /// </summary>
+        /// <remarks>This endpoint allows anonymous access and is typically used to obtain an
+        /// authentication token for subsequent requests. The returned token should be included in the Authorization
+        /// header of future API calls.</remarks>
+        /// <param name="userLogin">An object containing the user's login credentials. Must include valid username and password information.</param>
+        /// <returns>An IActionResult containing a JWT token if authentication succeeds; otherwise, an Unauthorized result.</returns>
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Authentication(UserLogin userLogin)
@@ -82,6 +100,14 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
 
         }
 
+        /// <summary>
+        /// Handles an HTTP GET request to retrieve the SQL Server connection string for the current configuration.
+        /// </summary>
+        /// <remarks>This endpoint is intended for diagnostic or configuration purposes and returns
+        /// sensitive connection information. Use with caution and restrict access appropriately.</remarks>
+        /// <param name="userLogin">The user login information provided with the request. This parameter is not used in the response.</param>
+        /// <returns>An <see cref="IActionResult"/> containing an object with the SQL Server connection string from the
+        /// application's configuration.</returns>
         [HttpGet("Test")]
         public async Task<IActionResult> Test(UserLogin userLogin)
         {
@@ -93,6 +119,16 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             return Ok(result);
         }
 
+
+        /// <summary>
+        /// Handles a GET request to test the SQL Server connection configuration and returns the connection string
+        /// information.
+        /// </summary>
+        /// <remarks>This endpoint is intended for diagnostic purposes and does not attempt to establish a
+        /// database connection. It simply returns the configured connection string value. Use caution when exposing
+        /// connection string information, as it may contain sensitive data.</remarks>
+        /// <returns>An <see cref="IActionResult"/> containing the SQL Server connection string information if successful;
+        /// otherwise, an error response with status code 500.</returns>
         [HttpGet("TestConeccion")]
         public async Task<IActionResult> TestConeccion()
         {
@@ -111,6 +147,16 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Retrieves configuration details for the application, including connection strings, environment information,
+        /// and authentication settings.
+        /// </summary>
+        /// <remarks>The returned object includes the MySQL and SQL Server connection strings, a list of
+        /// all connection strings, the current ASP.NET Core environment, and authentication settings. If a
+        /// configuration value is missing, a default message is provided in its place.</remarks>
+        /// <returns>An <see cref="IActionResult"/> containing a JSON object with the application's configuration details.
+        /// Returns a 500 Internal Server Error response if an exception occurs.</returns>
         [HttpGet("Config")]
         public async Task<IActionResult> GetConfig()
         {

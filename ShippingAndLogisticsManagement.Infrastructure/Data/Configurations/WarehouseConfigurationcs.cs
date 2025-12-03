@@ -62,23 +62,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Data.Configurations
             builder.Property(w => w.ManagerName)
                 .HasMaxLength(100);
 
-            builder.Property(w => w.Latitude)
-                .HasColumnType("decimal(10,7)");
-
-            builder.Property(w => w.Longitude)
-                .HasColumnType("decimal(10,7)");
-
-            builder.Property(w => w.OpeningDate)
-                .HasColumnType("date")
-                .IsRequired();
-
-            builder.Property(w => w.CreatedAt)
-                .HasColumnType("datetime")
-                .HasDefaultValueSql("GETUTCDATE()");
-
-            builder.Property(w => w.Notes)
-                .HasMaxLength(500);
-
             // Índices para búsquedas frecuentes
             builder.HasIndex(w => w.City);
             builder.HasIndex(w => w.Department);

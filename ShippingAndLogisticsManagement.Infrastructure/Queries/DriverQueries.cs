@@ -5,14 +5,7 @@
         public static string GetRecentDriversSqlServer = @"
             SELECT TOP (@Limit) *
             FROM Drivers
-            ORDER BY CreatedAt DESC, Id DESC;
-        ";
-
-        public static string GetRecentDriversMySQL = @"
-            SELECT *
-            FROM Drivers
-            ORDER BY CreatedAt DESC, Id DESC
-            LIMIT @Limit;
+            ORDER BY Id DESC;
         ";
 
         public static string GetById = @"
@@ -27,12 +20,6 @@
             WHERE LicenseNumber = @LicenseNumber;
         ";
 
-        public static string GetByIdentityDocument = @"
-            SELECT *
-            FROM Drivers
-            WHERE IdentityDocument = @IdentityDocument;
-        ";
-
         public static string GetActiveDrivers = @"
             SELECT *
             FROM Drivers
@@ -44,10 +31,9 @@
             SELECT *
             FROM Drivers
             WHERE IsActive = 1
-            AND Status = 'Available'
+            AND Status = @AvailableStatus
             AND CurrentVehicleId IS NULL
-            AND LicenseExpiryDate > GETDATE()
-            ORDER BY YearsOfExperience DESC, AverageRating DESC;
+            ORDER BY FullName;
         ";
 
         public static string GetByStatus = @"
@@ -58,25 +44,10 @@
             ORDER BY FullName;
         ";
 
-        public static string GetDriversWithExpiringLicenses = @"
-            SELECT *
-            FROM Drivers
-            WHERE IsActive = 1
-            AND DATEDIFF(DAY, GETDATE(), LicenseExpiryDate) BETWEEN 0 AND @DaysThreshold
-            ORDER BY LicenseExpiryDate ASC;
-        ";
-
         public static string LicenseNumberExists = @"
             SELECT COUNT(*)
             FROM Drivers
             WHERE LicenseNumber = @LicenseNumber
-            AND (@ExcludeDriverId IS NULL OR Id != @ExcludeDriverId);
-        ";
-
-        public static string IdentityDocumentExists = @"
-            SELECT COUNT(*)
-            FROM Drivers
-            WHERE IdentityDocument = @IdentityDocument
             AND (@ExcludeDriverId IS NULL OR Id != @ExcludeDriverId);
         ";
 
@@ -86,14 +57,8 @@
                 d.FullName,
                 d.LicenseNumber,
                 d.TotalDeliveries,
-                0 AS OnTimeDeliveries,
-                0 AS LateDeliveries,
-                0.0 AS OnTimePercentage,
-                d.AverageRating,
-                d.YearsOfExperience,
-                DATEDIFF(DAY, GETDATE(), d.LicenseExpiryDate) AS DaysUntilLicenseExpiry,
-                CASE WHEN DATEDIFF(DAY, GETDATE(), d.LicenseExpiryDate) <= 30 
-                     THEN 1 ELSE 0 END AS LicenseExpiringSoon
+                d.Status,
+                CASE WHEN d.CurrentVehicleId IS NOT NULL THEN 1 ELSE 0 END AS HasVehicleAssigned
             FROM Drivers d
             WHERE d.Id = @DriverId;
         ";

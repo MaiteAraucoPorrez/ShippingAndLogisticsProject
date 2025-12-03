@@ -127,34 +127,6 @@ namespace ShippingAndLogisticsManagement.Core.Entities
         public string? ManagerName { get; set; }
 
         /// <summary>
-        /// Latitud GPS del almacén
-        /// </summary>
-        /// <example>-16.5000</example>
-        public double? Latitude { get; set; }
-
-        /// <summary>
-        /// Longitud GPS del almacén
-        /// </summary>
-        /// <example>-68.1500</example>
-        public double? Longitude { get; set; }
-
-        /// <summary>
-        /// Fecha de apertura del almacén
-        /// </summary>
-        public DateTime OpeningDate { get; set; }
-
-        /// <summary>
-        /// Fecha de creación del registro
-        /// </summary>
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-        /// <summary>
-        /// Notas adicionales sobre el almacén
-        /// </summary>
-        /// <example>Cuenta con rampa para carga pesada</example>
-        public string? Notes { get; set; }
-
-        /// <summary>
         /// Relación con envíos que han pasado por este almacén
         /// </summary>
         public ICollection<ShipmentWarehouse> ShipmentWarehouses { get; set; }

@@ -36,11 +36,6 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         Task<IEnumerable<Driver>> GetAvailableDriversAsync();
 
         /// <summary>
-        /// Obtiene conductores con licencia próxima a vencer
-        /// </summary>
-        Task<IEnumerable<Driver>> GetDriversWithExpiringLicensesAsync(int daysThreshold = 30);
-
-        /// <summary>
         /// Obtiene estadísticas de un conductor
         /// </summary>
         Task<DriverStatisticsResponse> GetDriverStatisticsAsync(int driverId);
@@ -59,20 +54,5 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         /// Elimina un conductor
         /// </summary>
         Task DeleteAsync(int id);
-
-        /// <summary>
-        /// Desactiva un conductor sin eliminarlo
-        /// </summary>
-        Task DeactivateAsync(int id);
-
-        /// <summary>
-        /// Asigna un vehículo a un conductor
-        /// </summary>
-        Task AssignVehicleAsync(int driverId, int vehicleId);
-
-        /// <summary>
-        /// Remueve el vehículo asignado a un conductor
-        /// </summary>
-        Task UnassignVehicleAsync(int driverId);
     }
 }

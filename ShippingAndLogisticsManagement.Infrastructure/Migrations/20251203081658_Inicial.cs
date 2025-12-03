@@ -33,30 +33,16 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    IdentityDocument = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LicenseNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LicenseCategory = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    LicenseIssueDate = table.Column<DateTime>(type: "date", nullable: false),
-                    LicenseExpiryDate = table.Column<DateTime>(type: "date", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    AlternativePhone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "date", nullable: false),
-                    HireDate = table.Column<DateTime>(type: "date", nullable: false),
-                    ContractEndDate = table.Column<DateTime>(type: "date", nullable: true),
-                    YearsOfExperience = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     CurrentVehicleId = table.Column<int>(type: "int", nullable: true),
-                    AverageRating = table.Column<decimal>(type: "decimal(3,2)", nullable: true),
-                    TotalDeliveries = table.Column<int>(type: "int", nullable: false),
-                    EmergencyContactName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    EmergencyContactPhone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    BloodType = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETUTCDATE()"),
-                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                    TotalDeliveries = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -114,12 +100,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     OperatingHours = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    ManagerName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Latitude = table.Column<decimal>(type: "decimal(10,7)", nullable: true),
-                    Longitude = table.Column<decimal>(type: "decimal(10,7)", nullable: true),
-                    OpeningDate = table.Column<DateTime>(type: "date", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETUTCDATE()"),
-                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                    ManagerName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -137,17 +118,12 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                     City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Department = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Zone = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    PostalCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Type = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false),
                     Reference = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    Alias = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     ContactName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     ContactPhone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Latitude = table.Column<decimal>(type: "decimal(10,7)", nullable: true),
-                    Longitude = table.Column<decimal>(type: "decimal(10,7)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETUTCDATE()")
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -202,31 +178,16 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PlateNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Model = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false),
-                    Color = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     Type = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     MaxWeightCapacityKg = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     MaxVolumeCapacityM3 = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     CurrentWeightKg = table.Column<decimal>(type: "decimal(10,2)", nullable: false, defaultValue: 0m),
                     CurrentVolumeM3 = table.Column<decimal>(type: "decimal(10,2)", nullable: false, defaultValue: 0m),
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    LastMaintenanceDate = table.Column<DateTime>(type: "date", nullable: true),
-                    NextMaintenanceDate = table.Column<DateTime>(type: "date", nullable: true),
-                    CurrentMileage = table.Column<int>(type: "int", nullable: false),
-                    LastMaintenanceMileage = table.Column<int>(type: "int", nullable: true),
-                    FuelType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    FuelConsumptionPer100Km = table.Column<decimal>(type: "decimal(5,2)", nullable: true),
                     VIN = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: true),
-                    InsurancePolicyNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    InsuranceExpiryDate = table.Column<DateTime>(type: "date", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     BaseWarehouseId = table.Column<int>(type: "int", nullable: true),
-                    AssignedDriverId = table.Column<int>(type: "int", nullable: true),
-                    PurchaseDate = table.Column<DateTime>(type: "date", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETUTCDATE()"),
-                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                    AssignedDriverId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -280,7 +241,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     ReceivedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     DispatchedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     StorageLocation = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
@@ -331,12 +291,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                 column: "Email");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Driver_IdentityDocument_Unique",
-                table: "Drivers",
-                column: "IdentityDocument",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Driver_LicenseNumber_Unique",
                 table: "Drivers",
                 column: "LicenseNumber",
@@ -346,11 +300,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                 name: "IX_Drivers_IsActive",
                 table: "Drivers",
                 column: "IsActive");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Drivers_LicenseExpiryDate",
-                table: "Drivers",
-                column: "LicenseExpiryDate");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Drivers_Status",
@@ -431,11 +380,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                 name: "IX_Vehicles_IsActive",
                 table: "Vehicles",
                 column: "IsActive");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Vehicles_NextMaintenanceDate",
-                table: "Vehicles",
-                column: "NextMaintenanceDate");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_Status",

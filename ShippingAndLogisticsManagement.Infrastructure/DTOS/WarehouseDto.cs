@@ -1,4 +1,6 @@
-﻿namespace ShippingAndLogisticsManagement.Infrastructure.DTOS
+﻿using ShippingAndLogisticsManagement.Core.Enum;
+
+namespace ShippingAndLogisticsManagement.Infrastructure.DTOS
 {
     public class WarehouseDto
     {
@@ -13,12 +15,8 @@
         public double MaxCapacityM3 { get; set; }
         public double CurrentCapacityM3 { get; set; }
         public bool IsActive { get; set; } = true;
-        public string Type { get; set; } = null!; // "Central", "Regional", "Local"
+        public WarehouseType Type { get; set; } // "Central", "Regional", "Local"
         public string? OperatingHours { get; set; }
         public string? ManagerName { get; set; }
-        public double? Latitude { get; set; }
-        public double? Longitude { get; set; }
-        public DateTime OpeningDate { get; set; }
-        public string? Notes { get; set; }
     }
 }

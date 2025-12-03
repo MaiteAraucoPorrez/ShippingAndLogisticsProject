@@ -188,56 +188,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         }
 
         /// <summary>
-        /// Obtiene conductores con licencias próximas a vencer
-        /// </summary>
-        /// <remarks>
-        /// Retorna conductores cuya licencia vence dentro del período especificado.
-        /// Útil para gestión proactiva de renovaciones de licencias.
-        /// 
-        /// Ejemplo de uso:
-        /// GET /api/v1/driver/expiring-licenses?daysThreshold=30
-        /// </remarks>
-        /// <param name="daysThreshold">Días hasta el vencimiento (por defecto 30)</param>
-        /// <returns>Lista de conductores con licencias próximas a vencer</returns>
-        /// <response code="200">Retorna los conductores con licencias por vencer</response>
-        /// <response code="400">Si el umbral de días es inválido</response>
-        /// <response code="500">Error interno del servidor</response>
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<DriverDto>>))]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("expiring-licenses")]
-        public async Task<IActionResult> GetDriversWithExpiringLicenses([FromQuery] int daysThreshold = 30)
-        {
-            try
-            {
-                if (daysThreshold <= 0)
-                {
-                    return BadRequest(new ResponseData
-                    {
-                        Messages = new Message[] { new() { Type = "Error", Description = "El umbral de días debe ser mayor a 0" } }
-                    });
-                }
-
-                var drivers = await _driverService.GetDriversWithExpiringLicensesAsync(daysThreshold);
-                var driversDto = _mapper.Map<IEnumerable<DriverDto>>(drivers);
-
-                var response = new ApiResponse<IEnumerable<DriverDto>>(driversDto)
-                {
-                    Messages = new Message[] { new() { Type = "Information", Description = $"Se encontraron {driversDto.Count()} conductores con licencias próximas a vencer" } }
-                };
-
-                return Ok(response);
-            }
-            catch (Exception err)
-            {
-                return StatusCode(500, new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
-                });
-            }
-        }
-
-        /// <summary>
         /// Obtiene un conductor específico por su identificador
         /// </summary>
         /// <remarks>

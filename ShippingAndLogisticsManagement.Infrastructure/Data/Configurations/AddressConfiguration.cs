@@ -27,14 +27,8 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Data.Configurations
             builder.Property(a => a.Zone)
                 .HasMaxLength(100);
 
-            builder.Property(a => a.PostalCode)
-                .HasMaxLength(20);
-
             builder.Property(a => a.Reference)
                 .HasMaxLength(500);
-
-            builder.Property(a => a.Alias)
-                .HasMaxLength(50);
 
             builder.Property(a => a.ContactName)
                 .HasMaxLength(100);
@@ -46,16 +40,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Data.Configurations
                 .HasConversion<string>()
                 .HasMaxLength(20)
                 .IsRequired();
-
-            builder.Property(a => a.Latitude)
-                .HasColumnType("decimal(10,7)");
-
-            builder.Property(a => a.Longitude)
-                .HasColumnType("decimal(10,7)");
-
-            builder.Property(a => a.CreatedAt)
-                .HasColumnType("datetime")
-                .HasDefaultValueSql("GETUTCDATE()");
 
             // Relación con Customer
             builder.HasOne(a => a.Customer)

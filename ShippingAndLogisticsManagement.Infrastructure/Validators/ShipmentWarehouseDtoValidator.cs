@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using ShippingAndLogisticsManagement.Core.Enum;
 using ShippingAndLogisticsManagement.Core.Interfaces;
 using ShippingAndLogisticsManagement.Infrastructure.DTOS;
 
@@ -27,31 +28,20 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
 
             // WarehouseId validation
             RuleFor(sw => sw.WarehouseId)
-                .NotEmpty()
-                .WithMessage("El ID del almacén es requerido")
-                .GreaterThan(0)
-                .WithMessage("El ID del almacén debe ser mayor a 0")
-                .MustAsync(async (warehouseId, ct) =>
-                {
-                    var warehouse = await _unitOfWork.WarehouseRepository.GetById(warehouseId);
-                    return warehouse != null;
-                })
-                .WithMessage("El almacén asociado no existe")
+                .GreaterThan(0).WithMessage("El ID del almacén es inválido")
                 .MustAsync(async (warehouseId, ct) =>
                 {
                     var warehouse = await _unitOfWork.WarehouseRepository.GetById(warehouseId);
                     return warehouse != null && warehouse.IsActive;
                 })
-                .WithMessage("El almacén no está activo");
+                .WithMessage("El almacén no existe o está inactivo");
 
             // EntryDate validation
             RuleFor(sw => sw.EntryDate)
-                .NotEmpty()
-                .WithMessage("La fecha de entrada es requerida")
-                .LessThanOrEqualTo(DateTime.Now)
-                .WithMessage("La fecha de entrada no puede ser futura");
+                .NotEmpty().WithMessage("La fecha de entrada es requerida")
+                .LessThanOrEqualTo(DateTime.Now).WithMessage("La fecha de entrada no puede ser futura");
 
-            // ExitDate validation (optional)
+            // ExitDate validation
             RuleFor(sw => sw.ExitDate)
                 .GreaterThan(sw => sw.EntryDate)
                 .When(sw => sw.ExitDate.HasValue)
@@ -62,28 +52,19 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
 
             // Status validation
             RuleFor(sw => sw.Status)
-                .NotEmpty()
-                .WithMessage("El estado es requerido")
-                .Must(BeAValidStatus)
-                .WithMessage("El estado debe ser 'Received', 'InStorage', 'Processing' o 'Dispatched'");
+                .IsInEnum().WithMessage("El estado no es válido");
 
-            // ReceivedBy validation (optional)
+            // ReceivedBy validation
             RuleFor(sw => sw.ReceivedBy)
                 .MaximumLength(100)
                 .When(sw => !string.IsNullOrWhiteSpace(sw.ReceivedBy))
                 .WithMessage("El nombre de quien recibió no puede exceder 100 caracteres");
 
-            // DispatchedBy validation (optional)
+            // DispatchedBy validation
             RuleFor(sw => sw.DispatchedBy)
                 .MaximumLength(100)
                 .When(sw => !string.IsNullOrWhiteSpace(sw.DispatchedBy))
                 .WithMessage("El nombre de quien despachó no puede exceder 100 caracteres");
-
-            // Notes validation (optional)
-            RuleFor(sw => sw.Notes)
-                .MaximumLength(500)
-                .When(sw => !string.IsNullOrWhiteSpace(sw.Notes))
-                .WithMessage("Las notas no pueden exceder 500 caracteres");
 
             // StorageLocation validation (optional)
             RuleFor(sw => sw.StorageLocation)
@@ -93,13 +74,13 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
 
             // Business rule: Si el estado es "Dispatched", debe tener ExitDate
             RuleFor(sw => sw)
-                .Must(sw => sw.Status != "Dispatched" || sw.ExitDate.HasValue)
-                .WithMessage("Si el estado es 'Dispatched', debe especificar la fecha de salida");
+                .Must(sw => sw.Status == WarehouseShipmentStatus.Dispatched || !sw.ExitDate.HasValue)
+                .WithMessage("Solo los envíos despachados ('Dispatched') pueden tener fecha de salida");
 
             // Business rule: Si tiene ExitDate, el estado debe ser "Dispatched"
             RuleFor(sw => sw)
-                .Must(sw => !sw.ExitDate.HasValue || sw.Status == "Dispatched")
-                .WithMessage("Si especifica fecha de salida, el estado debe ser 'Dispatched'");
+                 .Must(sw => sw.Status != WarehouseShipmentStatus.Dispatched || sw.ExitDate.HasValue)
+                 .WithMessage("Si el estado es 'Dispatched', debe especificar la fecha de salida");
 
             // ID validation (for updates)
             RuleFor(sw => sw.Id)
@@ -115,14 +96,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                     return true;
                 })
                 .WithMessage("El registro de envío-almacén con ese ID no existe");
-        }
-
-        private bool BeAValidStatus(string status)
-        {
-            if (string.IsNullOrWhiteSpace(status)) return false;
-
-            var validStatuses = new[] { "Received", "InStorage", "Processing", "Dispatched" };
-            return validStatuses.Contains(status, StringComparer.OrdinalIgnoreCase);
         }
     }
 }

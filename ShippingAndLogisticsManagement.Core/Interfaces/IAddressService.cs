@@ -70,17 +70,5 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         /// </summary>
         /// <param name="id">ID de la dirección a eliminar</param>
         Task DeleteAsync(int id);
-
-        /// <summary>
-        /// Desactiva una dirección sin eliminarla
-        /// </summary>
-        /// <param name="id">ID de la dirección</param>
-        Task DeactivateAsync(int id);
-
-        /// <summary>
-        /// Marca una dirección como predeterminada
-        /// </summary>
-        /// <param name="id">ID de la dirección</param>
-        Task SetAsDefaultAsync(int id);
     }
 }

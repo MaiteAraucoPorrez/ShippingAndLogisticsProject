@@ -156,14 +156,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
             return count > 0;
         }
 
-        public async Task UpdateCurrentCapacityAsync(int warehouseId, double newCapacity)
-        {
-            await _dapper.ExecuteAsync(
-                WarehouseQueries.UpdateCurrentCapacity,
-                new { WarehouseId = warehouseId, NewCapacity = newCapacity }
-            );
-        }
-
         public async Task<IEnumerable<Warehouse>> GetRecentWarehousesAsync(int limit = 10)
         {
             try
@@ -171,7 +163,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
                 var sql = _dapper.Provider switch
                 {
                     DatabaseProvider.SqlServer => WarehouseQueries.GetRecentWarehousesSqlServer,
-                    DatabaseProvider.MySql => WarehouseQueries.GetRecentWarehousesMySQL,
                     _ => throw new NotSupportedException("Provider no soportado")
                 };
 

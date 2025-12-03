@@ -12,7 +12,7 @@ using ShippingAndLogisticsManagement.Infrastructure.Data;
 namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(LogisticContext))]
-    [Migration("20251129041945_Inicial")]
+    [Migration("20251203081658_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -33,10 +33,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Alias")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("City")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -49,11 +45,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                     b.Property<string>("ContactPhone")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -68,16 +59,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");
-
-                    b.Property<decimal?>("Latitude")
-                        .HasColumnType("decimal(10,7)");
-
-                    b.Property<decimal?>("Longitude")
-                        .HasColumnType("decimal(10,7)");
-
-                    b.Property<string>("PostalCode")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Reference")
                         .HasMaxLength(500)
@@ -151,28 +132,9 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<string>("AlternativePhone")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<decimal?>("AverageRating")
-                        .HasColumnType("decimal(3,2)");
-
-                    b.Property<string>("BloodType")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
                     b.Property<string>("City")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("ContractEndDate")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<int?>("CurrentVehicleId")
                         .HasColumnType("int");
@@ -185,49 +147,18 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("EmergencyContactName")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("EmergencyContactPhone")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("HireDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("IdentityDocument")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
-
-                    b.Property<string>("LicenseCategory")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<DateTime>("LicenseExpiryDate")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime>("LicenseIssueDate")
-                        .HasColumnType("date");
 
                     b.Property<string>("LicenseNumber")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -242,21 +173,12 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                     b.Property<int>("TotalDeliveries")
                         .HasColumnType("int");
 
-                    b.Property<int>("YearsOfExperience")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .HasDatabaseName("IX_Driver_Email");
 
-                    b.HasIndex("IdentityDocument")
-                        .IsUnique()
-                        .HasDatabaseName("IX_Driver_IdentityDocument_Unique");
-
                     b.HasIndex("IsActive");
-
-                    b.HasIndex("LicenseExpiryDate");
 
                     b.HasIndex("LicenseNumber")
                         .IsUnique()
@@ -430,10 +352,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                     b.Property<DateTime?>("ExitDate")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("Notes")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<string>("ReceivedBy")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -480,23 +398,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                     b.Property<int?>("BaseWarehouseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Color")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GETUTCDATE()");
-
-                    b.Property<int>("CurrentMileage")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("CurrentVolumeM3")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(10,2)")
@@ -507,28 +408,8 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                         .HasColumnType("decimal(10,2)")
                         .HasDefaultValue(0m);
 
-                    b.Property<decimal?>("FuelConsumptionPer100Km")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<string>("FuelType")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<DateTime?>("InsuranceExpiryDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("InsurancePolicyNumber")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastMaintenanceDate")
-                        .HasColumnType("date");
-
-                    b.Property<int?>("LastMaintenanceMileage")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("MaxVolumeCapacityM3")
                         .HasColumnType("decimal(10,2)");
@@ -536,25 +417,10 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                     b.Property<decimal>("MaxWeightCapacityKg")
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("NextMaintenanceDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<string>("PlateNumber")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("date");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -570,9 +436,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                         .HasMaxLength(17)
                         .HasColumnType("nvarchar(17)");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AssignedDriverId")
@@ -582,8 +445,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                     b.HasIndex("BaseWarehouseId");
 
                     b.HasIndex("IsActive");
-
-                    b.HasIndex("NextMaintenanceDate");
 
                     b.HasIndex("PlateNumber")
                         .IsUnique()
@@ -627,11 +488,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GETUTCDATE()");
-
                     b.Property<decimal>("CurrentCapacityM3")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(10,2)")
@@ -649,12 +505,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<decimal?>("Latitude")
-                        .HasColumnType("decimal(10,7)");
-
-                    b.Property<decimal?>("Longitude")
-                        .HasColumnType("decimal(10,7)");
-
                     b.Property<string>("ManagerName")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -666,13 +516,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("OpeningDate")
-                        .HasColumnType("date");
 
                     b.Property<string>("OperatingHours")
                         .HasMaxLength(200)

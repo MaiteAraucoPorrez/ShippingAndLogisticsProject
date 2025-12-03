@@ -30,9 +30,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Data.Configurations
             builder.Property(sw => sw.DispatchedBy)
                 .HasMaxLength(100);
 
-            builder.Property(sw => sw.Notes)
-                .HasMaxLength(500);
-
             builder.Property(sw => sw.StorageLocation)
                 .HasMaxLength(50);
 

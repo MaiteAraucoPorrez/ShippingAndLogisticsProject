@@ -439,7 +439,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// <remarks>
         /// No permite eliminar la única dirección predeterminada activa de un cliente.
         /// Esta es una eliminación física del registro.
-        /// 
         /// Ejemplo de uso:
         /// DELETE /api/v1/address/5
         /// </remarks>
@@ -469,120 +468,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
 
                 await _addressService.DeleteAsync(id);
                 return NoContent();
-            }
-            catch (InvalidOperationException err)
-            {
-                return BadRequest(new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
-                });
-            }
-            catch (KeyNotFoundException err)
-            {
-                return NotFound(new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Warning", Description = err.Message } }
-                });
-            }
-            catch (Exception err)
-            {
-                return StatusCode(500, new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
-                });
-            }
-        }
-
-        /// <summary>
-        /// Desactiva una dirección sin eliminarla
-        /// </summary>
-        /// <remarks>
-        /// Marca la dirección como inactiva, manteniéndola en el sistema para historial.
-        /// No permite desactivar la única dirección predeterminada activa.
-        /// 
-        /// Ejemplo de uso:
-        /// PATCH /api/v1/address/5/deactivate
-        /// </remarks>
-        /// <param name="id">Identificador de la dirección a desactivar</param>
-        /// <returns>Confirmación de desactivación</returns>
-        /// <response code="200">Dirección desactivada exitosamente</response>
-        /// <response code="400">Si no se puede desactivar debido a reglas de negocio</response>
-        /// <response code="404">Si la dirección no existe</response>
-        /// <response code="500">Error interno del servidor</response>
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<string>))]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
-        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpPatch("{id}/deactivate")]
-        public async Task<IActionResult> DeactivateAddress(int id)
-        {
-            try
-            {
-                await _addressService.DeactivateAsync(id);
-
-                var response = new ApiResponse<string>("Dirección desactivada")
-                {
-                    Messages = new Message[] { new() { Type = "Success", Description = "Dirección desactivada exitosamente" } }
-                };
-
-                return Ok(response);
-            }
-            catch (InvalidOperationException err)
-            {
-                return BadRequest(new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
-                });
-            }
-            catch (KeyNotFoundException err)
-            {
-                return NotFound(new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Warning", Description = err.Message } }
-                });
-            }
-            catch (Exception err)
-            {
-                return StatusCode(500, new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
-                });
-            }
-        }
-
-        /// <summary>
-        /// Marca una dirección como predeterminada
-        /// </summary>
-        /// <remarks>
-        /// Establece esta dirección como predeterminada y desmarca las demás
-        /// del mismo tipo automáticamente.
-        /// 
-        /// Ejemplo de uso:
-        /// PATCH /api/v1/address/5/set-default
-        /// </remarks>
-        /// <param name="id">Identificador de la dirección</param>
-        /// <returns>Confirmación de cambio</returns>
-        /// <response code="200">Dirección marcada como predeterminada exitosamente</response>
-        /// <response code="400">Si la dirección está inactiva o ya es predeterminada</response>
-        /// <response code="404">Si la dirección no existe</response>
-        /// <response code="500">Error interno del servidor</response>
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<string>))]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
-        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpPatch("{id}/set-default")]
-        public async Task<IActionResult> SetAsDefault(int id)
-        {
-            try
-            {
-                await _addressService.SetAsDefaultAsync(id);
-
-                var response = new ApiResponse<string>("Dirección predeterminada actualizada")
-                {
-                    Messages = new Message[] { new() { Type = "Success", Description = "Dirección marcada como predeterminada exitosamente" } }
-                };
-
-                return Ok(response);
             }
             catch (InvalidOperationException err)
             {

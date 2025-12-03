@@ -24,23 +24,6 @@
         ";
 
         /// <summary>
-        /// Consulta para MySQL:
-        /// Obtiene las rutas ordenadas por ID descendente.
-        /// </summary>
-        public static string RouteQueryMySQL = @"
-            SELECT 
-                r.Id,
-                r.Origin,
-                r.Destination,
-                r.DistanceKm,
-                r.BaseCost,
-                r.IsActive
-            FROM Routes r
-            ORDER BY r.Id DESC
-            LIMIT @Limit;
-        ";
-
-        /// <summary>
         /// Obtiene solo las rutas activas disponibles para nuevos envíos.
         /// </summary>
         public static string GetActiveRoutes = @"

@@ -187,44 +187,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             }
         }
 
-        /// <summary>
-        /// Obtiene vehículos que requieren mantenimiento
-        /// </summary>
-        /// <remarks>
-        /// Retorna vehículos cuyo mantenimiento está próximo o vencido.
-        /// Útil para gestión proactiva de la flota.
-        /// 
-        /// Ejemplo de uso:
-        /// GET /api/v1/vehicle/requiring-maintenance
-        /// </remarks>
-        /// <returns>Lista de vehículos que requieren mantenimiento</returns>
-        /// <response code="200">Retorna los vehículos</response>
-        /// <response code="500">Error interno del servidor</response>
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<VehicleDto>>))]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("requiring-maintenance")]
-        public async Task<IActionResult> GetVehiclesRequiringMaintenance()
-        {
-            try
-            {
-                var vehicles = await _vehicleService.GetVehiclesRequiringMaintenanceAsync();
-                var vehiclesDto = _mapper.Map<IEnumerable<VehicleDto>>(vehicles);
-
-                var response = new ApiResponse<IEnumerable<VehicleDto>>(vehiclesDto)
-                {
-                    Messages = new Message[] { new() { Type = "Information", Description = $"Se encontraron {vehiclesDto.Count()} vehículos que requieren mantenimiento" } }
-                };
-
-                return Ok(response);
-            }
-            catch (Exception err)
-            {
-                return StatusCode(500, new ResponseData
-                {
-                    Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
-                });
-            }
-        }
 
         /// <summary>
         /// Obtiene vehículos con capacidad suficiente
@@ -417,7 +379,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// - Envíos completados
         /// - Porcentaje de ocupación
         /// - Capacidad disponible
-        /// - Estado de mantenimiento
         /// 
         /// Ejemplo de uso:
         /// GET /api/v1/vehicle/5/statistics

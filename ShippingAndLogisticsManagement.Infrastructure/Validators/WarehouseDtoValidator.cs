@@ -9,6 +9,11 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
     {
         private readonly IUnitOfWork _unitOfWork;
 
+        private static readonly Regex CodeRegex = new(@"^[a-zA-Z0-9\-]+$");
+        private static readonly Regex CityNameRegex = new(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s\-]+$");
+        private static readonly Regex PhoneRegex = new(@"^[\d\s\-\+\(\)]+$");
+        private static readonly Regex NameRegex = new(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$");
+
         private static readonly string[] ValidDepartments = new[]
         {
             "La Paz", "Cochabamba", "Santa Cruz", "Oruro", "Potosí",
@@ -20,13 +25,11 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
             _unitOfWork = unitOfWork;
 
             // Name validation
+            // Name
             RuleFor(w => w.Name)
-                .NotEmpty()
-                .WithMessage("El nombre del almacén es requerido")
-                .MinimumLength(5)
-                .WithMessage("El nombre debe tener al menos 5 caracteres")
-                .MaximumLength(100)
-                .WithMessage("El nombre no puede exceder 100 caracteres");
+                .NotEmpty().WithMessage("El nombre del almacén es requerido")
+                .Length(5, 100).WithMessage("El nombre debe tener entre 5 y 100 caracteres")
+                .Matches(NameRegex).WithMessage("El nombre contiene caracteres inválidos");
 
             // Code validation
             RuleFor(w => w.Code)
@@ -46,127 +49,66 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                 })
                 .WithMessage(dto => $"Ya existe un almacén con el código '{dto.Code}'");
 
-            // Address validation
+            // Address
             RuleFor(w => w.Address)
-                .NotEmpty()
-                .WithMessage("La dirección es requerida")
-                .MinimumLength(10)
-                .WithMessage("La dirección debe tener al menos 10 caracteres")
-                .MaximumLength(300)
-                .WithMessage("La dirección no puede exceder 300 caracteres");
+                .NotEmpty().WithMessage("La dirección es requerida")
+                .Length(10, 300).WithMessage("La dirección debe tener entre 10 y 300 caracteres");
 
-            // City validation
+            // City
             RuleFor(w => w.City)
-                .NotEmpty()
-                .WithMessage("La ciudad es requerida")
-                .MinimumLength(3)
-                .WithMessage("La ciudad debe tener al menos 3 caracteres")
-                .MaximumLength(100)
-                .WithMessage("La ciudad no puede exceder 100 caracteres")
-                .Must(BeAValidCityName)
-                .WithMessage("La ciudad solo puede contener letras, espacios y guiones");
+                .NotEmpty().WithMessage("La ciudad es requerida")
+                .Length(3, 100).WithMessage("La ciudad debe tener entre 3 y 100 caracteres")
+                .Matches(CityNameRegex).WithMessage("La ciudad solo puede contener letras, espacios y guiones");
 
-            // Department validation
+            // Department
             RuleFor(w => w.Department)
-                .NotEmpty()
-                .WithMessage("El departamento es requerido")
-                .Must(BeAValidDepartment)
-                .WithMessage(w => $"El departamento '{w.Department}' no es válido. " +
-                    $"Debe ser uno de: {string.Join(", ", ValidDepartments)}");
+                .NotEmpty().WithMessage("El departamento es requerido")
+                .Must(dept => ValidDepartments.Contains(dept, StringComparer.OrdinalIgnoreCase))
+                .WithMessage($"Departamento inválido. Debe ser uno de: {string.Join(", ", ValidDepartments)}");
 
-            // Phone validation
+            // Phone
             RuleFor(w => w.Phone)
-                .NotEmpty()
-                .WithMessage("El teléfono es requerido")
-                .MinimumLength(7)
-                .WithMessage("El teléfono debe tener al menos 7 caracteres")
-                .MaximumLength(20)
-                .WithMessage("El teléfono no puede exceder 20 caracteres")
-                .Must(BeAValidPhone)
-                .WithMessage("El teléfono solo puede contener dígitos y caracteres: + - ( )");
+                .NotEmpty().WithMessage("El teléfono es requerido")
+                .Length(7, 20).WithMessage("El teléfono debe tener entre 7 y 20 caracteres")
+                .Matches(PhoneRegex).WithMessage("El teléfono solo puede contener dígitos y (+ - ( ))");
 
-            // Email validation (optional)
+            // Email
             RuleFor(w => w.Email)
-                .EmailAddress()
-                .When(w => !string.IsNullOrWhiteSpace(w.Email))
-                .WithMessage("El email no tiene un formato válido")
-                .MaximumLength(100)
-                .When(w => !string.IsNullOrWhiteSpace(w.Email))
-                .WithMessage("El email no puede exceder 100 caracteres");
+                .MaximumLength(100).WithMessage("El email no puede exceder 100 caracteres")
+                .EmailAddress().When(w => !string.IsNullOrEmpty(w.Email))
+                .WithMessage("El formato del email no es válido");
 
-            // MaxCapacityM3 validation
+            // MaxCapacityM3
             RuleFor(w => w.MaxCapacityM3)
-                .NotEmpty()
-                .WithMessage("La capacidad máxima es requerida")
-                .GreaterThan(0)
-                .WithMessage("La capacidad máxima debe ser mayor a 0")
-                .LessThanOrEqualTo(100000)
-                .WithMessage("La capacidad máxima no puede exceder 100,000 m³");
+                .GreaterThan(0).WithMessage("La capacidad máxima debe ser mayor a 0")
+                .LessThanOrEqualTo(100000).WithMessage("La capacidad máxima no puede exceder 100,000 m³");
 
-            // CurrentCapacityM3 validation
+            // CurrentCapacityM3
             RuleFor(w => w.CurrentCapacityM3)
-                .GreaterThanOrEqualTo(0)
-                .WithMessage("La capacidad actual no puede ser negativa")
+                .GreaterThanOrEqualTo(0).WithMessage("La capacidad actual no puede ser negativa")
                 .LessThanOrEqualTo(w => w.MaxCapacityM3)
                 .WithMessage("La capacidad actual no puede exceder la capacidad máxima");
 
-            // Type validation
+            // Type
             RuleFor(w => w.Type)
-                .NotEmpty()
-                .WithMessage("El tipo de almacén es requerido")
-                .Must(BeAValidWarehouseType)
-                .WithMessage("El tipo debe ser 'Central', 'Regional' o 'Local'");
+                .IsInEnum()
+                .WithMessage("El tipo de almacén no es válido");
 
-            // OperatingHours validation (optional)
+            // OperatingHours
             RuleFor(w => w.OperatingHours)
-                .MaximumLength(200)
-                .When(w => !string.IsNullOrWhiteSpace(w.OperatingHours))
+                .MaximumLength(200).When(w => !string.IsNullOrEmpty(w.OperatingHours))
                 .WithMessage("El horario no puede exceder 200 caracteres");
 
-            // ManagerName validation (optional)
+
+            // ManagerName
             RuleFor(w => w.ManagerName)
-                .MaximumLength(100)
-                .When(w => !string.IsNullOrWhiteSpace(w.ManagerName))
-                .WithMessage("El nombre del encargado no puede exceder 100 caracteres")
-                .Must(BeAValidName)
-                .When(w => !string.IsNullOrWhiteSpace(w.ManagerName))
-                .WithMessage("El nombre del encargado solo puede contener letras y espacios");
+                .MaximumLength(100).WithMessage("El nombre del encargado es muy largo")
+                .Matches(NameRegex).When(w => !string.IsNullOrEmpty(w.ManagerName))
+                .WithMessage("El nombre del encargado contiene caracteres inválidos");
 
-            // Latitude validation (optional)
-            RuleFor(w => w.Latitude)
-                .InclusiveBetween(-90, 90)
-                .When(w => w.Latitude.HasValue)
-                .WithMessage("La latitud debe estar entre -90 y 90");
-
-            // Longitude validation (optional)
-            RuleFor(w => w.Longitude)
-                .InclusiveBetween(-180, 180)
-                .When(w => w.Longitude.HasValue)
-                .WithMessage("La longitud debe estar entre -180 y 180");
-
-            // OpeningDate validation
-            RuleFor(w => w.OpeningDate)
-                .NotEmpty()
-                .WithMessage("La fecha de apertura es requerida")
-                .LessThanOrEqualTo(DateTime.Today)
-                .WithMessage("La fecha de apertura no puede ser futura");
-
-            // Notes validation (optional)
-            RuleFor(w => w.Notes)
-                .MaximumLength(500)
-                .When(w => !string.IsNullOrWhiteSpace(w.Notes))
-                .WithMessage("Las notas no pueden exceder 500 caracteres");
-
-            // Business rule: Si tiene latitud, debe tener longitud y viceversa
-            RuleFor(w => w)
-                .Must(w => (w.Latitude.HasValue && w.Longitude.HasValue) ||
-                          (!w.Latitude.HasValue && !w.Longitude.HasValue))
-                .WithMessage("Debe proporcionar ambas coordenadas (latitud y longitud) o ninguna");
-
-            // ID validation (for updates)
+            // ID
             RuleFor(w => w.Id)
-                .GreaterThanOrEqualTo(0)
-                .WithMessage("El ID no puede ser negativo")
+                .GreaterThanOrEqualTo(0).WithMessage("El ID no puede ser negativo")
                 .MustAsync(async (dto, id, ct) =>
                 {
                     if (id > 0)
@@ -183,38 +125,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
         {
             if (string.IsNullOrWhiteSpace(code)) return false;
             return Regex.IsMatch(code, @"^[a-zA-Z0-9\-]+$");
-        }
-
-        private bool BeAValidCityName(string city)
-        {
-            if (string.IsNullOrWhiteSpace(city)) return false;
-            return Regex.IsMatch(city, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s\-]+$");
-        }
-
-        private bool BeAValidDepartment(string department)
-        {
-            if (string.IsNullOrWhiteSpace(department)) return false;
-            return ValidDepartments.Contains(department, StringComparer.OrdinalIgnoreCase);
-        }
-
-        private bool BeAValidPhone(string phone)
-        {
-            if (string.IsNullOrWhiteSpace(phone)) return false;
-            return Regex.IsMatch(phone, @"^[\d\s\-\+\(\)]+$");
-        }
-
-        private bool BeAValidWarehouseType(string type)
-        {
-            if (string.IsNullOrWhiteSpace(type)) return false;
-            return type.Equals("Central", StringComparison.OrdinalIgnoreCase) ||
-                   type.Equals("Regional", StringComparison.OrdinalIgnoreCase) ||
-                   type.Equals("Local", StringComparison.OrdinalIgnoreCase);
-        }
-
-        private bool BeAValidName(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name)) return false;
-            return Regex.IsMatch(name, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$");
         }
     }
 }

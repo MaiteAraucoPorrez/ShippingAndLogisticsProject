@@ -104,7 +104,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
                 var sql = _dapper.Provider switch
                 {
                     DatabaseProvider.SqlServer => CustomerQueries.CustomerQuerySqlServer,
-                    DatabaseProvider.MySql => CustomerQueries.CustomerQueryMySQL,
                     _ => throw new NotSupportedException("Provider no soportado")
                 };
 

@@ -36,11 +36,6 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         Task<IEnumerable<Vehicle>> GetAvailableVehiclesAsync();
 
         /// <summary>
-        /// Obtiene vehículos que requieren mantenimiento
-        /// </summary>
-        Task<IEnumerable<Vehicle>> GetVehiclesRequiringMaintenanceAsync();
-
-        /// <summary>
         /// Obtiene vehículos por capacidad requerida
         /// </summary>
         Task<IEnumerable<Vehicle>> GetByCapacityAsync(double requiredWeight, double requiredVolume);
@@ -64,25 +59,5 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         /// Elimina un vehículo
         /// </summary>
         Task DeleteAsync(int id);
-
-        /// <summary>
-        /// Desactiva un vehículo sin eliminarlo
-        /// </summary>
-        Task DeactivateAsync(int id);
-
-        /// <summary>
-        /// Actualiza la carga actual de un vehículo
-        /// </summary>
-        Task UpdateCurrentLoadAsync(int vehicleId, double weight, double volume);
-
-        /// <summary>
-        /// Asigna un conductor a un vehículo
-        /// </summary>
-        Task AssignDriverAsync(int vehicleId, int driverId);
-
-        /// <summary>
-        /// Remueve el conductor asignado a un vehículo
-        /// </summary>
-        Task UnassignDriverAsync(int vehicleId);
     }
 }

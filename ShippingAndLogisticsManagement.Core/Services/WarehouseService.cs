@@ -157,16 +157,15 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (warehouse == null)
                 throw new ArgumentNullException(nameof(warehouse));
 
-            // ========== VALIDACIONES DE NEGOCIO ==========
 
-            // 1. Validar nombre
+            // Validar nombre
             if (string.IsNullOrWhiteSpace(warehouse.Name) || warehouse.Name.Length < 5)
                 throw new BusinessException("El nombre del almacén debe tener al menos 5 caracteres");
 
             if (warehouse.Name.Length > 100)
                 throw new BusinessException("El nombre del almacén no puede exceder 100 caracteres");
 
-            // 2. Validar código único
+            // Validar código único
             if (string.IsNullOrWhiteSpace(warehouse.Code))
                 throw new BusinessException("El código del almacén es requerido");
 
@@ -182,21 +181,21 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (codeExists)
                 throw new BusinessException($"Ya existe un almacén con el código {warehouse.Code}");
 
-            // 3. Validar dirección
+            // Validar dirección
             if (string.IsNullOrWhiteSpace(warehouse.Address) || warehouse.Address.Length < 10)
                 throw new BusinessException("La dirección debe tener al menos 10 caracteres");
 
             if (warehouse.Address.Length > 300)
                 throw new BusinessException("La dirección no puede exceder 300 caracteres");
 
-            // 4. Validar ciudad
+            // Validar ciudad
             if (string.IsNullOrWhiteSpace(warehouse.City) || warehouse.City.Length < 3)
                 throw new BusinessException("La ciudad debe tener al menos 3 caracteres");
 
             if (warehouse.City.Length > 100)
                 throw new BusinessException("La ciudad no puede exceder 100 caracteres");
 
-            // 5. Validar departamento
+            // Validar departamento
             if (string.IsNullOrWhiteSpace(warehouse.Department))
                 throw new BusinessException("El departamento es requerido");
 
@@ -205,7 +204,7 @@ namespace ShippingAndLogisticsManagement.Core.Services
                     $"El departamento '{warehouse.Department}' no es válido. " +
                     $"Debe ser uno de: {string.Join(", ", ValidDepartments)}");
 
-            // 6. Validar teléfono
+            // Validar teléfono
             if (string.IsNullOrWhiteSpace(warehouse.Phone))
                 throw new BusinessException("El teléfono es requerido");
 
@@ -215,7 +214,7 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (!Regex.IsMatch(warehouse.Phone, @"^[\d\s\-\+\(\)]+$"))
                 throw new BusinessException("El teléfono solo puede contener dígitos y caracteres: + - ( )");
 
-            // 7. Validar email (opcional)
+            // Validar email (opcional)
             if (!string.IsNullOrWhiteSpace(warehouse.Email))
             {
                 if (!IsValidEmail(warehouse.Email))
@@ -225,44 +224,22 @@ namespace ShippingAndLogisticsManagement.Core.Services
                     throw new BusinessException("El email no puede exceder 100 caracteres");
             }
 
-            // 8. Validar capacidad máxima
+            // Validar capacidad máxima
             if (warehouse.MaxCapacityM3 <= 0)
                 throw new BusinessException("La capacidad máxima debe ser mayor a 0");
 
             if (warehouse.MaxCapacityM3 > 100000)
                 throw new BusinessException("La capacidad máxima no puede exceder 100,000 m³");
 
-            // 9. Validar capacidad actual
+            // Validar capacidad actual
             if (warehouse.CurrentCapacityM3 < 0)
                 throw new BusinessException("La capacidad actual no puede ser negativa");
 
             if (warehouse.CurrentCapacityM3 > warehouse.MaxCapacityM3)
                 throw new BusinessException("La capacidad actual no puede exceder la capacidad máxima");
 
-            // 10. Validar coordenadas GPS (opcional)
-            if (warehouse.Latitude.HasValue)
-            {
-                if (warehouse.Latitude.Value < -90 || warehouse.Latitude.Value > 90)
-                    throw new BusinessException("La latitud debe estar entre -90 y 90");
-            }
-
-            if (warehouse.Longitude.HasValue)
-            {
-                if (warehouse.Longitude.Value < -180 || warehouse.Longitude.Value > 180)
-                    throw new BusinessException("La longitud debe estar entre -180 y 180");
-            }
-
-            // 11. Validar fecha de apertura
-            if (warehouse.OpeningDate > DateTime.Today)
-                throw new BusinessException("La fecha de apertura no puede ser futura");
-
-            // 12. Validar notas (opcional)
-            if (!string.IsNullOrWhiteSpace(warehouse.Notes) && warehouse.Notes.Length > 500)
-                throw new BusinessException("Las notas no pueden exceder 500 caracteres");
-
             // Establecer valores por defecto
             warehouse.IsActive = true;
-            warehouse.CreatedAt = DateTime.UtcNow;
             warehouse.CurrentCapacityM3 = 0; // Siempre inicia vacío
 
             await _unitOfWork.WarehouseRepository.Add(warehouse);
@@ -323,12 +300,6 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (warehouse.CurrentCapacityM3 > warehouse.MaxCapacityM3)
                 throw new BusinessException("La capacidad actual no puede exceder la capacidad máxima");
 
-            if (warehouse.Latitude.HasValue && (warehouse.Latitude.Value < -90 || warehouse.Latitude.Value > 90))
-                throw new BusinessException("La latitud debe estar entre -90 y 90");
-
-            if (warehouse.Longitude.HasValue && (warehouse.Longitude.Value < -180 || warehouse.Longitude.Value > 180))
-                throw new BusinessException("La longitud debe estar entre -180 y 180");
-
             // No permitir cambiar MaxCapacityM3 si hay envíos activos y la nueva capacidad es menor que la actual usada
             if (warehouse.MaxCapacityM3 < warehouse.CurrentCapacityM3)
                 throw new BusinessException(
@@ -354,48 +325,6 @@ namespace ShippingAndLogisticsManagement.Core.Services
                     "Primero despache todos los envíos.");
 
             await _unitOfWork.WarehouseRepository.Delete(id);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task DeactivateAsync(int id)
-        {
-            var existing = await _unitOfWork.WarehouseRepository.GetById(id);
-            if (existing == null)
-                throw new KeyNotFoundException("El almacén no existe");
-
-            if (!existing.IsActive)
-                throw new BusinessException("El almacén ya está inactivo");
-
-            // Verificar que no tenga envíos activos
-            var hasCurrentShipments = await _unitOfWork.ShipmentWarehouseRepository
-                .GetCurrentShipmentsInWarehouseAsync(id);
-
-            if (hasCurrentShipments.Any())
-                throw new BusinessException(
-                    $"No se puede desactivar el almacén porque tiene {hasCurrentShipments.Count()} envíos activos. " +
-                    "Primero despache todos los envíos.");
-
-            existing.IsActive = false;
-            await _unitOfWork.WarehouseRepository.Update(existing);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task UpdateCapacityAsync(int warehouseId, double capacityChange)
-        {
-            var warehouse = await _unitOfWork.WarehouseRepository.GetById(warehouseId);
-            if (warehouse == null)
-                throw new KeyNotFoundException("El almacén no existe");
-
-            var newCapacity = warehouse.CurrentCapacityM3 + capacityChange;
-
-            if (newCapacity < 0)
-                throw new BusinessException("La capacidad actual no puede ser negativa");
-
-            if (newCapacity > warehouse.MaxCapacityM3)
-                throw new BusinessException(
-                    $"La nueva capacidad ({newCapacity} m³) excede la capacidad máxima del almacén ({warehouse.MaxCapacityM3} m³)");
-
-            await _unitOfWork.WarehouseRepository.UpdateCurrentCapacityAsync(warehouseId, newCapacity);
             await _unitOfWork.SaveChangesAsync();
         }
 

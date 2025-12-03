@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using ShippingAndLogisticsManagement.Core.Enum;
 using ShippingAndLogisticsManagement.Core.Interfaces;
 using ShippingAndLogisticsManagement.Infrastructure.DTOS;
 using System.Text.RegularExpressions;
@@ -12,23 +13,13 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        // Tipos de vehículo válidos
-        private static readonly string[] ValidVehicleTypes = new[]
-        {
-            "Motorcycle", "Van", "Truck", "Pickup"
-        };
-
-        // Estados válidos
-        private static readonly string[] ValidVehicleStatuses = new[]
-        {
-            "Available", "InTransit", "UnderMaintenance", "OutOfService"
-        };
+        private static readonly Regex PlateRegex = new(@"^[A-Z0-9\-]+$");
+        private static readonly Regex VinRegex = new(@"^[A-HJ-NPR-Z0-9]{17}$");
 
         public VehicleDtoValidator(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
 
-            // ========== PlateNumber Validation ==========
             RuleFor(v => v.PlateNumber)
                 .NotEmpty()
                 .WithMessage("La placa es requerida")
@@ -49,50 +40,17 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                 })
                 .WithMessage("Ya existe un vehículo con esa placa");
 
-            // ========== Brand Validation ==========
-            RuleFor(v => v.Brand)
-                .NotEmpty()
-                .WithMessage("La marca es requerida")
-                .MinimumLength(2)
-                .WithMessage("La marca debe tener al menos 2 caracteres")
-                .MaximumLength(50)
-                .WithMessage("La marca no puede exceder 50 caracteres")
-                .Must(BeAValidBrand)
-                .WithMessage("La marca solo puede contener letras, números y espacios");
 
-            // ========== Model Validation ==========
-            RuleFor(v => v.Model)
-                .NotEmpty()
-                .WithMessage("El modelo es requerido")
-                .MinimumLength(2)
-                .WithMessage("El modelo debe tener al menos 2 caracteres")
-                .MaximumLength(100)
-                .WithMessage("El modelo no puede exceder 100 caracteres")
-                .Must(BeAValidModel)
-                .WithMessage("El modelo contiene caracteres no permitidos");
-
-            // ========== Type Validation ==========
             RuleFor(v => v.Type)
-                .NotEmpty()
-                .WithMessage("El tipo de vehículo es requerido")
-                .Must(BeAValidVehicleType)
-                .WithMessage(v => $"El tipo '{v.Type}' no es válido. " +
-                    $"Debe ser uno de: {string.Join(", ", ValidVehicleTypes)}");
+                .IsInEnum().WithMessage("El tipo de vehículo no es válido");
 
-            // ========== MaxWeightCapacityKg Validation ==========
             RuleFor(v => v.MaxWeightCapacityKg)
-                .NotEmpty()
-                .WithMessage("La capacidad de peso es requerida")
-                .GreaterThan(0)
-                .WithMessage("La capacidad de peso debe ser mayor a 0 kg")
-                .LessThanOrEqualTo(50000)
-                .WithMessage("La capacidad de peso no puede exceder 50,000 kg")
-                .Must(BeValidCapacity)
-                .WithMessage("La capacidad de peso debe tener máximo 2 decimales")
+                .GreaterThan(0).WithMessage("La capacidad de peso debe ser mayor a 0 kg")
+                .LessThanOrEqualTo(50000).WithMessage("La capacidad de peso no puede exceder 50,000 kg")
+                // Validación cruzada: Tipo vs Capacidad
                 .Must((dto, capacity) => ValidateCapacityByType(dto.Type, capacity))
                 .WithMessage(dto => GetCapacityRangeMessage(dto.Type));
 
-            // ========== MaxVolumeCapacityM3 Validation ==========
             RuleFor(v => v.MaxVolumeCapacityM3)
                 .NotEmpty()
                 .WithMessage("La capacidad de volumen es requerida")
@@ -103,15 +61,9 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                 .Must(BeValidCapacity)
                 .WithMessage("La capacidad de volumen debe tener máximo 2 decimales");
 
-            // ========== Status Validation ==========
             RuleFor(v => v.Status)
-                .NotEmpty()
-                .WithMessage("El estado es requerido")
-                .Must(BeAValidStatus)
-                .WithMessage(v => $"El estado '{v.Status}' no es válido. " +
-                    $"Debe ser uno de: {string.Join(", ", ValidVehicleStatuses)}");
+                .IsInEnum().WithMessage("El estado no es válido");
 
-            // ========== VIN Validation (opcional) ==========
             RuleFor(v => v.VIN)
                 .MaximumLength(17)
                 .When(v => !string.IsNullOrWhiteSpace(v.VIN))
@@ -130,32 +82,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                 .When(v => !string.IsNullOrWhiteSpace(v.VIN))
                 .WithMessage("Ya existe un vehículo con ese VIN");
 
-            // ========== Year Validation (opcional) ==========
-            RuleFor(v => v.Year)
-                .InclusiveBetween(1900, DateTime.Now.Year + 1)
-                .When(v => v.Year != 0)
-                .WithMessage($"El año debe estar entre 1900 y {DateTime.Now.Year + 1}");
-
-            // ========== CurrentMileage Validation ==========
-            RuleFor(v => v.CurrentMileage)
-                .GreaterThanOrEqualTo(0)
-                .WithMessage("El kilometraje no puede ser negativo")
-                .LessThanOrEqualTo(5000000)
-                .WithMessage("El kilometraje no puede exceder 5,000,000 km");
-
-            // ========== LastMaintenanceDate Validation (opcional) ==========
-            RuleFor(v => v.LastMaintenanceDate)
-                .LessThanOrEqualTo(DateTime.Today)
-                .When(v => v.LastMaintenanceDate.HasValue)
-                .WithMessage("La fecha de último mantenimiento no puede ser futura");
-
-            // ========== InsuranceExpiryDate Validation (opcional) ==========
-            RuleFor(v => v.InsuranceExpiryDate)
-                .GreaterThan(DateTime.Today)
-                .When(v => v.InsuranceExpiryDate.HasValue)
-                .WithMessage("La fecha de vencimiento del seguro debe ser futura");
-
-            // ========== BaseWarehouseId Validation (opcional) ==========
             RuleFor(v => v.BaseWarehouseId)
                 .MustAsync(async (warehouseId, ct) =>
                 {
@@ -167,38 +93,28 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                 .When(v => v.BaseWarehouseId.HasValue)
                 .WithMessage("El almacén base no existe o está inactivo");
 
-            // ========== AssignedDriverId Validation (opcional) ==========
             RuleFor(v => v.AssignedDriverId)
-                .MustAsync(async (driverId, ct) =>
-                {
-                    if (!driverId.HasValue) return true;
-
-                    var driver = await _unitOfWork.DriverRepository.GetById(driverId.Value);
-                    return driver != null && driver.IsActive;
-                })
-                .When(v => v.AssignedDriverId.HasValue)
-                .WithMessage("El conductor asignado no existe o está inactivo")
                 .MustAsync(async (dto, driverId, ct) =>
                 {
                     if (!driverId.HasValue) return true;
 
-                    // Verificar que el conductor no esté asignado a otro vehículo
                     var driver = await _unitOfWork.DriverRepository.GetById(driverId.Value);
-                    if (driver?.CurrentVehicleId != null)
+                    if (driver == null || !driver.IsActive) return false;
+
+                    // Si el conductor ya tiene vehículo y NO es este mismo vehículo (en edición)
+                    if (driver.CurrentVehicleId != null && driver.CurrentVehicleId != dto.Id)
                     {
-                        // Si es actualización y es el mismo vehículo, permitir
-                        return dto.Id != 0 && driver.CurrentVehicleId == dto.Id;
+                        return false;
                     }
                     return true;
                 })
                 .When(v => v.AssignedDriverId.HasValue)
-                .WithMessage("El conductor ya está asignado a otro vehículo");
+                .WithMessage("El conductor no existe, está inactivo o ya tiene otro vehículo asignado");
 
-            // ========== ID Validation (para actualizaciones) ==========
             RuleFor(v => v.Id)
                 .GreaterThanOrEqualTo(0)
                 .WithMessage("El ID no puede ser negativo")
-                .MustAsync(async (dto, id, ct) =>
+                .MustAsync(async (id, ct) =>
                 {
                     if (id > 0)
                     {
@@ -209,18 +125,10 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                 })
                 .WithMessage("El vehículo con ese ID no existe");
 
-            // ========== Business Rules ==========
-
             // Regla: Si está InTransit, debe tener conductor asignado
             RuleFor(v => v)
-                .Must(v => !(v.Status == "InTransit" && !v.AssignedDriverId.HasValue))
+                .Must(v => !(v.Status == VehicleStatus.InTransit && !v.AssignedDriverId.HasValue))
                 .WithMessage("Un vehículo 'En Tránsito' debe tener un conductor asignado");
-
-            // Regla: Si está bajo mantenimiento, no puede estar en tránsito
-            RuleFor(v => v.Status)
-                .NotEqual("InTransit")
-                .When(v => v.Status == "UnderMaintenance")
-                .WithMessage("Un vehículo en mantenimiento no puede estar en tránsito");
 
             // Regla: Capacidad coherente peso/volumen
             RuleFor(v => v)
@@ -235,42 +143,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
         {
             if (string.IsNullOrWhiteSpace(plateNumber)) return false;
             return Regex.IsMatch(plateNumber, @"^[A-Z0-9\-]+$", RegexOptions.IgnoreCase);
-        }
-
-        /// <summary>
-        /// Valida formato de marca
-        /// </summary>
-        private bool BeAValidBrand(string brand)
-        {
-            if (string.IsNullOrWhiteSpace(brand)) return false;
-            return Regex.IsMatch(brand, @"^[a-zA-Z0-9\s]+$");
-        }
-
-        /// <summary>
-        /// Valida formato de modelo
-        /// </summary>
-        private bool BeAValidModel(string model)
-        {
-            if (string.IsNullOrWhiteSpace(model)) return false;
-            return Regex.IsMatch(model, @"^[a-zA-Z0-9\s\-.,()]+$");
-        }
-
-        /// <summary>
-        /// Valida que el tipo sea uno de los permitidos
-        /// </summary>
-        private bool BeAValidVehicleType(string type)
-        {
-            if (string.IsNullOrWhiteSpace(type)) return false;
-            return ValidVehicleTypes.Contains(type, StringComparer.OrdinalIgnoreCase);
-        }
-
-        /// <summary>
-        /// Valida que el estado sea uno de los permitidos
-        /// </summary>
-        private bool BeAValidStatus(string status)
-        {
-            if (string.IsNullOrWhiteSpace(status)) return false;
-            return ValidVehicleStatuses.Contains(status, StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -299,14 +171,14 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
         /// <summary>
         /// Valida capacidad según el tipo de vehículo
         /// </summary>
-        private bool ValidateCapacityByType(string type, double capacity)
+        private bool ValidateCapacityByType(VehicleType type, double capacity)
         {
-            return type?.ToLower() switch
+            return type switch
             {
-                "motorcycle" => capacity <= 300,      // Máximo 300 kg
-                "van" => capacity <= 3000,            // Máximo 3,000 kg
-                "pickup" => capacity <= 5000,         // Máximo 5,000 kg
-                "truck" => capacity <= 50000,         // Máximo 50,000 kg
+                VehicleType.Motorcycle => capacity <= 300,
+                VehicleType.Van => capacity <= 3000,
+                VehicleType.Pickup => capacity <= 5000,
+                VehicleType.Truck => capacity <= 50000,
                 _ => true
             };
         }
@@ -314,15 +186,15 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
         /// <summary>
         /// Obtiene el mensaje de rango de capacidad según tipo
         /// </summary>
-        private string GetCapacityRangeMessage(string type)
+        private string GetCapacityRangeMessage(VehicleType type)
         {
-            return type?.ToLower() switch
+            return type switch
             {
-                "motorcycle" => "Una motocicleta no puede tener capacidad mayor a 300 kg",
-                "van" => "Una van no puede tener capacidad mayor a 3,000 kg",
-                "pickup" => "Una pickup no puede tener capacidad mayor a 5,000 kg",
-                "truck" => "Un camión no puede tener capacidad mayor a 50,000 kg",
-                _ => "La capacidad no es válida para este tipo de vehículo"
+                VehicleType.Motorcycle => "Una motocicleta no puede superar los 300 kg",
+                VehicleType.Van => "Una van no puede superar los 3,000 kg",
+                VehicleType.Pickup => "Una pickup no puede superar los 5,000 kg",
+                VehicleType.Truck => "Un camión no puede superar los 50,000 kg",
+                _ => "Capacidad inválida"
             };
         }
 
@@ -331,11 +203,10 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
         /// </summary>
         private bool ValidateWeightVolumeRatio(double weight, double volume)
         {
-            if (volume <= 0) return true;
-
-            // Densidad típica: 100-500 kg/m³
+            if (volume <= 0) return true; // Evitar división por cero
             var density = weight / volume;
-            return density >= 50 && density <= 1000;
+            // Rango ampliado: 20 kg/m3 (espuma) a 2000 kg/m3 (metal/piedra)
+            return density >= 20 && density <= 2000;
         }
     }
 }
