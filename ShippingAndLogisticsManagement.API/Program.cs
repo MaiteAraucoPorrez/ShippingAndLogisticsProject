@@ -123,10 +123,17 @@ namespace ShippingAndLogisticsManagement.API
                     Version = "v1",
                     Description = "Documentación de la API de Envíos y Logística - NET 9\n\n" +
                                   "Esta API gestiona el sistema completo de logística incluyendo:\n" +
-                                  "- **Customers**: Gestión de clientes con validación de email único y límite de dominio\n" +
-                                  "- **Routes**: Gestión de rutas con análisis de rentabilidad y ranking de uso\n" +
-                                  "- **Shipments**: Gestión de envíos con validación de estados y límites por cliente\n" +
-                                  "- **Packages**: Gestión de paquetes con validación de peso, precio y límites por envío",
+                                 "### Módulo de Clientes\n" +
+                                      "- **Customers**: Gestión de clientes con validación de email único y límite de dominio\n" +
+                                      "- **Addresses**: Gestión de múltiples direcciones (Recogida/Entrega) por cliente\n\n" +
+                                 "### Módulo de Transporte y Personal\n" +
+                                      "- **Drivers**: Administración de conductores, validación de licencias y disponibilidad\n" +
+                                      "- **Vehicles**: Control de flota, capacidades de carga (Kg/m³) y estado de mantenimiento\n\n" +
+                                 "### Módulo de Operaciones\n" +
+                                      "- **Warehouses**: Gestión de almacenes, control de capacidad cúbica y ubicación\n" +
+                                      "- **Routes**: Gestión de rutas con análisis de rentabilidad y ranking de uso\n" +
+                                      "- **Shipments**: Gestión de envíos con trazabilidad y estados en tiempo real\n" +
+                                      "- **Packages**: Gestión de paquetes con validación de peso, volumen y precio",
                     Contact = new()
                     {
                         Name = "Equipo de Desarrollo UCB",
