@@ -51,7 +51,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Retorna los resultados con paginación automática.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/address?CustomerId=5&amp;City=La Paz&amp;Type=Delivery&amp;PageNumber=1&amp;PageSize=10
+        /// GET /api/v1/address/dto/mapper?CustomerId=5&amp;City=La Paz&amp;Type=Delivery&amp;PageNumber=1&amp;PageSize=10
         /// </remarks>
         /// <param name="filters">Filtros de búsqueda incluyendo paginación</param>
         /// <returns>Lista paginada de direcciones</returns>
@@ -63,7 +63,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet]
+        [HttpGet("dto/mapper")]
         public async Task<IActionResult> GetAllAddresses([FromQuery] AddressQueryFilter filters)
         {
             try
@@ -105,7 +105,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// ordenadas por dirección predeterminada primero.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/address/customer/5
+        /// GET /api/v1/address/dto/mapper/customer/5
         /// </remarks>
         /// <param name="customerId">ID del cliente</param>
         /// <returns>Lista de direcciones del cliente</returns>
@@ -117,7 +117,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("customer/{customerId}")]
+        [HttpGet("dto/mapper/customer/{customerId}")]
         public async Task<IActionResult> GetAddressesByCustomer(int customerId)
         {
             try
@@ -164,7 +164,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// la información completa de la dirección.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/address/5
+        /// GET /api/v1/address/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador único de la dirección</param>
         /// <returns>Información detallada de la dirección</returns>
@@ -176,7 +176,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("{id}")]
+        [HttpGet("dto/mapper/{id}")]
         public async Task<IActionResult> GetAddressById(int id)
         {
             try
@@ -296,16 +296,19 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// 
         /// Ejemplo de solicitud:
         /// POST /api/v1/address
-        /// {
-        ///   "customerId": 5,
-        ///   "street": "Av. 6 de Agosto #2170",
-        ///   "city": "La Paz",
-        ///   "department": "La Paz",
-        ///   "zone": "Sopocachi",
-        ///   "type": "Delivery",
-        ///   "isDefault": true,
-        ///   "reference": "Edificio azul, tercer piso"
-        /// }
+        ///{
+        ///  "customerId": 5,
+        ///  "street": "Av. 6 de Agosto #2170, Edificio Torres del Poeta",
+        ///  "city": "La Paz",
+        ///  "department": "La Paz",
+        ///  "zone": "Sopocachi",
+        ///  "type": "Delivery",
+        ///  "isDefault": true,
+        ///  "reference": "Edificio azul, tercer piso, portón negro",
+        ///  "contactName": "Juan Pérez",
+        ///  "contactPhone": "71234567",
+        ///  "isActive": true
+        ///}
         /// </remarks>
         /// <param name="addressDto">Datos de la dirección a crear</param>
         /// <returns>La dirección creada con su ID asignado</returns>
@@ -355,16 +358,21 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// antes de aplicar los cambios.
         /// 
         /// Ejemplo de solicitud:
-        /// PUT /api/v1/address/5
-        /// {
-        ///   "id": 5,
-        ///   "customerId": 5,
-        ///   "street": "Av. 6 de Agosto #2170, Piso 4",
-        ///   "city": "La Paz",
-        ///   "department": "La Paz",
-        ///   "type": "Delivery",
-        ///   "isDefault": true
-        /// }
+        /// PUT /api/v1/address/dto/mapper/10
+        ///{
+        ///  "id": 10,
+        ///  "customerId": 8,
+        ///  "street": "Calle 21 de Mayo #1234",
+        ///  "city": "Santa Cruz",
+        ///  "department": "Santa Cruz",
+        ///  "zone": "Centro",
+        ///  "type": "Delivery",
+        ///  "isDefault": true,
+        ///  "reference": "Edificio El Fuerte",
+        ///  "contactName": "Sofia Morales",
+        ///  "contactPhone": "71234567",
+        ///  "isActive": true
+        ///}
         /// </remarks>
         /// <param name="id">Identificador de la dirección a actualizar</param>
         /// <param name="addressDto">Nuevos datos de la dirección</param>
@@ -377,7 +385,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpPut("{id}")]
+        [HttpPut("dto/mapper/{id}")]
         public async Task<IActionResult> UpdateAddress(int id, [FromBody] AddressDto addressDto)
         {
             try
@@ -440,7 +448,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// No permite eliminar la única dirección predeterminada activa de un cliente.
         /// Esta es una eliminación física del registro.
         /// Ejemplo de uso:
-        /// DELETE /api/v1/address/5
+        /// DELETE /api/v1/address/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador de la dirección a eliminar</param>
         /// <returns>Confirmación de eliminación</returns>
@@ -452,7 +460,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpDelete("{id}")]
+        [HttpDelete("dto/mapper/{id}")]
         public async Task<IActionResult> DeleteAddress(int id)
         {
             try

@@ -145,7 +145,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// la información completa de la ruta incluyendo costo por kilómetro.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/route/5
+        /// GET /api/v1/route/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador único de la ruta</param>
         /// <returns>Información detallada de la ruta</returns>
@@ -425,7 +425,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// antes de aplicar los cambios. No se puede cambiar origen/destino si hay envíos asociados.
         /// 
         /// Ejemplo de solicitud:
-        /// PUT /api/v1/route/5
+        /// PUT /api/v1/route/dto/mapper/5
         /// {
         ///   "id": 5,
         ///   "origin": "Cochabamba",
@@ -508,7 +508,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Esta es una eliminación física del registro.
         /// 
         /// Ejemplo de uso:
-        /// DELETE /api/v1/route/5
+        /// DELETE /api/v1/route/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador de la ruta a eliminar</param>
         /// <returns>Confirmación de eliminación</returns>

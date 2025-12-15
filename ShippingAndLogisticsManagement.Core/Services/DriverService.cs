@@ -152,19 +152,51 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (existing == null)
                 throw new KeyNotFoundException("El conductor no existe");
 
-            // Aplicar mismas validaciones que en Insert
+            // Aplicar validaciones
             if (string.IsNullOrWhiteSpace(driver.FullName) || driver.FullName.Length < 5)
                 throw new BusinessException("El nombre completo debe tener al menos 5 caracteres");
 
+            if (driver.FullName.Length > 100)
+                throw new BusinessException("El nombre completo no puede exceder 100 caracteres");
 
+            // Validar unicidad de licencia (excluyendo el mismo conductor)
             var existingByLicense = await _unitOfWork.DriverRepository.GetByLicenseNumberAsync(driver.LicenseNumber);
             if (existingByLicense != null && existingByLicense.Id != driver.Id)
                 throw new BusinessException("Ya existe otro conductor con ese número de licencia");
 
+            // Validar email
             if (!IsValidEmail(driver.Email))
                 throw new BusinessException("El email no tiene un formato válido");
 
-            await _unitOfWork.DriverRepository.Update(driver);
+            // Validar teléfono
+            if (string.IsNullOrWhiteSpace(driver.Phone) || driver.Phone.Length < 7 || driver.Phone.Length > 20)
+                throw new BusinessException("El teléfono debe tener entre 7 y 20 caracteres");
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(driver.Phone, @"^[\d\s\-\+\(\)]+$"))
+                throw new BusinessException("El teléfono solo puede contener dígitos, espacios y los caracteres: + - ( )");
+
+            // Validar fecha de nacimiento
+            if (driver.DateOfBirth >= DateTime.Now)
+                throw new BusinessException("La fecha de nacimiento debe ser pasada");
+
+            var age = DateTime.Now.Year - driver.DateOfBirth.Year;
+            if (driver.DateOfBirth.Date > DateTime.Now.AddYears(-age)) age--;
+            if (age < 18)
+                throw new BusinessException("El conductor debe ser mayor de 18 años");
+
+            existing.FullName = driver.FullName;
+            existing.LicenseNumber = driver.LicenseNumber;
+            existing.Phone = driver.Phone;
+            existing.Email = driver.Email;
+            existing.Address = driver.Address;
+            existing.City = driver.City;
+            existing.DateOfBirth = driver.DateOfBirth;
+            existing.IsActive = driver.IsActive;
+            existing.Status = driver.Status;
+            existing.CurrentVehicleId = driver.CurrentVehicleId;
+            existing.TotalDeliveries = driver.TotalDeliveries;
+
+            await _unitOfWork.DriverRepository.Update(existing);
             await _unitOfWork.SaveChangesAsync();
         }
 

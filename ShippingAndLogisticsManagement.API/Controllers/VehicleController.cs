@@ -50,7 +50,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Retorna los resultados con paginación automática.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/vehicle?Type=Truck&amp;Status=Available&amp;PageNumber=1&amp;PageSize=10
+        /// GET /api/v1/vehicle/dto/mapper?Type=Truck&amp;Status=Available&amp;PageNumber=1&amp;PageSize=10
         /// </remarks>
         /// <param name="filters">Filtros de búsqueda incluyendo paginación</param>
         /// <returns>Lista paginada de vehículos</returns>
@@ -62,7 +62,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet]
+        [HttpGet("dto/mapper")]
         public async Task<IActionResult> GetAllVehicles([FromQuery] VehicleQueryFilter filters)
         {
             try
@@ -106,14 +106,14 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Por defecto retorna los últimos 10 registros.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/vehicle/dapper
+        /// GET /api/v1/vehicle/dto/dapper
         /// </remarks>
         /// <returns>Lista de vehículos sin paginación</returns>
         /// <response code="200">Retorna la lista de vehículos</response>
         /// <response code="500">Error interno del servidor</response>
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<VehicleDto>>))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("dapper")]
+        [HttpGet("dto/dapper")]
         public async Task<IActionResult> GetVehiclesDapper()
         {
             try
@@ -145,7 +145,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// y en condiciones operativas. Ordenados por tipo y capacidad.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/vehicle/available
+        /// GET /api/v1/vehicle/dto/available
         /// </remarks>
         /// <returns>Lista de vehículos disponibles</returns>
         /// <response code="200">Retorna los vehículos disponibles</response>
@@ -154,7 +154,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<VehicleDto>>))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("available")]
+        [HttpGet("dto/available")]
         public async Task<IActionResult> GetAvailableVehicles()
         {
             try
@@ -260,7 +260,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// la información completa del vehículo.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/vehicle/5
+        /// GET /api/v1/vehicle/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador único del vehículo</param>
         /// <returns>Información detallada del vehículo</returns>
@@ -272,7 +272,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("{id}")]
+        [HttpGet("dto/mapper/{id}")]
         public async Task<IActionResult> GetVehicleById(int id)
         {
             try
@@ -318,7 +318,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Este endpoint utiliza Dapper para consultas optimizadas sin tracking.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/vehicle/dapper/5
+        /// GET /api/v1/vehicle/dto/dapper/5
         /// </remarks>
         /// <param name="id">Identificador único del vehículo</param>
         /// <returns>Información detallada del vehículo</returns>
@@ -330,7 +330,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("dapper/{id}")]
+        [HttpGet("dto/dapper/{id}")]
         public async Task<IActionResult> GetVehicleByIdDapper(int id)
         {
             try
@@ -445,17 +445,19 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// 
         /// Ejemplo de solicitud:
         /// POST /api/v1/vehicle
-        /// {
-        ///   "plateNumber": "1234-ABC",
-        ///   "brand": "Toyota",
-        ///   "model": "Hilux 2020",
-        ///   "year": 2020,
-        ///   "color": "Blanco",
-        ///   "type": "Pickup",
-        ///   "maxWeightCapacityKg": 3500.00,
-        ///   "maxVolumeCapacityM3": 15.5,
-        ///   "purchaseDate": "2020-03-15"
-        /// }
+        ///{
+        ///  "plateNumber": "1111-ABC",
+        ///  "type": 4,
+        ///  "maxWeightCapacityKg": 3500.00,
+        ///  "maxVolumeCapacityM3": 15.5,
+        ///  "currentWeightKg": 0,
+        ///  "currentVolumeM3": 0,
+        ///  "status": 1,
+        ///  "vin": "7HGBH41JXMN109876",
+        ///  "isActive": true,
+        ///  "baseWarehouseId": 2,
+        ///  "assignedDriverId": null
+        //}
         /// </remarks>
         /// <param name="vehicleDto">Datos del vehículo a crear</param>
         /// <returns>El vehículo creado con su ID asignado</returns>
@@ -505,18 +507,21 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// antes de aplicar los cambios, incluyendo unicidad de placa.
         /// 
         /// Ejemplo de solicitud:
-        /// PUT /api/v1/vehicle/5
-        /// {
-        ///   "id": 5,
-        ///   "plateNumber": "1234-ABC",
-        ///   "brand": "Toyota",
-        ///   "model": "Hilux 2020",
-        ///   "year": 2020,
-        ///   "type": "Pickup",
-        ///   "maxWeightCapacityKg": 3500.00,
-        ///   "maxVolumeCapacityM3": 15.5,
-        ///   "isActive": true
-        /// }
+        /// PUT /api/v1/vehicle/dto/mapper/5
+        ///{
+        ///  "id": 5,
+        ///  "plateNumber": "5678-EFG",
+        ///  "type": 2,
+        ///  "maxWeightCapacityKg": 1500.00,
+        ///  "maxVolumeCapacityM3": 10.5,
+        ///  "currentWeightKg": 590.00,
+        ///  "currentVolumeM3": 5.8,
+        ///  "status": 1,
+        ///  "vin": "5HGBH41JXMN109190",
+        ///  "isActive": true,
+        ///  "baseWarehouseId": 5,
+        ///  "assignedDriverId": 5
+        ///}
         /// </remarks>
         /// <param name="id">Identificador del vehículo a actualizar</param>
         /// <param name="vehicleDto">Nuevos datos del vehículo</param>
@@ -529,7 +534,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpPut("{id}")]
+        [HttpPut("dto/mapper/{id}")]
         public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleDto vehicleDto)
         {
             try
@@ -593,7 +598,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Esta es una eliminación física del registro.
         /// 
         /// Ejemplo de uso:
-        /// DELETE /api/v1/vehicle/5
+        /// DELETE /api/v1/vehicle/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador del vehículo a eliminar</param>
         /// <returns>Confirmación de eliminación</returns>
@@ -605,7 +610,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpDelete("{id}")]
+        [HttpDelete("dto/mapper/{id}")]
         public async Task<IActionResult> DeleteVehicle(int id)
         {
             try

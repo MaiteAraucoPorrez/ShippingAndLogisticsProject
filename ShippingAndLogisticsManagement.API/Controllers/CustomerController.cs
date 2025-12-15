@@ -145,7 +145,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// la información completa del cliente incluyendo datos de contacto.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/customer/5
+        /// GET /api/v1/customer/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador único del cliente</param>
         /// <returns>Información detallada del cliente</returns>
@@ -382,7 +382,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// antes de aplicar los cambios, incluyendo unicidad de email.
         /// 
         /// Ejemplo de solicitud:
-        /// PUT /api/v1/customer/5
+        /// PUT /api/v1/customer/dto/mapper/5
         /// {
         ///   "id": 5,
         ///   "name": "Juan Carlos Pérez González",
@@ -462,7 +462,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Esta es una eliminación física del registro.
         /// 
         /// Ejemplo de uso:
-        /// DELETE /api/v1/customer/5
+        /// DELETE /api/v1/customer/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador del cliente a eliminar</param>
         /// <returns>Confirmación de eliminación</returns>

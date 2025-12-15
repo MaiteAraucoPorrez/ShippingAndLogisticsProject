@@ -72,24 +72,13 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
                 parameters.Add("MinVolume", filters.MinAvailableVolumeM3.Value);
             }
 
-            if (filters.RequiresMaintenance.HasValue && filters.RequiresMaintenance.Value)
-            {
-                conditions.Add(@"(
-                    NextMaintenanceDate IS NOT NULL 
-                    AND NextMaintenanceDate <= DATEADD(DAY, 7, GETDATE())
-                    OR 
-                    (LastMaintenanceMileage IS NOT NULL 
-                     AND CurrentMileage - LastMaintenanceMileage >= 10000)
-                )");
-            }
-
             var whereClause = string.Join(" AND ", conditions);
 
             var sql = $@"
                 SELECT *
                 FROM Vehicles
                 WHERE {whereClause}
-                ORDER BY Type, Brand, Model;
+                ORDER BY Type, PlateNumber;
             ";
 
             return await _dapper.QueryAsync<Vehicle>(sql, parameters);
@@ -118,7 +107,10 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
 
         public async Task<IEnumerable<Vehicle>> GetAvailableVehiclesAsync()
         {
-            return await _dapper.QueryAsync<Vehicle>(VehicleQueries.GetAvailableVehicles);
+            return await _dapper.QueryAsync<Vehicle>(
+                VehicleQueries.GetAvailableVehicles,
+                new { AvailableStatus = VehicleStatus.Available.ToString() }
+            );
         }
 
         public async Task<IEnumerable<Vehicle>> GetByTypeAsync(VehicleType type)
@@ -149,7 +141,12 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
         {
             return await _dapper.QueryAsync<Vehicle>(
                 VehicleQueries.GetByCapacity,
-                new { RequiredWeight = requiredWeight, RequiredVolume = requiredVolume }
+                new
+                {
+                    AvailableStatus = VehicleStatus.Available.ToString(),
+                    RequiredWeight = requiredWeight,
+                    RequiredVolume = requiredVolume
+                }
             );
         }
 

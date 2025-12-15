@@ -101,7 +101,10 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
 
         public async Task<IEnumerable<Driver>> GetAvailableDriversAsync()
         {
-            return await _dapper.QueryAsync<Driver>(DriverQueries.GetAvailableDrivers);
+            return await _dapper.QueryAsync<Driver>(
+                DriverQueries.GetAvailableDrivers,
+                new { AvailableStatus = DriverStatus.Available.ToString() }
+            );
         }
 
         public async Task<IEnumerable<Driver>> GetByStatusAsync(DriverStatus status)

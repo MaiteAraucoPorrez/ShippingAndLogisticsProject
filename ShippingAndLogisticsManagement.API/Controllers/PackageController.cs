@@ -245,7 +245,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Este método utiliza Dapper para optimizar la consulta y retorna
         /// la información completa del paquete incluyendo datos del envío asociado.
         /// Ejemplo de uso:
-        /// GET /api/v1/package/5
+        /// GET /api/v1/package/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador único del paquete</param>
         /// <returns>Información detallada del paquete</returns>
@@ -494,7 +494,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// de aplicar los cambios.
         /// 
         /// Ejemplo de solicitud:
-        /// PUT /api/v1/package/5
+        /// PUT /api/v1/package/dto/mapper/5
         /// {
         ///   "id": 5,
         ///   "description": "Laptop Dell XPS 15 - Actualizado",
@@ -577,7 +577,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Esta es una eliminación física del registro.
         /// 
         /// Ejemplo de uso:
-        /// DELETE /api/v1/package/5
+        /// DELETE /api/v1/package/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador del paquete a eliminar</param>
         /// <example>5</example>

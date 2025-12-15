@@ -93,7 +93,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
                 SELECT *
                 FROM Addresses
                 WHERE {whereClause}
-                ORDER BY IsDefault DESC, CreatedAt DESC;
+                ORDER BY IsDefault DESC;
             ";
 
             return await _dapper.QueryAsync<Address>(sql, parameters);

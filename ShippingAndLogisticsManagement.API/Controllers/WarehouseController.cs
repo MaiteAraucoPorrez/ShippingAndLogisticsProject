@@ -50,7 +50,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Retorna los resultados con paginación automática.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/warehouse?City=La Paz&amp;Type=Regional&amp;IsActive=true&amp;PageNumber=1&amp;PageSize=10
+        /// GET /api/v1/warehouse/dto/mapper?City=La Paz&amp;Type=Regional&amp;IsActive=true&amp;PageNumber=1&amp;PageSize=10
         /// </remarks>
         /// <param name="filters">Filtros de búsqueda incluyendo paginación</param>
         /// <returns>Lista paginada de almacenes</returns>
@@ -62,7 +62,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet]
+        [HttpGet("dto/mapper")]
         public async Task<IActionResult> GetAllWarehouses([FromQuery] WarehouseQueryFilter filters)
         {
             try
@@ -105,7 +105,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Útil para formularios de selección y operaciones que requieren almacenes operativos.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/warehouse/active
+        /// GET /api/v1/warehouse/dto/mapper/active
         /// </remarks>
         /// <returns>Lista de almacenes activos</returns>
         /// <response code="200">Retorna la lista de almacenes activos</response>
@@ -155,7 +155,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Útil para asignar envíos a almacenes con espacio suficiente.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/warehouse/available?requiredCapacity=50.5
+        /// GET /api/v1/warehouse/dto/available?requiredCapacity=50.5
         /// </remarks>
         /// <param name="requiredCapacity">Capacidad requerida en m³</param>
         /// <returns>Lista de almacenes con capacidad disponible</returns>
@@ -216,7 +216,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// la información completa del almacén.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/warehouse/5
+        /// GET /api/v1/warehouse/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador único del almacén</param>
         /// <returns>Información detallada del almacén</returns>
@@ -228,7 +228,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("{id}")]
+        [HttpGet("dto/mapper/{id}")]
         public async Task<IActionResult> GetWarehouseById(int id)
         {
             try
@@ -403,16 +403,20 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Ejemplo de solicitud:
         /// POST /api/v1/warehouse
         /// {
-        ///   "name": "Almacén Central La Paz",
-        ///   "code": "WH-LP-001",
-        ///   "address": "Av. Buenos Aires Km 7.5, Zona Industrial",
-        ///   "city": "La Paz",
-        ///   "department": "La Paz",
-        ///   "phone": "2-2234567",
-        ///   "email": "almacen.lapaz@empresa.com",
-        ///   "maxCapacityM3": 1000,
-        ///   "type": "Central"
-        /// }
+        ///  "name": "Almacén Central Potosi",
+        ///  "code": "WH-PT-001",
+        ///  "address": "Av. Argentina #45",
+        ///  "city": "Potosi",
+        ///  "department": "Potosí",
+        ///  "phone": "7-6734512",
+        ///  "email": "almacen.potosi@empresa.com",
+        ///  "maxCapacityM3": 900,
+        ///  "currentCapacityM3": 0,
+        ///  "isActive": true,
+        ///  "type": "Central",
+        ///  "operatingHours": "Lunes a Viernes 8:00-19:00, Sábados 9:00-15:00",
+        ///  "managerName": "Daniel Sandoval"
+        ///}
         /// </remarks>
         /// <param name="warehouseDto">Datos del almacén a crear</param>
         /// <returns>El almacén creado con su ID asignado</returns>
@@ -462,19 +466,23 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// antes de aplicar los cambios.
         /// 
         /// Ejemplo de solicitud:
-        /// PUT /api/v1/warehouse/5
-        /// {
-        ///   "id": 5,
-        ///   "name": "Almacén Central La Paz - Actualizado",
-        ///   "code": "WH-LP-001",
-        ///   "address": "Av. Buenos Aires Km 7.5",
-        ///   "city": "La Paz",
-        ///   "department": "La Paz",
-        ///   "phone": "2-2234567",
-        ///   "maxCapacityM3": 1200,
-        ///   "type": "Central",
-        ///   "isActive": true
-        /// }
+        /// PUT /api/v1/warehouse/dto/mapper/2
+        ///{
+        ///  "id": 2,
+        ///  "name": "Almacén Regional Cochabamba",
+        ///  "code": "WH-CB-001",
+        ///  "address": "Av. Petrolera Km 5, Parque Industrial",
+        ///  "city": "Cochabamba",
+        ///  "department": "Cochabamba",
+        ///  "phone": "7-7237669",
+        ///  "email": "almacen.cbba@empresa.com",
+        ///  "maxCapacityM3": 1700,
+        ///  "currentCapacityM3": 450.5,
+        ///  "isActive": true,
+        ///  "type": "Regional",
+        ///  "operatingHours": "Lunes a Sábado 7:00-19:00",
+        ///  "managerName": "Carmen Flores"
+        ///}
         /// </remarks>
         /// <param name="id">Identificador del almacén a actualizar</param>
         /// <param name="warehouseDto">Nuevos datos del almacén</param>
@@ -487,7 +495,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpPut("{id}")]
+        [HttpPut("dto/mapper/{id}")]
         public async Task<IActionResult> UpdateWarehouse(int id, [FromBody] WarehouseDto warehouseDto)
         {
             try
@@ -551,7 +559,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Esta es una eliminación física del registro.
         /// 
         /// Ejemplo de uso:
-        /// DELETE /api/v1/warehouse/5
+        /// DELETE /api/v1/warehouse/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador del almacén a eliminar</param>
         /// <returns>Confirmación de eliminación</returns>
@@ -563,7 +571,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpDelete("{id}")]
+        [HttpDelete("dto/mapper/{id}")]
         public async Task<IActionResult> DeleteWarehouse(int id)
         {
             try

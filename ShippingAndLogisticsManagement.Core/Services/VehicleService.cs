@@ -205,7 +205,19 @@ namespace ShippingAndLogisticsManagement.Core.Services
             if (vehicle.CurrentVolumeM3 > vehicle.MaxVolumeCapacityM3)
                 throw new BusinessException("El volumen actual no puede exceder la capacidad máxima");
 
-            await _unitOfWork.VehicleRepository.Update(vehicle);
+            existing.PlateNumber = vehicle.PlateNumber;
+            existing.Type = vehicle.Type;
+            existing.MaxWeightCapacityKg = vehicle.MaxWeightCapacityKg;
+            existing.MaxVolumeCapacityM3 = vehicle.MaxVolumeCapacityM3;
+            existing.CurrentWeightKg = vehicle.CurrentWeightKg;
+            existing.CurrentVolumeM3 = vehicle.CurrentVolumeM3;
+            existing.Status = vehicle.Status;
+            existing.VIN = vehicle.VIN;
+            existing.IsActive = vehicle.IsActive;
+            existing.BaseWarehouseId = vehicle.BaseWarehouseId;
+            existing.AssignedDriverId = vehicle.AssignedDriverId;
+
+            await _unitOfWork.VehicleRepository.Update(existing);
             await _unitOfWork.SaveChangesAsync();
         }
 

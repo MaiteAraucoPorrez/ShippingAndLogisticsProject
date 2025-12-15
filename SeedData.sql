@@ -168,16 +168,3 @@ INSERT INTO ShipmentWarehouses (Id, ShipmentId, WarehouseId, EntryDate, ExitDate
 (12, 13, 3, '2025-09-14 10:00:00', NULL, 2, 'agarcia', NULL, 'Zona K-08');
 SET IDENTITY_INSERT ShipmentWarehouses OFF;
 GO
-
--- SECURITY (Usuarios)
-SET IDENTITY_INSERT Security ON;
-INSERT INTO Security (Id, Login, Password, Name, Role) VALUES
-(1, 'admin', 'Admin123!', 'Administrador Sistema', 0),
-(2, 'empleado1', 'Emp123!', 'Carlos Ramirez', 1),
-(3, 'cliente1', 'Client123!', 'Maria Lopez', 2),
-(4, 'empleado2', 'Emp123!', 'Juan Torres', 1),
-(5, 'cliente2', 'Client123!', 'Ana Gutierrez', 2),
-(6, 'jperez', 'Emp123!', 'Jose Perez', 1),
-(7, 'agarcia', 'Emp123!', 'Andrea Garcia', 1);
-SET IDENTITY_INSERT Security OFF;
-GO

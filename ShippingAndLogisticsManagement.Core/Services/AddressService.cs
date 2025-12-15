@@ -277,7 +277,19 @@ namespace ShippingAndLogisticsManagement.Core.Services
                         "Primero marque otra dirección como predeterminada.");
             }
 
-            await _unitOfWork.AddressRepository.Update(address);
+            existing.CustomerId = address.CustomerId;
+            existing.Street = address.Street;
+            existing.City = address.City;
+            existing.Department = address.Department;
+            existing.Zone = address.Zone;
+            existing.Type = address.Type;
+            existing.IsDefault = address.IsDefault;
+            existing.Reference = address.Reference;
+            existing.ContactName = address.ContactName;
+            existing.ContactPhone = address.ContactPhone;
+            existing.IsActive = address.IsActive;
+
+            await _unitOfWork.AddressRepository.Update(existing);
             await _unitOfWork.SaveChangesAsync();
         }
 

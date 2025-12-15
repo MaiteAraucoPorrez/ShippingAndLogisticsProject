@@ -305,7 +305,21 @@ namespace ShippingAndLogisticsManagement.Core.Services
                 throw new BusinessException(
                     $"No se puede reducir la capacidad máxima por debajo de la capacidad actual utilizada ({warehouse.CurrentCapacityM3} m³)");
 
-            await _unitOfWork.WarehouseRepository.Update(warehouse);
+            existing.Name = warehouse.Name;
+            existing.Code = warehouse.Code;
+            existing.Address = warehouse.Address;
+            existing.City = warehouse.City;
+            existing.Department = warehouse.Department;
+            existing.Phone = warehouse.Phone;
+            existing.Email = warehouse.Email;
+            existing.MaxCapacityM3 = warehouse.MaxCapacityM3;
+            existing.CurrentCapacityM3 = warehouse.CurrentCapacityM3;
+            existing.IsActive = warehouse.IsActive;
+            existing.Type = warehouse.Type;
+            existing.OperatingHours = warehouse.OperatingHours;
+            existing.ManagerName = warehouse.ManagerName;
+
+            await _unitOfWork.WarehouseRepository.Update(existing);
             await _unitOfWork.SaveChangesAsync();
         }
 

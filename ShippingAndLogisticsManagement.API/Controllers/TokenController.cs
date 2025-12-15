@@ -61,7 +61,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         private async Task<(bool, Security)> IsValidUser(UserLogin userLogin)
         {
             var user = await _securityService.GetLoginByCredentials(userLogin);
-            var isValidHash = _passwordService.VerifyPassword(userLogin.Password, user.Password);
+            var isValidHash = _passwordService.VerifyPassword(user.Password, userLogin.Password);
             return (isValidHash, user);
         }
 

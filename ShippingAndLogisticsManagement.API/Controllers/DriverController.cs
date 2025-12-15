@@ -6,6 +6,7 @@ using ShippingAndLogisticsManagement.Core.CustomEntities;
 using ShippingAndLogisticsManagement.Core.Entities;
 using ShippingAndLogisticsManagement.Core.Interfaces;
 using ShippingAndLogisticsManagement.Core.QueryFilters;
+using ShippingAndLogisticsManagement.Core.Services;
 using ShippingAndLogisticsManagement.Infrastructure.DTOS;
 using ShippingAndLogisticsManagement.Infrastructure.Validator;
 using System.Net;
@@ -50,7 +51,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Retorna los resultados con paginación automática.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/driver?FullName=Juan&amp;Status=Available&amp;MinYearsOfExperience=5&amp;PageNumber=1&amp;PageSize=10
+        /// GET /api/v1/driver/dto/mapper?FullName=Juan&amp;Status=Available&amp;PageNumber=1&amp;PageSize=10
         /// </remarks>
         /// <param name="filters">Filtros de búsqueda incluyendo paginación</param>
         /// <returns>Lista paginada de conductores</returns>
@@ -62,7 +63,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet]
+        [HttpGet("dto/mapper")]
         public async Task<IActionResult> GetAllDrivers([FromQuery] DriverQueryFilter filters)
         {
             try
@@ -106,14 +107,14 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Por defecto retorna los últimos 10 registros.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/driver/dapper
+        /// GET /api/v1/driver/dto/dapper
         /// </remarks>
         /// <returns>Lista de conductores sin paginación</returns>
         /// <response code="200">Retorna la lista de conductores</response>
         /// <response code="500">Error interno del servidor</response>
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<DriverDto>>))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("dapper")]
+        [HttpGet("dto/dapper")]
         public async Task<IActionResult> GetDriversDapper()
         {
             try
@@ -145,7 +146,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// y con licencia vigente. Ordenados por experiencia y calificación.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/driver/available
+        /// GET /api/v1/driver/dto/available
         /// </remarks>
         /// <returns>Lista de conductores disponibles</returns>
         /// <response code="200">Retorna los conductores disponibles</response>
@@ -154,7 +155,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<DriverDto>>))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("available")]
+        [HttpGet("dto/available")]
         public async Task<IActionResult> GetAvailableDrivers()
         {
             try
@@ -195,7 +196,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// la información completa del conductor.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/driver/5
+        /// GET /api/v1/driver/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador único del conductor</param>
         /// <returns>Información detallada del conductor</returns>
@@ -207,7 +208,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("{id}")]
+        [HttpGet("dto/mapper/{id}")]
         public async Task<IActionResult> GetDriverById(int id)
         {
             try
@@ -253,7 +254,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Este endpoint utiliza Dapper para consultas optimizadas sin tracking.
         /// 
         /// Ejemplo de uso:
-        /// GET /api/v1/driver/dapper/5
+        /// GET /api/v1/driver/dto/dapper/5
         /// </remarks>
         /// <param name="id">Identificador único del conductor</param>
         /// <returns>Información detallada del conductor</returns>
@@ -265,7 +266,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpGet("dapper/{id}")]
+        [HttpGet("dto/dapper/{id}")]
         public async Task<IActionResult> GetDriverByIdDapper(int id)
         {
             try
@@ -382,19 +383,18 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// 
         /// Ejemplo de solicitud:
         /// POST /api/v1/driver
-        /// {
-        ///   "fullName": "Juan Carlos Pérez González",
-        ///   "identityDocument": "1234567 LP",
-        ///   "licenseNumber": "LIC-2024-001234",
-        ///   "licenseCategory": "Categoría C",
-        ///   "licenseIssueDate": "2020-01-15",
-        ///   "licenseExpiryDate": "2025-01-15",
-        ///   "phone": "71234567",
-        ///   "email": "juan.perez@empresa.com",
-        ///   "dateOfBirth": "1985-05-20",
-        ///   "hireDate": "2020-03-01",
-        ///   "yearsOfExperience": 10
-        /// }
+        ///{
+        ///  "fullName": "Juan Carlos Pérez González",
+        ///  "licenseNumber": "LIC-2024-001234",
+        ///  "phone": "71234567",
+        ///  "email": "juan.perez@empresa.com",
+        ///  "address": "Av. 6 de Agosto #1234, Zona Sopocachi",
+        ///  "city": "La Paz",
+        ///  "dateOfBirth": "1985-05-20",
+        ///  "isActive": true,
+        ///  "status": 1,
+        ///  "totalDeliveries": 0
+        ///}
         /// </remarks>
         /// <param name="driverDto">Datos del conductor a crear</param>
         /// <returns>El conductor creado con su ID asignado</returns>
@@ -444,22 +444,21 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// antes de aplicar los cambios, incluyendo unicidad de licencia y documento.
         /// 
         /// Ejemplo de solicitud:
-        /// PUT /api/v1/driver/5
-        /// {
-        ///   "id": 5,
-        ///   "fullName": "Juan Carlos Pérez González",
-        ///   "identityDocument": "1234567 LP",
-        ///   "licenseNumber": "LIC-2024-001234",
-        ///   "licenseCategory": "Categoría C",
-        ///   "licenseIssueDate": "2020-01-15",
-        ///   "licenseExpiryDate": "2026-01-15",
-        ///   "phone": "71234567",
-        ///   "email": "juan.perez@empresa.com",
-        ///   "dateOfBirth": "1985-05-20",
-        ///   "hireDate": "2020-03-01",
-        ///   "yearsOfExperience": 12,
-        ///   "isActive": true
-        /// }
+        /// PUT /api/v1/driver/dto/mapper/5
+        ///{
+        ///  "id": 5,
+        ///  "fullName": "Juan Carlos Pérez González (ACTUALIZADO)",
+        ///  "licenseNumber": "LIC-2024-001234",
+        ///  "phone": "71234567",
+        ///  "email": "juan.perez@empresa.com",
+        ///  "address": "Nueva dirección",
+        ///  "city": "La Paz",
+        ///  "dateOfBirth": "1985-05-20",
+        ///  "isActive": true,
+        ///  "status": 2,
+        ///  "currentVehicleId": 3,
+        ///  "totalDeliveries": 150
+        ///}
         /// </remarks>
         /// <param name="id">Identificador del conductor a actualizar</param>
         /// <param name="driverDto">Nuevos datos del conductor</param>
@@ -472,7 +471,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpPut("{id}")]
+        [HttpPut("dto/mapper/{id}")]
         public async Task<IActionResult> UpdateDriver(int id, [FromBody] DriverDto driverDto)
         {
             try
@@ -536,7 +535,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Esta es una eliminación física del registro.
         /// 
         /// Ejemplo de uso:
-        /// DELETE /api/v1/driver/5
+        /// DELETE /api/v1/driver/dto/mapper/5
         /// </remarks>
         /// <param name="id">Identificador del conductor a eliminar</param>
         /// <returns>Confirmación de eliminación</returns>
@@ -548,7 +547,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
-        [HttpDelete("{id}")]
+        [HttpDelete("dto/mapper/{id}")]
         public async Task<IActionResult> DeleteDriver(int id)
         {
             try
