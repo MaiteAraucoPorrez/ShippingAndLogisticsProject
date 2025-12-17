@@ -98,9 +98,26 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Obtiene todas las direcciones usando Dapper (consulta optimizada)
         /// </summary>
-        /// <returns></returns>
+        /// <remarks>
+        /// Este endpoint utiliza Dapper para obtener direcciones de forma optimizada,
+        /// sin aplicar filtros complejos ni paginación. Retorna por defecto las últimas
+        /// 10 direcciones registradas en el sistema ordenadas por ID descendente.
+        /// 
+        /// Útil para:
+        /// - Consultas rápidas sin necesidad de filtros
+        /// - Obtener direcciones recientes
+        /// - Pruebas de conectividad con Dapper
+        /// 
+        /// Ejemplo de uso:
+        /// GET /api/v1/address/dto/dapper
+        /// </remarks>
+        /// <returns>Lista de las últimas 10 direcciones registradas</returns>
+        /// <response code="200">Retorna la lista de direcciones recuperadas con Dapper</response>
+        /// <response code="400">Si hay error en la consulta</response>
+        /// <response code="404">Si no se encuentran direcciones en el sistema</response>
+        /// <response code="500">Error interno del servidor o problemas de conexión</response>
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<AddressDto>>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
@@ -231,11 +248,29 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             }
         }
 
+
         /// <summary>
-        /// 
+        /// Obtiene una dirección específica por ID usando Dapper (consulta optimizada)
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <remarks>
+        /// Este endpoint utiliza Dapper para obtener una dirección sin tracking de Entity Framework,
+        /// lo que resulta en mejor rendimiento para consultas de solo lectura.
+        /// 
+        /// Casos de uso:
+        /// - Mostrar detalles de dirección en pantallas de consulta
+        /// - Validar existencia de dirección antes de operaciones
+        /// - Obtener datos para reportes sin necesidad de actualización
+        /// 
+        /// Ejemplo de uso:
+        /// GET /api/v1/address/dto/dapper/15
+        /// </remarks>
+        /// <param name="id">Identificador único de la dirección</param>
+        /// <example>15</example>
+        /// <returns>Dirección solicitada con todos sus detalles</returns>
+        /// <response code="200">Retorna la dirección encontrada</response>
+        /// <response code="400">Si el ID proporcionado es inválido (menor o igual a 0)</response>
+        /// <response code="404">Si no existe una dirección con el ID especificado</response>
+        /// <response code="500">Error interno del servidor o fallo en la conexión a BD</response>
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<AddressDto>>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]

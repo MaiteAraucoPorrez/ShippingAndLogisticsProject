@@ -55,6 +55,7 @@ namespace ShippingAndLogisticsManagement.API
             builder.Services.AddTransient<IWarehouseService, WarehouseService>();
             builder.Services.AddTransient<IDriverService, DriverService>();
             builder.Services.AddTransient<IVehicleService,  VehicleService>();
+            builder.Services.AddTransient<IShipmentWarehouseService, ShipmentWarehouseService>();
             builder.Services.AddSingleton<IPasswordService, PasswordService>();
             #endregion
 

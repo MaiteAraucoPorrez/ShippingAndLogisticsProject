@@ -98,9 +98,26 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Obtiene todos los almacenes usando Dapper (consulta optimizada sin filtros)
         /// </summary>
-        /// <returns></returns>
+        /// <remarks>
+        /// Este endpoint utiliza Dapper para realizar consultas directas a la base de datos,
+        /// evitando el overhead de Entity Framework Core. Retorna por defecto los últimos
+        /// 10 almacenes registrados en orden descendente por ID.
+        /// Casos de uso:
+        /// - Dropdowns/Selects en interfaces de usuario
+        /// - Consultas rápidas para validaciones
+        /// - Listados simples sin necesidad de filtros
+        /// - Pruebas de conectividad con Dapper
+        /// 
+        /// Ejemplo de uso:
+        /// GET /api/v1/warehouse/dto/dapper
+        /// </remarks>
+        /// <returns>Lista de los últimos 10 almacenes registrados</returns>
+        /// <response code="200">Retorna la lista de almacenes recuperados exitosamente</response>
+        /// <response code="400">Si hay un error en los parámetros de la consulta</response>
+        /// <response code="404">Si no se encuentran almacenes en el sistema</response>
+        /// <response code="500">Error interno del servidor o problemas de conexión a la base de datos</response>
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<WarehouseDto>>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
@@ -284,10 +301,29 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Obtiene un almacén específico por ID usando Dapper (consulta optimizada)
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <remarks>
+        /// Este endpoint utiliza Dapper para obtener un almacén sin el tracking de Entity Framework,
+        /// resultando en consultas más rápidas y eficientes para operaciones de solo lectura.
+        /// 
+        /// Datos incluidos en la respuesta:
+        /// - Información básica del almacén (nombre, código, ubicación)
+        /// - Capacidades (máxima y actual)
+        /// - Datos de contacto (teléfono, email)
+        /// - Información operativa (horarios, encargado)
+        /// - Estado actual (activo/inactivo)
+        /// 
+        /// Ejemplo de uso:
+        /// GET /api/v1/warehouse/dto/dapper/5
+        /// </remarks>
+        /// <param name="id">Identificador único del almacén a consultar</param>
+        /// <example>5</example>
+        /// <returns>Datos completos del almacén solicitado</returns>
+        /// <response code="200">Retorna el almacén encontrado con toda su información</response>
+        /// <response code="400">Si el ID proporcionado es inválido (menor o igual a 0)</response>
+        /// <response code="404">Si no existe un almacén con el ID especificado en la base de datos</response>
+        /// <response code="500">Error interno del servidor, problemas de conexión o error en la consulta SQL</response>
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<WarehouseDto>>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
         [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]

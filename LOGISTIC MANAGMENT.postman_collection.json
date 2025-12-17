@@ -268,7 +268,7 @@
 			]
 		},
 		{
-			"name": "Con Mapper",
+			"name": "Con Mapper/Dapper",
 			"item": [
 				{
 					"name": "Customers",
@@ -1582,7 +1582,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzUzNDI2MywiZXhwIjoxNzYzNTY0MjYzLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.yxc-deOmzq9f5P8jhu4GHvVFQxR_EsIWvjq9PmWB-pI",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTcyODQyMywiZXhwIjoxNzY1NzU4NDIzLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.KETEhqkWXWasq5VyNsiRlYv4nVrcUbFhwDjqiGdrx2c",
 											"type": "string"
 										}
 									]
@@ -1839,240 +1839,1908 @@
 							"response": []
 						}
 					]
-				}
-			]
-		},
-		{
-			"name": "Validations",
-			"item": [
-				{
-					"name": "GetByIdValidation",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper/56",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper",
-								"56"
-							]
-						}
-					},
-					"response": []
 				},
 				{
-					"name": "PostValidations",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"shippingDate\": \"10-10-2025\",\r\n  \"state\": \"Delivered\",\r\n  \"customerId\": 2,\r\n  \"routeId\": 8,\r\n  \"totalCost\": -222.5,\r\n  \"trackingNumber\": \"CP-10001\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "ShipmentWarehouses",
+					"item": [
+						{
+							"name": "GetShipmentWarehouseHistory",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTkzMjk1NSwiZXhwIjoxNzY1OTYyOTU1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.I9SaPriQR44Svq5ngqhGBg-HUOdmE65cNK0m-g6KTNw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipmentwarehouse/history/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipmentwarehouse",
+										"history",
+										"5"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper/",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PostValidationCustomerId",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"shippingDate\": \"13-12-2025\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 34,\r\n  \"routeId\": 4,\r\n  \"totalCost\": 2322.5,\r\n  \"trackingNumber\": \"CP-100017\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "GetAllCurrentShipmentWarehouses",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTkzMjk1NSwiZXhwIjoxNzY1OTYyOTU1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.I9SaPriQR44Svq5ngqhGBg-HUOdmE65cNK0m-g6KTNw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipmentwarehouse/current/2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipmentwarehouse",
+										"current",
+										"2"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper/",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PostValidationRouteId",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"shippingDate\": \"13-12-2025\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 4,\r\n  \"routeId\": 42,\r\n  \"totalCost\": 2322.5,\r\n  \"trackingNumber\": \"CP-100017\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "GetShipmentWarehouseLocation",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTkzMjk1NSwiZXhwIjoxNzY1OTYyOTU1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.I9SaPriQR44Svq5ngqhGBg-HUOdmE65cNK0m-g6KTNw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipmentwarehouse/location/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipmentwarehouse",
+										"location",
+										"1"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper/",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "InsertValidation",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"shippingDate\": \"12-12-2025\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 6,\r\n  \"routeId\": 3,\r\n  \"totalCost\": 156.5,\r\n  \"trackingNumber\": \"CP-9910125\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "InsertShipmentWarehouseCheckin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTkzMjk1NSwiZXhwIjoxNzY1OTYyOTU1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.I9SaPriQR44Svq5ngqhGBg-HUOdmE65cNK0m-g6KTNw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"shipmentId\": 5,\r\n   \"warehouseId\": 2,\r\n    \"entryDate\": \"2025-01-15T10:30:00\",\r\n   \"status\": \"Received\",\r\n   \"receivedBy\": \"Juan Pérez\",\r\n   \"storageLocation\": \"Estante A-12\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipmentwarehouse/checkin",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipmentwarehouse",
+										"checkin"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper/",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "UpdateValidation",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"id\": 4,\r\n  \"shippingDate\": \"12-12-2025\",\r\n  \"state\": \"Pending\",\r\n  \"customerId\": 2,\r\n  \"routeId\": 1,\r\n  \"totalCost\": 2345.23,\r\n  \"trackingNumber\": \"CP-10707\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "InsertShipmentWarehouseCheckin Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTkzMjk1NSwiZXhwIjoxNzY1OTYyOTU1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.I9SaPriQR44Svq5ngqhGBg-HUOdmE65cNK0m-g6KTNw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"shipmentWarehouseId\": 2,\r\n   \"exitDate\": \"2025-10-16T14:00:00\",\r\n   \"dispatchedBy\": \"María Rodríguez\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/shipmentwarehouse/dispatch",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"shipmentwarehouse",
+										"dispatch"
+									]
 								}
-							}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Addresses",
+					"item": [
+						{
+							"name": "GetAllAddressesMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTcyODQyMywiZXhwIjoxNzY1NzU4NDIzLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.KETEhqkWXWasq5VyNsiRlYv4nVrcUbFhwDjqiGdrx2c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/address/dto/mapper?PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"address",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper/18",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper",
-								"18"
-							]
+						{
+							"name": "GetAllAddressesMapperFilter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTcyODQyMywiZXhwIjoxNzY1NzU4NDIzLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.KETEhqkWXWasq5VyNsiRlYv4nVrcUbFhwDjqiGdrx2c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/address/dto/mapper?CustomerId=5&amp;City=La Paz&amp;Type=Delivery&amp;PageNumber=1&amp;PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"address",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "CustomerId",
+											"value": "5"
+										},
+										{
+											"key": "amp;City",
+											"value": "La Paz"
+										},
+										{
+											"key": "amp;Type",
+											"value": "Delivery"
+										},
+										{
+											"key": "amp;PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "amp;PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAddressesDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTkzMjk1NSwiZXhwIjoxNzY1OTYyOTU1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.I9SaPriQR44Svq5ngqhGBg-HUOdmE65cNK0m-g6KTNw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/address/dto/dapper",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"address",
+										"dto",
+										"dapper"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAddressesByCustomer",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTcyODQyMywiZXhwIjoxNzY1NzU4NDIzLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.KETEhqkWXWasq5VyNsiRlYv4nVrcUbFhwDjqiGdrx2c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/address/dto/mapper/customer/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"address",
+										"dto",
+										"mapper",
+										"customer",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAddressById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTcyODQyMywiZXhwIjoxNzY1NzU4NDIzLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.KETEhqkWXWasq5VyNsiRlYv4nVrcUbFhwDjqiGdrx2c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/address/dto/mapper/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"address",
+										"dto",
+										"mapper",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAddressByIdDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTgzMDk3OSwiZXhwIjoxNzY1ODYwOTc5LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.kAWahjKLdaS28MiOYOfM6nWAasEv2n3AXBg05IwuO1I",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/address/dto/dapper/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"address",
+										"dto",
+										"dapper",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDefaultAddress",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTcyODQyMywiZXhwIjoxNzY1NzU4NDIzLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.KETEhqkWXWasq5VyNsiRlYv4nVrcUbFhwDjqiGdrx2c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/address/customer/5/default/Pickup",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"address",
+										"customer",
+										"5",
+										"default",
+										"Pickup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "InsertAddressMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTcyODQyMywiZXhwIjoxNzY1NzU4NDIzLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.KETEhqkWXWasq5VyNsiRlYv4nVrcUbFhwDjqiGdrx2c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"customerId\": 5,\r\n  \"street\": \"Calle Nueva #100\",\r\n  \"city\": \"La Paz\",\r\n  \"department\": \"La Paz\",\r\n  \"zone\": \"Sopocachi\",\r\n  \"type\": \"Delivery\",\r\n  \"isDefault\": true,\r\n  \"reference\": \"Nueva dirección principal\",\r\n  \"contactName\": \"Juan Pérez\",\r\n  \"contactPhone\": \"71234567\",\r\n  \"isActive\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/address",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"address"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateAddressMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTcyODQyMywiZXhwIjoxNzY1NzU4NDIzLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.KETEhqkWXWasq5VyNsiRlYv4nVrcUbFhwDjqiGdrx2c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 10,\r\n  \"customerId\": 8,\r\n  \"street\": \"Calle 21 de Mayo #1234\",\r\n  \"city\": \"Santa Cruz\",\r\n  \"department\": \"Santa Cruz\",\r\n  \"zone\": \"Centro\",\r\n  \"type\": \"Delivery\",\r\n  \"isDefault\": true,\r\n  \"reference\": \"Edificio El Fuerte\",\r\n  \"contactName\": \"Sofia Morales\",\r\n  \"contactPhone\": \"71234567\",\r\n  \"isActive\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/address/dto/mapper/10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"address",
+										"dto",
+										"mapper",
+										"10"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteAddressMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTcyODQyMywiZXhwIjoxNzY1NzU4NDIzLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.KETEhqkWXWasq5VyNsiRlYv4nVrcUbFhwDjqiGdrx2c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/address/dto/mapper/11",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"address",
+										"dto",
+										"mapper",
+										"11"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "DeleteValidation",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper/34",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper",
-								"34"
-							]
+					"name": "Drivers",
+					"item": [
+						{
+							"name": "GetAllDriversMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY4Mzg0NSwiZXhwIjoxNzY1NzEzODQ1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.RZoc3ecclQAaM2-5vDlQT6cxwVsqOsNq6v3AqIVak2s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/driver/dto/mapper?PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"driver",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllDriversMapperFilter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY4Mzg0NSwiZXhwIjoxNzY1NzEzODQ1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.RZoc3ecclQAaM2-5vDlQT6cxwVsqOsNq6v3AqIVak2s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/driver/dto/mapper?FullName=Juan&Status=Available&PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"driver",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "FullName",
+											"value": "Juan"
+										},
+										{
+											"key": "Status",
+											"value": "Available"
+										},
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDriversDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY4Mzg0NSwiZXhwIjoxNzY1NzEzODQ1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.RZoc3ecclQAaM2-5vDlQT6cxwVsqOsNq6v3AqIVak2s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/driver/dto/dapper",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"driver",
+										"dto",
+										"dapper"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDriverById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY4Mzg0NSwiZXhwIjoxNzY1NzEzODQ1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.RZoc3ecclQAaM2-5vDlQT6cxwVsqOsNq6v3AqIVak2s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/driver/dto/mapper/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"driver",
+										"dto",
+										"mapper",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDriverByIdDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY4Mzg0NSwiZXhwIjoxNzY1NzEzODQ1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.RZoc3ecclQAaM2-5vDlQT6cxwVsqOsNq6v3AqIVak2s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/driver/dto/dapper/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"driver",
+										"dto",
+										"dapper",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDriverStaticsResponse",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY4Mzg0NSwiZXhwIjoxNzY1NzEzODQ1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.RZoc3ecclQAaM2-5vDlQT6cxwVsqOsNq6v3AqIVak2s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/driver/5/statistics",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"driver",
+										"5",
+										"statistics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAvailableDrivers",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY4Mzg0NSwiZXhwIjoxNzY1NzEzODQ1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.RZoc3ecclQAaM2-5vDlQT6cxwVsqOsNq6v3AqIVak2s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/driver/dto/available",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"driver",
+										"dto",
+										"available"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "InsertDriverMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY4Mzg0NSwiZXhwIjoxNzY1NzEzODQ1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.RZoc3ecclQAaM2-5vDlQT6cxwVsqOsNq6v3AqIVak2s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"fullName\": \"Juan Carlos Pérez González\",\r\n  \"licenseNumber\": \"LIC-2024-001234\",\r\n  \"phone\": \"71234567\",\r\n  \"email\": \"juan.perez@empresa.com\",\r\n  \"address\": \"Av. 6 de Agosto #1234, Zona Sopocachi\",\r\n  \"city\": \"La Paz\",\r\n  \"dateOfBirth\": \"1985-05-20\",\r\n  \"isActive\": true,\r\n  \"status\": 1,\r\n  \"totalDeliveries\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/driver",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"driver"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateDriverMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY4Mzg0NSwiZXhwIjoxNzY1NzEzODQ1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.RZoc3ecclQAaM2-5vDlQT6cxwVsqOsNq6v3AqIVak2s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 5,\r\n  \"fullName\": \"Javier Raul Mendoza\",\r\n  \"licenseNumber\": \"LIC-2023-007890\",\r\n  \"phone\": \"75678901\",\r\n  \"email\": \"javier.mendoza@empresa.com\",\r\n  \"address\": \"Av. Simón Bolívar #890\",\r\n  \"city\": \"Potosi\",\r\n  \"dateOfBirth\": \"1987-09-18\",\r\n  \"isActive\": true,\r\n  \"status\": 1,\r\n  \"currentVehicleId\": 5,\r\n  \"totalDeliveries\": 125\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/driver/dto/mapper/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"driver",
+										"dto",
+										"mapper",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteDriverMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY4Mzg0NSwiZXhwIjoxNzY1NzEzODQ1LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.RZoc3ecclQAaM2-5vDlQT6cxwVsqOsNq6v3AqIVak2s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/driver/dto/mapper/7",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"driver",
+										"dto",
+										"mapper",
+										"7"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "DeleteValidationDelivered",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:7154/api/Shipment/dto/mapper/3",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7154",
-							"path": [
-								"api",
-								"Shipment",
-								"dto",
-								"mapper",
-								"3"
-							]
+					"name": "Vehicles",
+					"item": [
+						{
+							"name": "GetAllVehiclesMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/vehicle/dto/mapper?PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"vehicle",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllVehiclesMapperFilter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/vehicle/dto/mapper?Type=Truck&Status=Available&PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"vehicle",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "Type",
+											"value": "Truck"
+										},
+										{
+											"key": "Status",
+											"value": "Available"
+										},
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetVehiclesDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/vehicle/dto/dapper",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"vehicle",
+										"dto",
+										"dapper"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetVehicleById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/vehicle/dto/mapper/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"vehicle",
+										"dto",
+										"mapper",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetVehicleByIdDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/vehicle/dto/dapper/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"vehicle",
+										"dto",
+										"dapper",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAvailableVehicles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/vehicle/dto/available",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"vehicle",
+										"dto",
+										"available"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetVehiclesBy-Capacity",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/vehicle/by-capacity?requiredWeight=1500&requiredVolume=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"vehicle",
+										"by-capacity"
+									],
+									"query": [
+										{
+											"key": "requiredWeight",
+											"value": "1500"
+										},
+										{
+											"key": "requiredVolume",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetVehicleStaticsResponse",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/vehicle/5/statistics",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"vehicle",
+										"5",
+										"statistics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "InsertVehicleMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"plateNumber\": \"1111-ABC\",\r\n  \"type\": 4,\r\n  \"maxWeightCapacityKg\": 3500.00,\r\n  \"maxVolumeCapacityM3\": 15.5,\r\n  \"currentWeightKg\": 0,\r\n  \"currentVolumeM3\": 0,\r\n  \"status\": 1,\r\n  \"vin\": \"7HGBH41JXMN109876\",\r\n  \"isActive\": true,\r\n  \"baseWarehouseId\": 2,\r\n  \"assignedDriverId\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/vehicle",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"vehicle"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateVehicleMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 5,\r\n  \"plateNumber\": \"5678-EFG\",\r\n  \"type\": 2,\r\n  \"maxWeightCapacityKg\": 1500.00,\r\n  \"maxVolumeCapacityM3\": 10.5,\r\n  \"currentWeightKg\": 590.00,\r\n  \"currentVolumeM3\": 5.8,\r\n  \"status\": 1,\r\n  \"vin\": \"5HGBH41JXMN109190\",\r\n  \"isActive\": true,\r\n  \"baseWarehouseId\": 5,\r\n  \"assignedDriverId\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/vehicle/dto/mapper/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"vehicle",
+										"dto",
+										"mapper",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteVehicleMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/vehicle/dto/mapper/7",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"vehicle",
+										"dto",
+										"mapper",
+										"7"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Warehouses",
+					"item": [
+						{
+							"name": "GetAllWarehousesMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/warehouse/dto/mapper?PageNumber=1&PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"warehouse",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllWarehousesMapperFilter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/warehouse/dto/mapper?City=La Paz&amp;Type=Regional&amp;IsActive=true&amp;PageNumber=1&amp;PageSize=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"warehouse",
+										"dto",
+										"mapper"
+									],
+									"query": [
+										{
+											"key": "City",
+											"value": "La Paz"
+										},
+										{
+											"key": "amp;Type",
+											"value": "Regional"
+										},
+										{
+											"key": "amp;IsActive",
+											"value": "true"
+										},
+										{
+											"key": "amp;PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "amp;PageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetWarehousesDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTgzMDk3OSwiZXhwIjoxNzY1ODYwOTc5LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.kAWahjKLdaS28MiOYOfM6nWAasEv2n3AXBg05IwuO1I",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/warehouse/dto/dapper",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"warehouse",
+										"dto",
+										"dapper"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetWarehouseById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/warehouse/dto/mapper/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"warehouse",
+										"dto",
+										"mapper",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetWarehouseByIdDapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTgzMDk3OSwiZXhwIjoxNzY1ODYwOTc5LCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.kAWahjKLdaS28MiOYOfM6nWAasEv2n3AXBg05IwuO1I",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/warehouse/dto/dapper/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"warehouse",
+										"dto",
+										"dapper",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetActiveWarehouses",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/warehouse/active",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"warehouse",
+										"active"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAvailableWarehouses",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTcyODQyMywiZXhwIjoxNzY1NzU4NDIzLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.KETEhqkWXWasq5VyNsiRlYv4nVrcUbFhwDjqiGdrx2c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/warehouse/available?requiredCapacity=500",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"warehouse",
+										"available"
+									],
+									"query": [
+										{
+											"key": "requiredCapacity",
+											"value": "500"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetWarehouseByCode",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/warehouse/code/WH-LP-001",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"warehouse",
+										"code",
+										"WH-LP-001"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetWarehouseStaticsResponse",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/warehouse/2/statistics",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"warehouse",
+										"2",
+										"statistics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "InsertWarehouseMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Almacén Central Potosi\",\r\n  \"code\": \"WH-PT-001\",\r\n  \"address\": \"Av. Argentina #45\",\r\n  \"city\": \"Potosi\",\r\n  \"department\": \"Potosí\",\r\n  \"phone\": \"7-6734512\",\r\n  \"email\": \"almacen.potosi@empresa.com\",\r\n  \"maxCapacityM3\": 900,\r\n  \"currentCapacityM3\": 0,\r\n  \"isActive\": true,\r\n  \"type\": \"Central\",\r\n  \"operatingHours\": \"Lunes a Viernes 8:00-19:00, Sábados 9:00-15:00\",\r\n  \"managerName\": \"Daniel Sandoval\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/warehouse",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"warehouse"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateWarehouseMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 2,\r\n  \"name\": \"Almacén Regional Cochabamba\",\r\n  \"code\": \"WH-CB-001\",\r\n  \"address\": \"Av. Petrolera Km 5, Parque Industrial\",\r\n  \"city\": \"Cochabamba\",\r\n  \"department\": \"Cochabamba\",\r\n  \"phone\": \"7-7237669\",\r\n  \"email\": \"almacen.cbba@empresa.com\",\r\n  \"maxCapacityM3\": 1700,\r\n  \"currentCapacityM3\": 450.5,\r\n  \"isActive\": true,\r\n  \"type\": \"Regional\",\r\n  \"operatingHours\": \"Lunes a Sábado 7:00-19:00\",\r\n  \"managerName\": \"Carmen Flores\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7154/api/v1/warehouse/dto/mapper/2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"warehouse",
+										"dto",
+										"mapper",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteWarehouseMapper",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2NTY5NTgwMSwiZXhwIjoxNzY1NzI1ODAxLCJpc3MiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8iLCJhdWQiOiJzaGlwcGluZ2FuZGxvZ2lzdGljc21hbmFnZW1lbnQtYXBpLWh4YXhicmZ3ZzlkcGQyZmMud2VzdHVzMy0wMS5henVyZXdlYnNpdGVzLm5ldC8ifQ.3uCuBcur00axZhL57mDN7CquzM4xkvYbpChOhFyHGVQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7154/api/v1/warehouse/dto/mapper/6",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7154",
+									"path": [
+										"api",
+										"v1",
+										"warehouse",
+										"dto",
+										"mapper",
+										"6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -2083,7 +3751,7 @@
 					"name": "InsertSecurity",
 					"request": {
 						"auth": {
-							"type": "bearer"
+							"type": "noauth"
 						},
 						"method": "POST",
 						"header": [
@@ -2118,102 +3786,10 @@
 					"response": []
 				},
 				{
-					"name": "Verification",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW5pc3RyYWRvciBQcmluY2lwYWwiLCJMb2dpbiI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIm5iZiI6MTc2MzI3NzQwNCwiZXhwIjoxNzYzMjc5MjA0LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzMC8ifQ.mKb0NAzDkCg2Ps8tDgaGS5urxliIAQqLKExSGCXKGso",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://localhost:44330/api/v1/Customer/dto/mapper?PageNumber=1&PageSize=10",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "44330",
-							"path": [
-								"api",
-								"v1",
-								"Customer",
-								"dto",
-								"mapper"
-							],
-							"query": [
-								{
-									"key": "PageNumber",
-									"value": "1"
-								},
-								{
-									"key": "PageSize",
-									"value": "10"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "InsertToken",
 					"request": {
 						"auth": {
-							"type": "jwt",
-							"jwt": [
-								{
-									"key": "algorithm",
-									"value": "HS256",
-									"type": "string"
-								},
-								{
-									"key": "isSecretBase64Encoded",
-									"value": false,
-									"type": "boolean"
-								},
-								{
-									"key": "payload",
-									"value": "{}",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "headerPrefix",
-									"value": "Bearer",
-									"type": "string"
-								},
-								{
-									"key": "queryParamKey",
-									"value": "token",
-									"type": "string"
-								},
-								{
-									"key": "header",
-									"value": "{}",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "POST",
 						"header": [
@@ -2225,7 +3801,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"user\": \"admin\",\r\n  \"password\": \"admin123\"\r\n}",
+							"raw": "{\r\n  \"user\": \"admin\",\r\n  \"password\": \"admin123\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2243,6 +3819,27 @@
 								"api",
 								"Token",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetConfig",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7154/api/Token/Config",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7154",
+							"path": [
+								"api",
+								"Token",
+								"Config"
 							]
 						}
 					},
