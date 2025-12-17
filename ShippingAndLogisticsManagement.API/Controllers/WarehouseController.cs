@@ -98,6 +98,22 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<WarehouseDto>>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
+        [HttpGet("dto/dapper")]
+        public async Task<IActionResult> GetWarehousesDapper()
+        {
+            var result = await _warehouseService.GetAllDapperAsync();
+            var dtos = _mapper.Map<IEnumerable<WarehouseDto>>(result);
+            return Ok(new ApiResponse<IEnumerable<WarehouseDto>>(dtos));
+        }
+
+        /// <summary>
         /// Obtiene todos los almacenes activos
         /// </summary>
         /// <remarks>
@@ -265,6 +281,24 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
                     Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
                 });
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<WarehouseDto>>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
+        [HttpGet("dto/dapper/{id}")]
+        public async Task<IActionResult> GetWarehouseByIdDapper(int id)
+        {
+            var result = await _warehouseService.GetByIdDapperAsync(id);
+            if (result == null) return NotFound();
+            var dto = _mapper.Map<WarehouseDto>(result);
+            return Ok(new ApiResponse<WarehouseDto>(dto));
         }
 
         /// <summary>

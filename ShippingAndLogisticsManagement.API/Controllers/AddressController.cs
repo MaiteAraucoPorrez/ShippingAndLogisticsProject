@@ -98,6 +98,22 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<AddressDto>>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
+        [HttpGet("dto/dapper")]
+        public async Task<IActionResult> GetAddressesDapper()
+        {
+            var result = await _addressService.GetAllDapperAsync();
+            var dtos = _mapper.Map<IEnumerable<AddressDto>>(result);
+            return Ok(new ApiResponse<IEnumerable<AddressDto>>(dtos));
+        }
+
+        /// <summary>
         /// Obtiene todas las direcciones de un cliente específico
         /// </summary>
         /// <remarks>
@@ -213,6 +229,24 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
                     Messages = new Message[] { new() { Type = "Error", Description = err.Message } }
                 });
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<AddressDto>>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ResponseData))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ResponseData))]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseData))]
+        [HttpGet("dto/dapper/{id}")]
+        public async Task<IActionResult> GetAddressByIdDapper(int id)
+        {
+            var result = await _addressService.GetByIdDapperAsync(id);
+            if (result == null) return NotFound();
+            var dto = _mapper.Map<AddressDto>(result);
+            return Ok(new ApiResponse<AddressDto>(dto));
         }
 
         /// <summary>
