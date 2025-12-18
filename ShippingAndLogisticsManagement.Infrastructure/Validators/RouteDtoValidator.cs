@@ -155,7 +155,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
         /// </summary>
         private bool ValidateCostPerKm(double distance, double cost)
         {
-            if (distance <= 0) return true; // Let other validation handle this
+            if (distance <= 0) return true;
 
             var costPerKm = cost / distance;
 

@@ -32,17 +32,14 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                 .GreaterThan(0).WithMessage("El ID del cliente debe ser mayor a 0")
                 .MustAsync(async (customerId, ct) =>
                 {
-                    // Validamos que el cliente exista en la BD
                     var customer = await _unitOfWork.CustomerRepository.GetById(customerId);
                     return customer != null;
                 })
                 .WithMessage("El cliente asociado no existe");
 
-            // Usamos la sintaxis (dto, customerId, context) para acceder al ID del DTO
             RuleFor(a => a.CustomerId)
                 .MustAsync(async (dto, customerId, ct) =>
                 {
-                    // Solo validar límite si es una creación (Id == 0)
                     if (dto.Id == 0)
                     {
                         var count = await _unitOfWork.AddressRepository.CountActiveAddressesAsync(customerId);
@@ -74,7 +71,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
             RuleFor(a => a.Zone)
                 .MaximumLength(100).WithMessage("La zona no puede exceder 100 caracteres");
 
-            // Usamos IsInEnum() que verifica que el valor int corresponda a un valor definido en el Enum
+            // Type validation
             RuleFor(a => a.Type)
                 .IsInEnum()
                 .WithMessage("El tipo de dirección no es válido (Debe ser Pickup o Delivery)");

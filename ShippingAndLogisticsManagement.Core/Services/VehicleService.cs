@@ -145,7 +145,7 @@ namespace ShippingAndLogisticsManagement.Core.Services
                 throw new BusinessException("El volumen actual no puede exceder la capacidad máxima");
 
 
-            // Validar VIN (opcional)
+            // Validar VIN
             if (!string.IsNullOrWhiteSpace(vehicle.VIN) && vehicle.VIN.Length != 17)
                 throw new BusinessException("El VIN debe tener exactamente 17 caracteres");
           

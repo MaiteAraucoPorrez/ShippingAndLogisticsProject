@@ -244,6 +244,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// <remarks>
         /// Este método utiliza Dapper para optimizar la consulta y retorna
         /// la información completa del paquete incluyendo datos del envío asociado.
+        /// 
         /// Ejemplo de uso:
         /// GET /api/v1/package/dto/mapper/5
         /// </remarks>

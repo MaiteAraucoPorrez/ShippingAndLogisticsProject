@@ -307,13 +307,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Este endpoint utiliza Dapper para obtener un almacén sin el tracking de Entity Framework,
         /// resultando en consultas más rápidas y eficientes para operaciones de solo lectura.
         /// 
-        /// Datos incluidos en la respuesta:
-        /// - Información básica del almacén (nombre, código, ubicación)
-        /// - Capacidades (máxima y actual)
-        /// - Datos de contacto (teléfono, email)
-        /// - Información operativa (horarios, encargado)
-        /// - Estado actual (activo/inactivo)
-        /// 
         /// Ejemplo de uso:
         /// GET /api/v1/warehouse/dto/dapper/5
         /// </remarks>
@@ -399,14 +392,8 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// Obtiene estadísticas de operación de un almacén
         /// </summary>
         /// <remarks>
-        /// Retorna información estadística del almacén incluyendo:
-        /// - Total de envíos procesados
-        /// - Envíos actualmente en el almacén
-        /// - Envíos despachados
-        /// - Porcentaje de ocupación
-        /// - Capacidad disponible
-        /// - Tiempo promedio de permanencia
-        /// 
+        /// Retorna información estadística del almacén.
+        ///
         /// Ejemplo de uso:
         /// GET /api/v1/warehouse/5/statistics
         /// </remarks>
@@ -468,7 +455,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// - Departamento válido (uno de los 9 de Bolivia)
         /// - Capacidad máxima mayor a 0
         /// - Fecha de apertura no puede ser futura
-        /// - Coordenadas GPS válidas (opcional)
         /// 
         /// Ejemplo de solicitud:
         /// POST /api/v1/warehouse

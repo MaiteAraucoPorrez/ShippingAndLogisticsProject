@@ -9,7 +9,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.DTOS
         public int WarehouseId { get; set; }
         public DateTime EntryDate { get; set; }
         public DateTime? ExitDate { get; set; }
-        public WarehouseShipmentStatus Status { get; set; } // "Received", "InStorage", "Processing", "Dispatched"
+        public WarehouseShipmentStatus Status { get; set; }
         public string? ReceivedBy { get; set; }
         public string? DispatchedBy { get; set; }
         public string? StorageLocation { get; set; }

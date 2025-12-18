@@ -203,9 +203,9 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
         /// </summary>
         private bool ValidateWeightVolumeRatio(double weight, double volume)
         {
-            if (volume <= 0) return true; // Evitar división por cero
+            if (volume <= 0) return true; // Evita división por cero
             var density = weight / volume;
-            // Rango ampliado: 20 kg/m3 (espuma) a 2000 kg/m3 (metal/piedra)
+            // Rango ampliado: 20 kg/m3 a 2000 kg/m3
             return density >= 20 && density <= 2000;
         }
     }

@@ -15,7 +15,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.DTOS
         public double MaxCapacityM3 { get; set; }
         public double CurrentCapacityM3 { get; set; }
         public bool IsActive { get; set; } = true;
-        public WarehouseType Type { get; set; } // "Central", "Regional", "Local"
+        public WarehouseType Type { get; set; }
         public string? OperatingHours { get; set; }
         public string? ManagerName { get; set; }
     }

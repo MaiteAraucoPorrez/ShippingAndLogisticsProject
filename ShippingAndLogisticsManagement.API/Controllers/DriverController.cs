@@ -376,7 +376,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// cumplan con las reglas de negocio. Aplica validaciones como:
         /// - Documento de identidad único
         /// - Número de licencia único
-        /// - Licencia vigente (no vencida)
         /// - Mayor de 18 años
         /// - Email válido
         /// - Teléfono entre 7 y 20 caracteres

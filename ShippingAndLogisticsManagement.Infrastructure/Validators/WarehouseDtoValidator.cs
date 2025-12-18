@@ -25,7 +25,6 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
             _unitOfWork = unitOfWork;
 
             // Name validation
-            // Name
             RuleFor(w => w.Name)
                 .NotEmpty().WithMessage("El nombre del almacén es requerido")
                 .Length(5, 100).WithMessage("El nombre debe tener entre 5 y 100 caracteres")

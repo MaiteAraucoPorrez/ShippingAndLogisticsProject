@@ -105,11 +105,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// sin aplicar filtros complejos ni paginación. Retorna por defecto las últimas
         /// 10 direcciones registradas en el sistema ordenadas por ID descendente.
         /// 
-        /// Útil para:
-        /// - Consultas rápidas sin necesidad de filtros
-        /// - Obtener direcciones recientes
-        /// - Pruebas de conectividad con Dapper
-        /// 
         /// Ejemplo de uso:
         /// GET /api/v1/address/dto/dapper
         /// </remarks>
@@ -255,11 +250,6 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// <remarks>
         /// Este endpoint utiliza Dapper para obtener una dirección sin tracking de Entity Framework,
         /// lo que resulta en mejor rendimiento para consultas de solo lectura.
-        /// 
-        /// Casos de uso:
-        /// - Mostrar detalles de dirección en pantallas de consulta
-        /// - Validar existencia de dirección antes de operaciones
-        /// - Obtener datos para reportes sin necesidad de actualización
         /// 
         /// Ejemplo de uso:
         /// GET /api/v1/address/dto/dapper/15
@@ -516,6 +506,7 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
         /// <remarks>
         /// No permite eliminar la única dirección predeterminada activa de un cliente.
         /// Esta es una eliminación física del registro.
+        /// 
         /// Ejemplo de uso:
         /// DELETE /api/v1/address/dto/mapper/5
         /// </remarks>
