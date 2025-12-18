@@ -7,24 +7,10 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
 {
     public class ShipmentDtoValidator : AbstractValidator<ShipmentDto>
     {
-        //private readonly IShipmentRepository _shipmentRepository;
-        //private readonly IRouteRepository _routeRepository;
-        //private readonly ICustomerRepository _customerRepository;
-        public readonly IBaseRepository<Shipment> _shipmentRepository;
-        public readonly IBaseRepository<Customer> _customerRepository;
-        public readonly IBaseRepository<Route> _routeRepository;
-        public ShipmentDtoValidator(
-            //IRouteRepository routeRepository, 
-            //ICustomerRepository customerRepository,
-            //IShipmentRepository shipmentRepository
-            IBaseRepository<Shipment> shipmentRepository,
-            IBaseRepository<Customer> customerRepository,
-            IBaseRepository<Route> routeRepository
-            )
+        private readonly IUnitOfWork _unitOfWork;
+        public ShipmentDtoValidator(IUnitOfWork unitOfWork)
         {
-            _routeRepository = routeRepository;
-            _customerRepository = customerRepository;
-            _shipmentRepository = shipmentRepository;
+            _unitOfWork = unitOfWork;
 
 
             // CustomerId obligatorio y mayor que 0
@@ -33,7 +19,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                 .WithMessage("El CustomerId debe ser mayor que 0")
                 .MustAsync(async (customerId, ct) =>
                  {
-                     var customer = await _customerRepository.GetById(customerId);
+                     var customer = await _unitOfWork.CustomerRepository.GetById(customerId);
                      return customer != null;
                  }).WithMessage("El cliente no existe");
 
@@ -43,12 +29,12 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                 .WithMessage("El RouteId debe ser mayor que 0")
                 .MustAsync(async (routeId, ct) =>
                 {
-                    var route = await _routeRepository.GetById(routeId);
+                    var route = await _unitOfWork.RouteRepository.GetById(routeId);
                     return route != null;
                 }).WithMessage("La ruta asignada no existe")
                 .MustAsync(async (routeId, ct) =>
                 {
-                    var route = await _routeRepository.GetById(routeId);
+                    var route = await _unitOfWork.RouteRepository.GetById(routeId);
                     return route != null && route.IsActive;
                 }).WithMessage("No se pueden registrar envíos en una ruta inactiva");
 
@@ -83,7 +69,7 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Validators
                  .WithMessage("El numero de seguimiento no puede superar los 20 caracteres")
                  .MustAsync(async (dto, tracking, ct) =>
                  {
-                     var allShipments = await _shipmentRepository.GetAll();
+                     var allShipments = await _unitOfWork.ShipmentRepository.GetAll();
                      var existing = allShipments.FirstOrDefault(s => s.TrackingNumber == tracking);
 
                      if (existing == null) return true;
