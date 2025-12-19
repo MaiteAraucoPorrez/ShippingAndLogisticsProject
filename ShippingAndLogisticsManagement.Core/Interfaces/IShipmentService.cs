@@ -43,10 +43,8 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         /// <returns>El envío correspondiente al ID especificado.</returns>
         Task<Shipment> GetByIdDapperAsync(int id);
 
-        /// <summary>
-        /// Inserta un nuevo registro de envío en la base de datos.
-        /// </summary>
-        /// <param name="shipment">Objeto de tipo Shipment con los datos del nuevo envío.</param>
+        Task<IEnumerable<ShipmentReportResponse>> GetDailyStatusReport(DateTime startDate, DateTime endDate);
+
         Task InsertAsync(Shipment shipment);
 
         /// <summary>

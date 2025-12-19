@@ -118,6 +118,20 @@ namespace ShippingAndLogisticsManagement.Infrastructure.Repositories
             }
         }
 
+        public async Task<IEnumerable<ShipmentReportResponse>> GetReportByDateAndState(DateTime startDate, DateTime endDate)
+        {
+            var sql = ShipmentQueries.GetShipmentsByDateRangeAndState;
+            var parameters = new { StartDate = startDate, EndDate = endDate };
+
+            var result = await _dapper.QueryAsync<ShipmentReportResponse>(sql, parameters);
+            foreach (var item in result)
+            {
+                item.DayName = item.Date.DayOfWeek.ToString();
+            }
+
+            return result;
+        }
+
         //public async Task<IEnumerable<Shipment>> GetAllAsync()
         //{
         //    var shipments = await _context.Shipments.ToListAsync();

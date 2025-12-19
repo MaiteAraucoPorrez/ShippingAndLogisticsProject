@@ -408,6 +408,28 @@ namespace ShippingAndLogisticsManagement.Api.Controllers
             return Ok(response);
         }
 
+        [HttpGet("reports/daily-status")]
+        public async Task<IActionResult> GetDailyStatusReport([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            try
+            {
+                var report = await _shipmentService.GetDailyStatusReport(startDate, endDate);
+                var response = new ApiResponse<IEnumerable<ShipmentReportResponse>>(report)
+                {
+                    Messages = new Message[] { new() { Type = "Success", Description = "Reporte generado exitosamente" } }
+                };
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ResponseData
+                {
+                    Messages = new Message[] { new() { Type = "Error", Description = ex.Message } }
+                });
+            }
+        }
+
         /// <summary>
         /// Creates a new shipment in the system
         /// </summary>

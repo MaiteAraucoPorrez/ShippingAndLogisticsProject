@@ -80,5 +80,17 @@
             FROM Routes 
             WHERE IsActive = 0;
         ";
+
+        public static string GetShipmentsByDateRangeAndState = @"
+            SELECT 
+                CAST(ShippingDate AS DATE) as Date,
+                State,
+                COUNT(Id) as Quantity
+            FROM Shipments
+            WHERE ShippingDate >= @StartDate AND ShippingDate <= @EndDate
+            GROUP BY CAST(ShippingDate AS DATE), State
+            ORDER BY Date ASC;
+        ";
+
     }
 }

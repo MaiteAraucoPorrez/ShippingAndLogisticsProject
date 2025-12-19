@@ -169,6 +169,17 @@ namespace ShippingAndLogisticsManagement.Core.Services
             return shipment;
         }
 
+        public async Task<IEnumerable<ShipmentReportResponse>> GetDailyStatusReport(DateTime startDate, DateTime endDate)
+        {
+
+            if (startDate > endDate)
+                throw new BusinessException("La fecha de inicio no puede ser mayor a la fecha fin");
+
+            var adjustedEndDate = endDate.Date.AddDays(1).AddTicks(-1);
+
+            return await _unitOfWork.ShipmentRepository.GetReportByDateAndState(startDate, adjustedEndDate);
+        }
+
         public async Task InsertAsync(Shipment shipment)
         {
             var customer = await _unitOfWork.CustomerRepository.GetById(shipment.CustomerId);

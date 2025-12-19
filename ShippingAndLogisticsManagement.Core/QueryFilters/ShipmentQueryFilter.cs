@@ -15,6 +15,20 @@ namespace ShippingAndLogisticsManagement.Core.QueryFilters
         /// </summary>
         [SwaggerSchema("Fecha del envio", Format = "date-time", Nullable = true)]
         public DateTime? ShippingDate { get; set; }
+
+
+        /// <summary>
+        /// Fecha de inicio del rango de búsqueda
+        /// </summary>
+        [SwaggerSchema("Fecha de inicio del rango", Format = "date", Nullable = true)]
+        public DateTime? StartDate { get; set; }
+
+        /// <summary>
+        /// Fecha de fin del rango de búsqueda
+        /// </summary>
+        [SwaggerSchema("Fecha de fin del rango", Format = "date", Nullable = true)]
+        public DateTime? EndDate { get; set; }
+
         /// <summary>
         /// Gets or sets the state of the entity.
         /// </summary>
@@ -42,3 +56,5 @@ namespace ShippingAndLogisticsManagement.Core.QueryFilters
         public string TrackingNumber { get; set; } = null!;
     }
 }
+
+

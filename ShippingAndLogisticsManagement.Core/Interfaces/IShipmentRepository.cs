@@ -44,6 +44,9 @@ namespace ShippingAndLogisticsManagement.Core.Interfaces
         /// <returns>Colección de objetos con los detalles del envío, cliente y ruta asociados.</returns>
         Task<IEnumerable<ShipmentCustomerRouteResponse>> GetShipmentCustomerRouteAsync();
 
+         Task<IEnumerable<ShipmentReportResponse>> GetReportByDateAndState(DateTime startDate, DateTime endDate);
+        
+
         // Métodos CRUD básicos heredados de IBaseRepository:
         // Task<Shipment> GetByIdAsync(int id);
         // Task InsertAsync(Shipment shipment);
