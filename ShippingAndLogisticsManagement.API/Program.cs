@@ -26,7 +26,8 @@ namespace ShippingAndLogisticsManagement.API
             builder.Configuration
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json",
-                optional: true, reloadOnChange: true);
+                optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
 
             //Configure User Secrets for Development Environment
             if (builder.Environment.IsDevelopment())
@@ -71,6 +72,14 @@ namespace ShippingAndLogisticsManagement.API
 
 
             // Add services to the container
+            #region CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
+            #endregion
+
             #region Controllers Configuration
             builder.Services.AddControllers(options =>
             {
@@ -201,9 +210,6 @@ namespace ShippingAndLogisticsManagement.API
             #endregion
 
 
-            //Environment Variables can override any configuration
-            builder.Configuration.AddEnvironmentVariables();
-
             var app = builder.Build();
 
             #region Swagger UI
@@ -221,6 +227,7 @@ namespace ShippingAndLogisticsManagement.API
             // Configure the HTTP request pipeline.
 
             app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
