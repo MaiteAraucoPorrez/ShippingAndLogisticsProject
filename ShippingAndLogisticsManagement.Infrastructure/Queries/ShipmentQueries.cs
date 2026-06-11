@@ -87,7 +87,7 @@
                 State,
                 COUNT(Id) as Quantity
             FROM Shipments
-            WHERE ShippingDate >= @StartDate AND ShippingDate <= @EndDate
+            WHERE ShippingDate >= @StartDate AND ShippingDate < @EndDate
             GROUP BY CAST(ShippingDate AS DATE), State
             ORDER BY Date ASC;
         ";
