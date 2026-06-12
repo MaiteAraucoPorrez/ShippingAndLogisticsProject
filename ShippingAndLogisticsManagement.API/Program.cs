@@ -26,8 +26,7 @@ namespace ShippingAndLogisticsManagement.API
             builder.Configuration
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json",
-                optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables();
+                optional: true, reloadOnChange: true);
 
             //Configure User Secrets for Development Environment
             if (builder.Environment.IsDevelopment())
